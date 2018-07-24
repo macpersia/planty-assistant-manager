@@ -1,0 +1,48 @@
+version: '2'
+services:
+    assistant-manager-app:
+        image: assistant-manager
+        environment:
+            # Set by Hadi
+            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - _JAVA_OPTIONS=-Xmx256m -Xms128m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATA_MONGODB_URI=mongodb://assistant-manager-mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=assistant-manager
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            # Commented out by Hadi
+#            - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka
+#            - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES=zookeeper
+        ports:
+            - 8080:8080
+        # Added by Hadi
+        mem_limit: 288m
+    assistant-manager-mongodb:
+        extends:
+            file: mongodb.yml
+            service: assistant-manager-mongodb
+        # Added by Hadi
+        mem_limit: 64m
+    # Commented out by Hadi
+#    kafka:
+#        extends:
+#            file: kafka.yml
+#            service: kafka
+#        environment:
+#            - KAFKA_ADVERTISED_HOST_NAME=kafka
+#            # Added by Hadi
+#            - _JAVA_OPTIONS=-Xmx224m -Xms128m
+#        # Added by Hadi
+#        mem_limit: 256m
+#        depends_on:
+#            - zookeeper
+#    zookeeper:
+#        extends:
+#            file: kafka.yml
+#            service: zookeeper
+#        # Added by Hadi
+#        environment:
+#            - _JAVA_OPTIONS=-Xmx48m -Xms48m
+#        # Added by Hadi
+#        mem_limit: 64m
+
