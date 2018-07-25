@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "verificationCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "requestTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "accepted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "publicKey",
+            "fieldType": "String"
+        }
+    ],
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceClass",
+    "entityTableName": "pairing_request",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
