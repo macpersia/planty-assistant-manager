@@ -1,16 +1,16 @@
 version: '2'
 services:
-    assistant-manager-mongodb:
+    planty-assistant-manager-mongodb:
         image: mongo:3.6.3
         ports:
             - "27017:27017"
         command: mongos --configdb assistant-manager-mongodb-config
-    assistant-manager-mongodb-node:
+    planty-assistant-manager-mongodb-node:
         build:
             context: .
             dockerfile: mongodb/MongoDB.Dockerfile
         command: mongod --replSet rs1 --noprealloc --smallfiles
-    assistant-manager-mongodb-config:
+    planty-assistant-manager-mongodb-config:
         image: mongo:3.6.3
-        container_name: assistant-manager-mongodb-config
+        container_name: planty-assistant-manager-mongodb-config
         command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db

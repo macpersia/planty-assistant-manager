@@ -532,7 +532,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>assistant-manager</repository>
+                    <repository>planty-assistant-manager</repository>
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>

@@ -1,9 +1,9 @@
 version: '2'
 services:
-    assistant-manager-mongodb-limited:
+    planty-assistant-manager-mongodb-limited:
         image: mongo:3.6.3
         ports:
             - "27017:27017"
         # volumes:
-        #     - ~/volumes/jhipster/assistant-manager/mongodb/:/data/db/
+        #     - ~/volumes/jhipster/planty-assistant-manager/mongodb/:/data/db/
         mem_limit: "256M"
