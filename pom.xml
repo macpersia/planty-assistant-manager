@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>be.planty.assistant</groupId>
-    <artifactId>assistant-manager</artifactId>
+    <artifactId>planty-assistant-manager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Assistant Manager</name>
+    <name>Planty Assistant Manager</name>
 
     <properties>
         <!-- Build properties -->
