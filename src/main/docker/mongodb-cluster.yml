@@ -4,7 +4,7 @@ services:
         image: mongo:3.6.3
         ports:
             - "27017:27017"
-        command: mongos --configdb assistant-manager-mongodb-config
+        command: mongos --configdb planty-assistant-manager-mongodb-config
     planty-assistant-manager-mongodb-node:
         build:
             context: .

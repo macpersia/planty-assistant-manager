@@ -1,2 +1,2 @@
-docker exec docker_prototyping-manager-mongodb_1 sh -c 'exec mongodump -d prototyping-manager --archive' > ./all-collections.$(date +%s).archive
+docker exec docker_planty-assistant-manager-mongodb_1 sh -c 'exec mongodump -d planty-assistant-manager --archive' > ./all-collections.$(date +%s).archive
 

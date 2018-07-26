@@ -7,9 +7,11 @@ services:
             # - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - _JAVA_OPTIONS=-Xmx256m -Xms128m
             - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATA_MONGODB_URI=mongodb://assistant-manager-mongodb:27017
-            - SPRING_DATA_MONGODB_DATABASE=assistant-manager
-            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_MONGODB_URI=mongodb://planty-assistant-manager-mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=planty-assistant-manager
+            # Changed by Hadi
+            #- JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - JHIPSTER_SLEEP=5 
             # Commented out by Hadi
 #            - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka
 #            - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES=zookeeper

@@ -16,7 +16,7 @@
 
 spring:
     application:
-        name: assistant-manager
+        name: planty-assistant-manager
     cache:
         type: simple
     cloud:
@@ -33,7 +33,7 @@ spring:
         mongodb:
             host: localhost
             port: 0
-            database: assistant-manager
+            database: planty-assistant-manager
     mail:
         host: localhost
     messages:

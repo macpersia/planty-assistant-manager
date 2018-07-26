@@ -43,7 +43,7 @@ spring:
     data:
         mongodb:
             uri: mongodb://localhost:27017
-            database: assistant-manager
+            database: planty-assistant-manager
     # Changed by Hadi
 #    mail:
 #        host: localhost
@@ -68,7 +68,7 @@ spring:
 
 # ===================================================================
 # To enable SSL, generate a certificate using:
-# keytool -genkey -alias assistant-manager -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias planty-assistant-manager -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -81,7 +81,7 @@ spring:
 #        key-store: keystore.p12
 #        key-store-password: <your-password>
 #        key-store-type: PKCS12
-#        key-alias: assistant-manager
+#        key-alias: planty-assistant-manager
 # ===================================================================
 server:
     port: 8080
@@ -115,7 +115,7 @@ jhipster:
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: assistant-manager@localhost
+        from: planty-assistant-manager@localhost
         base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
