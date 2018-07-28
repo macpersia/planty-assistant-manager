@@ -40,10 +40,22 @@ spring:
             uri: mongodb://localhost:27017
             database: planty-assistant-manager
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+#        host: localhost
+#        port: 25
+#        username:
+#        password:
+        host: email-smtp.us-east-1.amazonaws.com
+        port: 465
+        username: ${PLANTY_MAIL_USERNAME}
+        password: ${PLANTY_MAIL_PASSWORD}
+        protocol: smtps
+        debug: true
+        properties.mail.smtp:
+            starttls.enable: true
+            starttls.required: true
+            ssl.enable: true
+        properties.mail.smtps:
+            auth: true
     thymeleaf:
         cache: true
 
