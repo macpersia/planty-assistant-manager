@@ -1,12 +1,16 @@
 FROM openjdk:8-jre-alpine
 
-RUN sudo apt install uuid
+# Added by Hadi
+RUN apk update && apk add bash && apk add util-linux
+#ARG JWT_SECRET_KEY
+#RUN ["/bin/bash", "-c", ": ${JWT_SECRET_KEY:?Build argument needs to be set and not null.}"]
+#ENV JAVA_OPTS "-Djhipster.security.authentication.jwt.secret=$JWT_SECRET_KEY"
 
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JHIPSTER_SLEEP=0 \
     # Changed by Hadi
     #JAVA_OPTS=""
-    JAVA_OPTS=-Djhipster.security.authentication.jwt.secret=$(echo $(uuid)$(uuid)$(uuid)$(uuid) | sed 's/-//g')
+    JAVA_OPTS="-Djhipster.security.authentication.jwt.secret=$JWT_SECRET_KEY"
 
 # Add a jhipster user to run our application so that it doesn't need to run as root
 RUN adduser -D -s /bin/sh jhipster

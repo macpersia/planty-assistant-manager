@@ -13,12 +13,6 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-    client:
-        enabled: false
-    instance:
-        appname: planty-assistant-manager
-        instanceId: planty-assistant-manager:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
@@ -92,7 +86,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: 19a972f523f7f9b077f0f74c208399c26531fbf9
+                secret: be06ddc7c23e18798239123b00decc1689ac0e3c
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
