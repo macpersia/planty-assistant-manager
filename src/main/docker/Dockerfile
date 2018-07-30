@@ -1,8 +1,12 @@
 FROM openjdk:8-jre-alpine
 
+RUN sudo apt install uuid
+
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JHIPSTER_SLEEP=0 \
-    JAVA_OPTS=""
+    # Changed by Hadi
+    #JAVA_OPTS=""
+    JAVA_OPTS=-Djhipster.security.authentication.jwt.secret=$(echo $(uuid)$(uuid)$(uuid)$(uuid) | sed 's/-//g')
 
 # Add a jhipster user to run our application so that it doesn't need to run as root
 RUN adduser -D -s /bin/sh jhipster
