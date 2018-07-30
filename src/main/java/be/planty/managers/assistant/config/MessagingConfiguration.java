@@ -18,8 +18,7 @@ import org.springframework.messaging.support.GenericMessage;
  * See http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/
  * for the official Spring Cloud Stream documentation.
  */
-// TODO: Commented out by Hadi, for disabling Kafka
-//@EnableBinding(value = { Source.class })
+@EnableBinding(value = { Source.class })
 public class MessagingConfiguration {
 
     /**

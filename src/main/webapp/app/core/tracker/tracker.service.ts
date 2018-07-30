@@ -43,8 +43,6 @@ export class JhiTrackerService {
         if (authToken) {
             url += '?access_token=' + authToken;
         }
-        console.log('>>>>> socks url...');
-        console.log(url);
         const socket = new SockJS(url);
         this.stompClient = Stomp.over(socket);
         const headers = {};

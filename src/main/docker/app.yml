@@ -7,44 +7,38 @@ services:
             # - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - _JAVA_OPTIONS=-Xmx256m -Xms128m
             - SPRING_PROFILES_ACTIVE=prod,swagger
+            # Migrating to MariaDB by Hadi
             - SPRING_DATA_MONGODB_URI=mongodb://planty-assistant-manager-mongodb:27017
             - SPRING_DATA_MONGODB_DATABASE=planty-assistant-manager
-            # Changed by Hadi
-            #- JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
-            - JHIPSTER_SLEEP=5 
-            # Commented out by Hadi
-#            - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka
-#            - SPRING_CLOUD_STREAM_KAFKA_BINDER_ZK_NODES=zookeeper
+            # Migrating to MariaDB by Hadi
+            - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+            - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:mariadb://planty-assistant-manager-mariadb:3306/planty-assistant-manager
+            - JHIPSTER_SLEEP=30 # gives time for the JHipster Registry to boot before the application
         ports:
             - 8080:8080
         # Added by Hadi
         mem_limit: 288m
+    # Migrating to MariaDB by Hadi
     planty-assistant-manager-mongodb:
         extends:
             file: mongodb.yml
             service: planty-assistant-manager-mongodb
         # Added by Hadi
         mem_limit: 64m
-    # Commented out by Hadi
-#    kafka:
-#        extends:
-#            file: kafka.yml
-#            service: kafka
-#        environment:
-#            - KAFKA_ADVERTISED_HOST_NAME=kafka
-#            # Added by Hadi
-#            - _JAVA_OPTIONS=-Xmx224m -Xms128m
-#        # Added by Hadi
-#        mem_limit: 256m
-#        depends_on:
-#            - zookeeper
-#    zookeeper:
-#        extends:
-#            file: kafka.yml
-#            service: zookeeper
-#        # Added by Hadi
-#        environment:
-#            - _JAVA_OPTIONS=-Xmx48m -Xms48m
-#        # Added by Hadi
-#        mem_limit: 64m
+    # Migrating to MariaDB by Hadi
+    planty-assistant-manager-mariadb:
+        extends:
+            file: mariadb.yml
+            service: planty-assistant-manager-mariadb
+        # Added by Hadi
+        mem_limit: 64m
+    jhipster-registry:
+        extends:
+            file: jhipster-registry.yml
+            service: jhipster-registry
+        environment:
+            - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/docker-config/
+        # Added by Hadi
+        mem_limit: 64m
 

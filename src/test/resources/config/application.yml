@@ -13,27 +13,42 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+eureka:
+    client:
+        enabled: false
+    instance:
+        appname: planty-assistant-manager
+        instanceId: planty-assistant-manager:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
         name: planty-assistant-manager
     cache:
         type: simple
-    cloud:
-        # Commented out by Hadi
-#        stream:
-#            kafka:
-#                binder:
-#                    brokers: localhost
-#                    zk-nodes: localhost
-#            bindings:
-#                output:
-#                    destination: topic-jhipster
-    data:
-        mongodb:
-            host: localhost
-            port: 0
-            database: planty-assistant-manager
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:mem:planty-assistant-manager;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        name:
+        username:
+        password:
+    jpa:
+        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database: H2
+        open-in-view: false
+        show-sql: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        properties:
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.hbm2ddl.auto: validate
+    liquibase:
+        contexts: test
     mail:
         host: localhost
     messages:
@@ -77,7 +92,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: a045521f35d0a430e06c24b46ba46aab218e0973
+                secret: f94e1fd1413a823d9ba688f1ab4875dcd154ab5f
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

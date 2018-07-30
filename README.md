@@ -119,13 +119,22 @@ For more information, refer to the [Running tests page][].
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
+> _Migrating to MariaDB by Hadi_
 For example, to start a mongodb database in a docker container, run:
 
     docker-compose -f src/main/docker/mongodb.yml up -d
 
+> _Migrating to MariaDB by Hadi_
+For example, to start a mariadb database in a docker container, run:
+
+    docker-compose -f src/main/docker/mariadb.yml up -d
+
 To stop it and remove the container, run:
 
+    > _Migrating to MariaDB by Hadi_
     docker-compose -f src/main/docker/mongodb.yml down
+    > _Migrating to MariaDB by Hadi_
+    docker-compose -f src/main/docker/mariadb.yml down
 
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
@@ -146,6 +155,7 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [JHipster 5.0.2 archive]: https://www.jhipster.tech/documentation-archive/v5.0.2
 
 [Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.0.2/development/
+[Service Discovery and Configuration with the JHipster-Registry]: https://www.jhipster.tech/documentation-archive/v5.0.2/microservices-architecture/#jhipster-registry
 [Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.0.2/docker-compose
 [Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.0.2/production/
 [Running tests page]: https://www.jhipster.tech/documentation-archive/v5.0.2/running-tests/
