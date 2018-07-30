@@ -12,4 +12,13 @@ import org.mapstruct.*;
 public interface PairingRequestMapper extends EntityMapper<PairingRequestDTO, PairingRequest> {
 
 
+
+    default PairingRequest fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        PairingRequest pairingRequest = new PairingRequest();
+        pairingRequest.setId(id);
+        return pairingRequest;
+    }
 }

@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { JhiTrackerComponent } from './tracker.component';
+import { PamTrackerComponent } from './tracker.component';
 
 export const trackerRoute: Route = {
-    path: 'jhi-tracker',
-    component: JhiTrackerComponent,
+    path: 'pam-tracker',
+    component: PamTrackerComponent,
     data: {
         pageTitle: 'tracker.title'
     }

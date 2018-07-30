@@ -11,7 +11,7 @@ describe('Component Tests', () => {
     describe('Agent Management Detail Component', () => {
         let comp: AgentDetailComponent;
         let fixture: ComponentFixture<AgentDetailComponent>;
-        const route = ({ data: of({ agent: new Agent('123') }) } as any) as ActivatedRoute;
+        const route = ({ data: of({ agent: new Agent(123) }) } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('Component Tests', () => {
                 comp.ngOnInit();
 
                 // THEN
-                expect(comp.agent).toEqual(jasmine.objectContaining({ id: '123' }));
+                expect(comp.agent).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });

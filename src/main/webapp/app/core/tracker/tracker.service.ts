@@ -10,7 +10,7 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'webstomp-client';
 
 @Injectable({ providedIn: 'root' })
-export class JhiTrackerService {
+export class PamTrackerService {
     stompClient = null;
     subscriber = null;
     connection: Promise<any>;
@@ -46,22 +46,19 @@ export class JhiTrackerService {
         const socket = new SockJS(url);
         this.stompClient = Stomp.over(socket);
         const headers = {};
-        this.stompClient.connect(
-            headers,
-            () => {
-                this.connectedPromise('success');
-                this.connectedPromise = null;
-                this.sendActivity();
-                if (!this.alreadyConnectedOnce) {
-                    this.subscription = this.router.events.subscribe(event => {
-                        if (event instanceof NavigationEnd) {
-                            this.sendActivity();
-                        }
-                    });
-                    this.alreadyConnectedOnce = true;
-                }
+        this.stompClient.connect(headers, () => {
+            this.connectedPromise('success');
+            this.connectedPromise = null;
+            this.sendActivity();
+            if (!this.alreadyConnectedOnce) {
+                this.subscription = this.router.events.subscribe(event => {
+                    if (event instanceof NavigationEnd) {
+                        this.sendActivity();
+                    }
+                });
+                this.alreadyConnectedOnce = true;
             }
-        );
+        });
     }
 
     disconnect() {

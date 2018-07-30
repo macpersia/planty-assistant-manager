@@ -12,4 +12,13 @@ import org.mapstruct.*;
 public interface AgentMapper extends EntityMapper<AgentDTO, Agent> {
 
 
+
+    default Agent fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Agent agent = new Agent();
+        agent.setId(id);
+        return agent;
+    }
 }

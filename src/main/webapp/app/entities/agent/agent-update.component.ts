@@ -7,7 +7,7 @@ import { IAgent } from 'app/shared/model/agent.model';
 import { AgentService } from './agent.service';
 
 @Component({
-    selector: 'jhi-agent-update',
+    selector: 'pam-agent-update',
     templateUrl: './agent-update.component.html'
 })
 export class AgentUpdateComponent implements OnInit {

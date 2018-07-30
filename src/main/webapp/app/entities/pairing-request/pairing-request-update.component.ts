@@ -9,7 +9,7 @@ import { IPairingRequest } from 'app/shared/model/pairing-request.model';
 import { PairingRequestService } from './pairing-request.service';
 
 @Component({
-    selector: 'jhi-pairing-request-update',
+    selector: 'pam-pairing-request-update',
     templateUrl: './pairing-request-update.component.html'
 })
 export class PairingRequestUpdateComponent implements OnInit {

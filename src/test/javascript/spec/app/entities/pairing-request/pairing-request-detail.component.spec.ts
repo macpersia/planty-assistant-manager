@@ -11,7 +11,7 @@ describe('Component Tests', () => {
     describe('PairingRequest Management Detail Component', () => {
         let comp: PairingRequestDetailComponent;
         let fixture: ComponentFixture<PairingRequestDetailComponent>;
-        const route = ({ data: of({ pairingRequest: new PairingRequest('123') }) } as any) as ActivatedRoute;
+        const route = ({ data: of({ pairingRequest: new PairingRequest(123) }) } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('Component Tests', () => {
                 comp.ngOnInit();
 
                 // THEN
-                expect(comp.pairingRequest).toEqual(jasmine.objectContaining({ id: '123' }));
+                expect(comp.pairingRequest).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });

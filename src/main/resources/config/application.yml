@@ -117,8 +117,8 @@ jhipster:
         from: planty-assistant-manager@localhost
     swagger:
         default-include-pattern: /api/.*
-        title: planty-assistant-manager API
-        description: planty-assistant-manager API documentation
+        title: Planty Assistant Manager API
+        description: Planty Assistant Manager API documentation
         version: 0.0.1
         terms-of-service-url:
         contact-name:

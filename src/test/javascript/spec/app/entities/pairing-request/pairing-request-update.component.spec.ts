@@ -32,7 +32,7 @@ describe('Component Tests', () => {
                 'Should call update service on save for existing entity',
                 fakeAsync(() => {
                     // GIVEN
-                    const entity = new PairingRequest('123');
+                    const entity = new PairingRequest(123);
                     spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
                     comp.pairingRequest = entity;
                     // WHEN

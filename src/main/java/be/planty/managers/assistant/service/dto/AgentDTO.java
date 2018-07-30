@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class AgentDTO implements Serializable {
 
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -16,11 +16,11 @@ public class AgentDTO implements Serializable {
 
     private String sessionId;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

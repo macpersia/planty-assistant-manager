@@ -8,7 +8,7 @@ import { IAgent } from 'app/shared/model/agent.model';
 import { AgentService } from './agent.service';
 
 @Component({
-    selector: 'jhi-agent-delete-dialog',
+    selector: 'pam-agent-delete-dialog',
     templateUrl: './agent-delete-dialog.component.html'
 })
 export class AgentDeleteDialogComponent {
@@ -20,7 +20,7 @@ export class AgentDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: string) {
+    confirmDelete(id: number) {
         this.agentService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'agentListModification',
@@ -32,7 +32,7 @@ export class AgentDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-agent-delete-popup',
+    selector: 'pam-agent-delete-popup',
     template: ''
 })
 export class AgentDeletePopupComponent implements OnInit, OnDestroy {

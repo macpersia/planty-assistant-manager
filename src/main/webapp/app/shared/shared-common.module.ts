@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { PlantyAssistantManagerSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent } from './';
+import { PlantyAssistantManagerSharedLibsModule, FindLanguageFromKeyPipe, PamAlertComponent, PamAlertErrorComponent } from './';
 
 @NgModule({
     imports: [PlantyAssistantManagerSharedLibsModule],
-    declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent],
-    exports: [PlantyAssistantManagerSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
+    declarations: [FindLanguageFromKeyPipe, PamAlertComponent, PamAlertErrorComponent],
+    exports: [PlantyAssistantManagerSharedLibsModule, FindLanguageFromKeyPipe, PamAlertComponent, PamAlertErrorComponent]
 })
 export class PlantyAssistantManagerSharedCommonModule {}

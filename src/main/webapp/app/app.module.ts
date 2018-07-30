@@ -17,13 +17,13 @@ import { PlantyAssistantManagerHomeModule } from './home/home.module';
 import { PlantyAssistantManagerAccountModule } from './account/account.module';
 import { PlantyAssistantManagerEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { PamMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
 @NgModule({
     imports: [
         BrowserModule,
         PlantyAssistantManagerAppRoutingModule,
-        Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
+        Ng2Webstorage.forRoot({ prefix: 'pam', separator: '-' }),
         PlantyAssistantManagerSharedModule,
         PlantyAssistantManagerCoreModule,
         PlantyAssistantManagerHomeModule,
@@ -31,7 +31,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         PlantyAssistantManagerEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [PamMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
@@ -58,6 +58,6 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             deps: [Injector]
         }
     ],
-    bootstrap: [JhiMainComponent]
+    bootstrap: [PamMainComponent]
 })
 export class PlantyAssistantManagerAppModule {}

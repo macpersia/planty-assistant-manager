@@ -8,7 +8,7 @@ import { Principal } from 'app/core';
 import { AgentService } from './agent.service';
 
 @Component({
-    selector: 'jhi-agent',
+    selector: 'pam-agent',
     templateUrl: './agent.component.html'
 })
 export class AgentComponent implements OnInit, OnDestroy {

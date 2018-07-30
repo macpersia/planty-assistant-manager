@@ -96,7 +96,7 @@ public class AgentResource {
      */
     @GetMapping("/agents/{id}")
     @Timed
-    public ResponseEntity<AgentDTO> getAgent(@PathVariable String id) {
+    public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
         log.debug("REST request to get Agent : {}", id);
         Optional<AgentDTO> agentDTO = agentService.findOne(id);
         return ResponseUtil.wrapOrNotFound(agentDTO);
@@ -110,9 +110,9 @@ public class AgentResource {
      */
     @DeleteMapping("/agents/{id}")
     @Timed
-    public ResponseEntity<Void> deleteAgent(@PathVariable String id) {
+    public ResponseEntity<Void> deleteAgent(@PathVariable Long id) {
         log.debug("REST request to delete Agent : {}", id);
         agentService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

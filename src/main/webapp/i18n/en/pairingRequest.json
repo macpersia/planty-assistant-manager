@@ -20,6 +20,7 @@
             "verificationCode": "Verification Code",
             "requestTime": "Request Time",
             "accepted": "Accepted",
+            "sessionId": "Session Id",
             "publicKey": "Public Key"
         }
     }

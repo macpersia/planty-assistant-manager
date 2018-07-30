@@ -1,28 +1,30 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { PlantyAssistantManagerTestModule } from '../../../test.module';
-import { JhiHealthCheckComponent } from 'app/admin/health/health.component';
-import { JhiHealthService } from 'app/admin/health/health.service';
+import { PamHealthCheckComponent } from 'app/admin/health/health.component';
+import { PamHealthService } from 'app/admin/health/health.service';
 
 describe('Component Tests', () => {
-    describe('JhiHealthCheckComponent', () => {
-        let comp: JhiHealthCheckComponent;
-        let fixture: ComponentFixture<JhiHealthCheckComponent>;
-        let service: JhiHealthService;
+    describe('PamHealthCheckComponent', () => {
+        let comp: PamHealthCheckComponent;
+        let fixture: ComponentFixture<PamHealthCheckComponent>;
+        let service: PamHealthService;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [PlantyAssistantManagerTestModule],
-                declarations: [JhiHealthCheckComponent]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [PlantyAssistantManagerTestModule],
+                    declarations: [PamHealthCheckComponent]
+                })
+                    .overrideTemplate(PamHealthCheckComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(JhiHealthCheckComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(JhiHealthCheckComponent);
+            fixture = TestBed.createComponent(PamHealthCheckComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(JhiHealthService);
+            service = fixture.debugElement.injector.get(PamHealthService);
         });
 
         describe('baseName and subSystemName', () => {

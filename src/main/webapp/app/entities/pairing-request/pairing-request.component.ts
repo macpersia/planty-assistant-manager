@@ -8,7 +8,7 @@ import { Principal } from 'app/core';
 import { PairingRequestService } from './pairing-request.service';
 
 @Component({
-    selector: 'jhi-pairing-request',
+    selector: 'pam-pairing-request',
     templateUrl: './pairing-request.component.html'
 })
 export class PairingRequestComponent implements OnInit, OnDestroy {

@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { Principal, AccountService } from 'app/core';
 import { SettingsComponent } from 'app/account/settings/settings.component';
-import { JhiTrackerService } from 'app/core/tracker/tracker.service';
+import { PamTrackerService } from 'app/core/tracker/tracker.service';
 import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
 describe('Component Tests', () => {
@@ -14,20 +14,22 @@ describe('Component Tests', () => {
         let mockAuth: any;
         let mockPrincipal: any;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [PlantyAssistantManagerTestModule],
-                declarations: [SettingsComponent],
-                providers: [
-                    {
-                        provide: JhiTrackerService,
-                        useClass: MockTrackerService
-                    }
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [PlantyAssistantManagerTestModule],
+                    declarations: [SettingsComponent],
+                    providers: [
+                        {
+                            provide: PamTrackerService,
+                            useClass: MockTrackerService
+                        }
+                    ]
+                })
+                    .overrideTemplate(SettingsComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(SettingsComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(SettingsComponent);

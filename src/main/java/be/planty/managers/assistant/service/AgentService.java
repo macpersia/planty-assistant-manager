@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * Service Implementation for managing Agent.
  */
 @Service
+@Transactional
 public class AgentService {
 
     private final Logger log = LoggerFactory.getLogger(AgentService.class);
@@ -48,6 +50,7 @@ public class AgentService {
      *
      * @return the list of entities
      */
+    @Transactional(readOnly = true)
     public List<AgentDTO> findAll() {
         log.debug("Request to get all Agents");
         return agentRepository.findAll().stream()
@@ -62,7 +65,8 @@ public class AgentService {
      * @param id the id of the entity
      * @return the entity
      */
-    public Optional<AgentDTO> findOne(String id) {
+    @Transactional(readOnly = true)
+    public Optional<AgentDTO> findOne(Long id) {
         log.debug("Request to get Agent : {}", id);
         return agentRepository.findById(id)
             .map(agentMapper::toDto);
@@ -73,7 +77,7 @@ public class AgentService {
      *
      * @param id the id of the entity
      */
-    public void delete(String id) {
+    public void delete(Long id) {
         log.debug("Request to delete Agent : {}", id);
         agentRepository.deleteById(id);
     }

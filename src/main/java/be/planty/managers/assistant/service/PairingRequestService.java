@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.LinkedList;
@@ -22,11 +23,13 @@ import java.util.stream.Collectors;
  * Service Implementation for managing PairingRequest.
  */
 @Service
+@Transactional
 public class PairingRequestService {
 
     private final Logger log = LoggerFactory.getLogger(PairingRequestService.class);
 
     private final PairingRequestRepository pairingRequestRepository;
+
     private final AgentRepository agentRepository;
 
     private final PairingRequestMapper pairingRequestMapper;
@@ -60,7 +63,7 @@ public class PairingRequestService {
         pairingReq = pairingRequestRepository.save(pairingReq);
         if (pairingReq.isAccepted()) {
             Agent agent = new Agent();
-            final String sessionId = dto.getId();
+            final String sessionId = String.valueOf(dto.getId());
             agent.setSessionId(sessionId);
             agent.setName(dto.getName());
             agent.setPublicKey(dto.getPublicKey());
@@ -89,6 +92,7 @@ public class PairingRequestService {
      *
      * @return the list of entities
      */
+    @Transactional(readOnly = true)
     public List<PairingRequestDTO> findAll() {
         log.debug("Request to get all PairingRequests");
         return pairingRequestRepository.findAll().stream()
@@ -103,7 +107,8 @@ public class PairingRequestService {
      * @param id the id of the entity
      * @return the entity
      */
-    public Optional<PairingRequestDTO> findOne(String id) {
+    @Transactional(readOnly = true)
+    public Optional<PairingRequestDTO> findOne(Long id) {
         log.debug("Request to get PairingRequest : {}", id);
         return pairingRequestRepository.findById(id)
             .map(pairingRequestMapper::toDto);
@@ -114,7 +119,7 @@ public class PairingRequestService {
      *
      * @param id the id of the entity
      */
-    public void delete(String id) {
+    public void delete(Long id) {
         log.debug("Request to delete PairingRequest : {}", id);
         pairingRequestRepository.deleteById(id);
     }

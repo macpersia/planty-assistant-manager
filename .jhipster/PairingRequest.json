@@ -20,6 +20,10 @@
             "fieldType": "Boolean"
         },
         {
+            "fieldName": "sessionId",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "publicKey",
             "fieldType": "String"
         }

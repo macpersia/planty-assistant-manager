@@ -13,13 +13,13 @@ import {
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
-    JhiMetricsMonitoringModalComponent,
-    JhiMetricsMonitoringComponent,
-    JhiHealthModalComponent,
-    JhiHealthCheckComponent,
-    JhiConfigurationComponent,
-    JhiDocsComponent,
-    JhiTrackerComponent
+    PamMetricsMonitoringModalComponent,
+    PamMetricsMonitoringComponent,
+    PamHealthModalComponent,
+    PamHealthCheckComponent,
+    PamConfigurationComponent,
+    PamDocsComponent,
+    PamTrackerComponent
 } from './';
 
 @NgModule({
@@ -35,15 +35,15 @@ import {
         UserMgmtUpdateComponent,
         UserMgmtDeleteDialogComponent,
         LogsComponent,
-        JhiConfigurationComponent,
-        JhiHealthCheckComponent,
-        JhiHealthModalComponent,
-        JhiDocsComponent,
-        JhiTrackerComponent,
-        JhiMetricsMonitoringComponent,
-        JhiMetricsMonitoringModalComponent
+        PamConfigurationComponent,
+        PamHealthCheckComponent,
+        PamHealthModalComponent,
+        PamDocsComponent,
+        PamTrackerComponent,
+        PamMetricsMonitoringComponent,
+        PamMetricsMonitoringModalComponent
     ],
-    entryComponents: [UserMgmtDeleteDialogComponent, JhiHealthModalComponent, JhiMetricsMonitoringModalComponent],
+    entryComponents: [UserMgmtDeleteDialogComponent, PamHealthModalComponent, PamMetricsMonitoringModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PlantyAssistantManagerAdminModule {

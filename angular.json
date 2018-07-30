@@ -19,12 +19,12 @@
       "inlineStyle": true,
       "inlineTemplate": false,
       "spec": false,
-      "prefix": "jhi",
+      "prefix": "pam",
       "styleExt": "scss"
     },
     "@schematics/angular:directive": {
       "spec": false,
-      "prefix": "jhi"
+      "prefix": "pam"
     },
     "@schematics/angular:guard": {
       "spec": false

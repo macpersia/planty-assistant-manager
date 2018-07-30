@@ -3,7 +3,7 @@
         <div *ngIf="pairingRequest">
             <h2><span jhiTranslate="plantyAssistantManagerApp.pairingRequest.detail.title">Pairing Request</span> {{pairingRequest.id}}</h2>
             <hr>
-            <jhi-alert-error></jhi-alert-error>
+            <pam-alert-error></pam-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="plantyAssistantManagerApp.pairingRequest.name">Name</span></dt>
                 <dd>
@@ -20,6 +20,10 @@
                 <dt><span jhiTranslate="plantyAssistantManagerApp.pairingRequest.accepted">Accepted</span></dt>
                 <dd>
                     <span>{{pairingRequest.accepted}}</span>
+                </dd>
+                <dt><span jhiTranslate="plantyAssistantManagerApp.pairingRequest.sessionId">Session Id</span></dt>
+                <dd>
+                    <span>{{pairingRequest.sessionId}}</span>
                 </dd>
                 <dt><span jhiTranslate="plantyAssistantManagerApp.pairingRequest.publicKey">Public Key</span></dt>
                 <dd>

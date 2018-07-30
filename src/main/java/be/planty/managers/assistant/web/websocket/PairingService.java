@@ -32,7 +32,7 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
     //@SendTo("/topic/pairing.res")
     public void onPairing(@Payload PairingRequestDTO dto, StompHeaderAccessor stompHeaderAccessor/*, Principal principal*/) {
         final String sessionId = stompHeaderAccessor.getSessionId();
-        dto.setId(sessionId);
+        dto.setSessionId(sessionId);
         log.debug("Saving pairing request {}", dto);
         pairingRequestSvc.setMessageTemplate(this.messagingTemplate);
         final PairingRequestDTO savedDto = pairingRequestSvc.save(dto);

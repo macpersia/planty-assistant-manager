@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class PairingRequestDTO implements Serializable {
 
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -19,13 +19,15 @@ public class PairingRequestDTO implements Serializable {
 
     private Boolean accepted;
 
+    private String sessionId;
+
     private String publicKey;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,6 +61,14 @@ public class PairingRequestDTO implements Serializable {
 
     public void setAccepted(Boolean accepted) {
         this.accepted = accepted;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public String getPublicKey() {
@@ -98,6 +108,7 @@ public class PairingRequestDTO implements Serializable {
             ", verificationCode='" + getVerificationCode() + "'" +
             ", requestTime='" + getRequestTime() + "'" +
             ", accepted='" + isAccepted() + "'" +
+            ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
             "}";
     }

@@ -8,7 +8,7 @@ import { IPairingRequest } from 'app/shared/model/pairing-request.model';
 import { PairingRequestService } from './pairing-request.service';
 
 @Component({
-    selector: 'jhi-pairing-request-delete-dialog',
+    selector: 'pam-pairing-request-delete-dialog',
     templateUrl: './pairing-request-delete-dialog.component.html'
 })
 export class PairingRequestDeleteDialogComponent {
@@ -24,7 +24,7 @@ export class PairingRequestDeleteDialogComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: string) {
+    confirmDelete(id: number) {
         this.pairingRequestService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'pairingRequestListModification',
@@ -36,7 +36,7 @@ export class PairingRequestDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-pairing-request-delete-popup',
+    selector: 'pam-pairing-request-delete-popup',
     template: ''
 })
 export class PairingRequestDeletePopupComponent implements OnInit, OnDestroy {

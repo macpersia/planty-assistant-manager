@@ -3,14 +3,14 @@ import { JhiLanguageService } from 'ng-jhipster';
 
 import { Principal } from '../auth/principal.service';
 import { AuthServerProvider } from '../auth/auth-jwt.service';
-import { JhiTrackerService } from '../tracker/tracker.service';
+import { PamTrackerService } from '../tracker/tracker.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
-        private trackerService: JhiTrackerService,
+        private trackerService: PamTrackerService,
         private authServerProvider: AuthServerProvider
     ) {}
 

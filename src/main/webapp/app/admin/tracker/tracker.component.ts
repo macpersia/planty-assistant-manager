@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { JhiTrackerService } from 'app/core';
+import { PamTrackerService } from 'app/core';
 
 @Component({
-    selector: 'jhi-tracker',
+    selector: 'pam-tracker',
     templateUrl: './tracker.component.html'
 })
-export class JhiTrackerComponent implements OnInit, OnDestroy {
+export class PamTrackerComponent implements OnInit, OnDestroy {
     activities: any[] = [];
 
-    constructor(private trackerService: JhiTrackerService) {}
+    constructor(private trackerService: PamTrackerService) {}
 
     showActivity(activity: any) {
         let existingActivity = false;

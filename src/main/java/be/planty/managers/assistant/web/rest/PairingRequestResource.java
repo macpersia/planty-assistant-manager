@@ -96,7 +96,7 @@ public class PairingRequestResource {
      */
     @GetMapping("/pairing-requests/{id}")
     @Timed
-    public ResponseEntity<PairingRequestDTO> getPairingRequest(@PathVariable String id) {
+    public ResponseEntity<PairingRequestDTO> getPairingRequest(@PathVariable Long id) {
         log.debug("REST request to get PairingRequest : {}", id);
         Optional<PairingRequestDTO> pairingRequestDTO = pairingRequestService.findOne(id);
         return ResponseUtil.wrapOrNotFound(pairingRequestDTO);
@@ -110,9 +110,9 @@ public class PairingRequestResource {
      */
     @DeleteMapping("/pairing-requests/{id}")
     @Timed
-    public ResponseEntity<Void> deletePairingRequest(@PathVariable String id) {
+    public ResponseEntity<Void> deletePairingRequest(@PathVariable Long id) {
         log.debug("REST request to delete PairingRequest : {}", id);
         pairingRequestService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IAgent } from 'app/shared/model/agent.model';
 
 @Component({
-    selector: 'jhi-agent-detail',
+    selector: 'pam-agent-detail',
     templateUrl: './agent-detail.component.html'
 })
 export class AgentDetailComponent implements OnInit {

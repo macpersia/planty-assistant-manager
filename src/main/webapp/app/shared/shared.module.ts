@@ -5,16 +5,16 @@ import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import {
     PlantyAssistantManagerSharedLibsModule,
     PlantyAssistantManagerSharedCommonModule,
-    JhiLoginModalComponent,
+    PamLoginModalComponent,
     HasAnyAuthorityDirective
 } from './';
 
 @NgModule({
     imports: [PlantyAssistantManagerSharedLibsModule, PlantyAssistantManagerSharedCommonModule],
-    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
+    declarations: [PamLoginModalComponent, HasAnyAuthorityDirective],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
-    entryComponents: [JhiLoginModalComponent],
-    exports: [PlantyAssistantManagerSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
+    entryComponents: [PamLoginModalComponent],
+    exports: [PlantyAssistantManagerSharedCommonModule, PamLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PlantyAssistantManagerSharedModule {}

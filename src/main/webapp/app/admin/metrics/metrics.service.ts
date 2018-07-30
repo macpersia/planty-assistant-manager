@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 
 @Injectable({ providedIn: 'root' })
-export class JhiMetricsService {
+export class PamMetricsService {
     constructor(private http: HttpClient) {}
 
     getMetrics(): Observable<any> {

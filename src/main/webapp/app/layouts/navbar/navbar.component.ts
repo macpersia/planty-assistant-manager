@@ -8,7 +8,7 @@ import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'a
 import { ProfileService } from '../profiles/profile.service';
 
 @Component({
-    selector: 'jhi-navbar',
+    selector: 'pam-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['navbar.scss']
 })

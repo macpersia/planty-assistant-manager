@@ -5,7 +5,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { PasswordComponent } from 'app/account/password/password.component';
 import { PasswordService } from 'app/account/password/password.service';
-import { JhiTrackerService } from 'app/core/tracker/tracker.service';
+import { PamTrackerService } from 'app/core/tracker/tracker.service';
 import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
 describe('Component Tests', () => {
@@ -14,20 +14,22 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<PasswordComponent>;
         let service: PasswordService;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [PlantyAssistantManagerTestModule],
-                declarations: [PasswordComponent],
-                providers: [
-                    {
-                        provide: JhiTrackerService,
-                        useClass: MockTrackerService
-                    }
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [PlantyAssistantManagerTestModule],
+                    declarations: [PasswordComponent],
+                    providers: [
+                        {
+                            provide: PamTrackerService,
+                            useClass: MockTrackerService
+                        }
+                    ]
+                })
+                    .overrideTemplate(PasswordComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(PasswordComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(PasswordComponent);

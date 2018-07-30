@@ -4,7 +4,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { Principal, AccountService, JhiLanguageHelper } from 'app/core';
 
 @Component({
-    selector: 'jhi-settings',
+    selector: 'pam-settings',
     templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {

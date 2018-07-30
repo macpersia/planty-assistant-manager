@@ -4,10 +4,10 @@ import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
 import { JhiLanguageHelper } from 'app/core';
 
 @Component({
-    selector: 'jhi-main',
+    selector: 'pam-main',
     templateUrl: './main.component.html'
 })
-export class JhiMainComponent implements OnInit {
+export class PamMainComponent implements OnInit {
     constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {

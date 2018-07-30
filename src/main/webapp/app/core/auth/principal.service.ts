@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AccountService } from './account.service';
-import { JhiTrackerService } from '../tracker/tracker.service';
+import { PamTrackerService } from '../tracker/tracker.service';
 
 @Injectable({ providedIn: 'root' })
 export class Principal {
@@ -9,7 +9,7 @@ export class Principal {
     private authenticated = false;
     private authenticationState = new Subject<any>();
 
-    constructor(private account: AccountService, private trackerService: JhiTrackerService) {}
+    constructor(private account: AccountService, private trackerService: PamTrackerService) {}
 
     authenticate(identity) {
         this.userIdentity = identity;
