@@ -1,3 +1,6 @@
+# Added by Hadi, due to secret key exposure
+.yo-rc.json
+
 ######################
 # Project Specific
 ######################
