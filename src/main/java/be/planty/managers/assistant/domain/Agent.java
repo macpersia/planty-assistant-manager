@@ -49,14 +49,6 @@ public class Agent implements Serializable {
         this.name = name;
     }
 
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
     public String getPublicKey() {
         return publicKey;
     }
@@ -68,6 +60,19 @@ public class Agent implements Serializable {
 
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public Agent sessionId(String sessionId) {
+        this.sessionId = sessionId;
+        return this;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -96,9 +101,8 @@ public class Agent implements Serializable {
         return "Agent{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
+            ", sessionId='" + getSessionId() + "'" +
             "}";
     }
-
 }

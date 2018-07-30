@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.repository;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.config.Constants;
 import be.planty.managers.assistant.config.audit.AuditEventConverter;
 import be.planty.managers.assistant.domain.PersistentAuditEvent;
@@ -30,7 +30,7 @@ import static be.planty.managers.assistant.repository.CustomAuditEventRepository
  * @see CustomAuditEventRepository
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class CustomAuditEventRepositoryIntTest {
 
     @Autowired

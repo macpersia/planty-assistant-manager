@@ -1,6 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProdConfig } from './blocks/config/prod.config';
-import { AssistantManagerAppModule } from './app.module';
+import { PlantyAssistantManagerAppModule } from './app.module';
 
 ProdConfig();
 
@@ -9,6 +9,6 @@ if (module['hot']) {
 }
 
 platformBrowserDynamic()
-    .bootstrapModule(AssistantManagerAppModule, { preserveWhitespaces: true })
+    .bootstrapModule(PlantyAssistantManagerAppModule, { preserveWhitespaces: true })
     .then(success => console.log(`Application started`))
     .catch(err => console.error(err));

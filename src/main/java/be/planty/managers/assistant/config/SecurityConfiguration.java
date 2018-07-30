@@ -1,7 +1,8 @@
 package be.planty.managers.assistant.config;
 
-import be.planty.managers.assistant.security.jwt.JWTConfigurer;
-import be.planty.managers.assistant.security.jwt.TokenProvider;
+import be.planty.managers.assistant.security.*;
+import be.planty.managers.assistant.security.jwt.*;
+
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

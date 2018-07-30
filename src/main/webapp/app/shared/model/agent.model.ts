@@ -2,8 +2,9 @@ export interface IAgent {
     id?: string;
     name?: string;
     publicKey?: string;
+    sessionId?: string;
 }
 
 export class Agent implements IAgent {
-    constructor(public id?: string, public name?: string, public publicKey?: string) {}
+    constructor(public id?: string, public name?: string, public publicKey?: string, public sessionId?: string) {}
 }

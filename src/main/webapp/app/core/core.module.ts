@@ -17,7 +17,7 @@ import locale from '@angular/common/locales/en';
         DatePipe
     ]
 })
-export class AssistantManagerCoreModule {
+export class PlantyAssistantManagerCoreModule {
     constructor() {
         registerLocaleData(locale);
     }

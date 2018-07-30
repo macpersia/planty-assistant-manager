@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.web.rest.vm.LoggerVM;
 import ch.qos.logback.classic.AsyncAppender;
 import ch.qos.logback.classic.LoggerContext;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see LogsResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class LogsResourceIntTest {
 
     private MockMvc restLogsMockMvc;

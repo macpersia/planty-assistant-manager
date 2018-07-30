@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest.errors;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ExceptionTranslator
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class ExceptionTranslatorIntTest {
 
     @Autowired

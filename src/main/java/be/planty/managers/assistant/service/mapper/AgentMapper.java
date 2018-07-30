@@ -1,8 +1,9 @@
 package be.planty.managers.assistant.service.mapper;
 
-import be.planty.managers.assistant.domain.Agent;
+import be.planty.managers.assistant.domain.*;
 import be.planty.managers.assistant.service.dto.AgentDTO;
-import org.mapstruct.Mapper;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity Agent and its DTO AgentDTO.

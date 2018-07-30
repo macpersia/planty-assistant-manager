@@ -1,13 +1,14 @@
 package be.planty.managers.assistant.config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.InboundChannelAdapter;
 import org.springframework.integration.core.MessageSource;
 import org.springframework.messaging.support.GenericMessage;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Configures Spring Cloud Stream support.

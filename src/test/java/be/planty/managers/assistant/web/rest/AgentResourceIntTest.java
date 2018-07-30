@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 
 import be.planty.managers.assistant.domain.Agent;
 import be.planty.managers.assistant.repository.AgentRepository;
@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AgentResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class AgentResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -45,6 +45,9 @@ public class AgentResourceIntTest {
 
     private static final String DEFAULT_PUBLIC_KEY = "AAAAAAAAAA";
     private static final String UPDATED_PUBLIC_KEY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SESSION_ID = "AAAAAAAAAA";
+    private static final String UPDATED_SESSION_ID = "BBBBBBBBBB";
 
     @Autowired
     private AgentRepository agentRepository;
@@ -90,7 +93,8 @@ public class AgentResourceIntTest {
     public static Agent createEntity() {
         Agent agent = new Agent()
             .name(DEFAULT_NAME)
-            .publicKey(DEFAULT_PUBLIC_KEY);
+            .publicKey(DEFAULT_PUBLIC_KEY)
+            .sessionId(DEFAULT_SESSION_ID);
         return agent;
     }
 
@@ -117,6 +121,7 @@ public class AgentResourceIntTest {
         Agent testAgent = agentList.get(agentList.size() - 1);
         assertThat(testAgent.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testAgent.getPublicKey()).isEqualTo(DEFAULT_PUBLIC_KEY);
+        assertThat(testAgent.getSessionId()).isEqualTo(DEFAULT_SESSION_ID);
     }
 
     @Test
@@ -149,7 +154,8 @@ public class AgentResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(agent.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].publicKey").value(hasItem(DEFAULT_PUBLIC_KEY.toString())));
+            .andExpect(jsonPath("$.[*].publicKey").value(hasItem(DEFAULT_PUBLIC_KEY.toString())))
+            .andExpect(jsonPath("$.[*].sessionId").value(hasItem(DEFAULT_SESSION_ID.toString())));
     }
     
 
@@ -164,7 +170,8 @@ public class AgentResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(agent.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()));
+            .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()))
+            .andExpect(jsonPath("$.sessionId").value(DEFAULT_SESSION_ID.toString()));
     }
     @Test
     public void getNonExistingAgent() throws Exception {
@@ -184,7 +191,8 @@ public class AgentResourceIntTest {
         Agent updatedAgent = agentRepository.findById(agent.getId()).get();
         updatedAgent
             .name(UPDATED_NAME)
-            .publicKey(UPDATED_PUBLIC_KEY);
+            .publicKey(UPDATED_PUBLIC_KEY)
+            .sessionId(UPDATED_SESSION_ID);
         AgentDTO agentDTO = agentMapper.toDto(updatedAgent);
 
         restAgentMockMvc.perform(put("/api/agents")
@@ -198,6 +206,7 @@ public class AgentResourceIntTest {
         Agent testAgent = agentList.get(agentList.size() - 1);
         assertThat(testAgent.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testAgent.getPublicKey()).isEqualTo(UPDATED_PUBLIC_KEY);
+        assertThat(testAgent.getSessionId()).isEqualTo(UPDATED_SESSION_ID);
     }
 
     @Test

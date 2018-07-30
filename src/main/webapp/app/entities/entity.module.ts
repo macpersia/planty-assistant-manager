@@ -1,14 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { AssistantManagerAgentModule } from './agent/agent.module';
-import { AssistantManagerPairingRequestModule } from './pairing-request/pairing-request.module';
+import { PlantyAssistantManagerAgentModule } from './agent/agent.module';
+import { PlantyAssistantManagerPairingRequestModule } from './pairing-request/pairing-request.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
     // prettier-ignore
     imports: [
-        AssistantManagerAgentModule,
-        AssistantManagerPairingRequestModule,
+        PlantyAssistantManagerAgentModule,
+        PlantyAssistantManagerPairingRequestModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
@@ -16,4 +16,4 @@ import { AssistantManagerPairingRequestModule } from './pairing-request/pairing-
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AssistantManagerEntityModule {}
+export class PlantyAssistantManagerEntityModule {}

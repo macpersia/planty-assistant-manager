@@ -1,7 +1,7 @@
 package be.planty.managers.assistant.service.dto;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**

@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 
 import be.planty.managers.assistant.domain.PairingRequest;
 import be.planty.managers.assistant.repository.PairingRequestRepository;
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see PairingRequestResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class PairingRequestResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

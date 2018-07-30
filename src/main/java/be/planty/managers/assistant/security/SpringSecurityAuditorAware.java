@@ -1,10 +1,11 @@
 package be.planty.managers.assistant.security;
 
 import be.planty.managers.assistant.config.Constants;
-import org.springframework.data.domain.AuditorAware;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.stereotype.Component;
 
 /**
  * Implementation of AuditorAware based on Spring Security.

@@ -10,25 +10,25 @@ import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { AssistantManagerSharedModule } from 'app/shared';
-import { AssistantManagerCoreModule } from 'app/core';
-import { AssistantManagerAppRoutingModule } from './app-routing.module';
-import { AssistantManagerHomeModule } from './home/home.module';
-import { AssistantManagerAccountModule } from './account/account.module';
-import { AssistantManagerEntityModule } from './entities/entity.module';
+import { PlantyAssistantManagerSharedModule } from 'app/shared';
+import { PlantyAssistantManagerCoreModule } from 'app/core';
+import { PlantyAssistantManagerAppRoutingModule } from './app-routing.module';
+import { PlantyAssistantManagerHomeModule } from './home/home.module';
+import { PlantyAssistantManagerAccountModule } from './account/account.module';
+import { PlantyAssistantManagerEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
 @NgModule({
     imports: [
         BrowserModule,
-        AssistantManagerAppRoutingModule,
+        PlantyAssistantManagerAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
-        AssistantManagerSharedModule,
-        AssistantManagerCoreModule,
-        AssistantManagerHomeModule,
-        AssistantManagerAccountModule,
-        AssistantManagerEntityModule
+        PlantyAssistantManagerSharedModule,
+        PlantyAssistantManagerCoreModule,
+        PlantyAssistantManagerHomeModule,
+        PlantyAssistantManagerAccountModule,
+        PlantyAssistantManagerEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
@@ -60,4 +60,4 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
     ],
     bootstrap: [JhiMainComponent]
 })
-export class AssistantManagerAppModule {}
+export class PlantyAssistantManagerAppModule {}

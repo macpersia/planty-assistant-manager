@@ -12,9 +12,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
                 (event: HttpEvent<any>) => {},
                 (err: any) => {
                     if (err instanceof HttpErrorResponse) {
-                        if (!(err.status === 401 && (err.message === '' || (err.url && err.url.includes('/api/account'))))) {
+                        if (!(err.status === 401 && (err.message === '' || (err.url && err.url.indexOf('/api/account') === 0)))) {
                             if (this.eventManager !== undefined) {
-                                this.eventManager.broadcast({ name: 'assistantManagerApp.httpError', content: err });
+                                this.eventManager.broadcast({ name: 'plantyAssistantManagerApp.httpError', content: err });
                             }
                         }
                     }

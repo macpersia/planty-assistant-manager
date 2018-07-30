@@ -1,6 +1,6 @@
 
 {
-    "assistantManagerApp": {
+    "plantyAssistantManagerApp": {
         "pairingRequest" : {
             "home": {
                 "title": "Pairing Requests",

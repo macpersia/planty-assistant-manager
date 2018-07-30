@@ -1,6 +1,7 @@
 package be.planty.managers.assistant.web.rest.errors;
 
 import be.planty.managers.assistant.web.rest.util.HeaderUtil;
+
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

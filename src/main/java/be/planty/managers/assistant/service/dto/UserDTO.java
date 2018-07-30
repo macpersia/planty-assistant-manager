@@ -1,13 +1,14 @@
 package be.planty.managers.assistant.service.dto;
 
 import be.planty.managers.assistant.config.Constants;
+
 import be.planty.managers.assistant.domain.Authority;
 import be.planty.managers.assistant.domain.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;

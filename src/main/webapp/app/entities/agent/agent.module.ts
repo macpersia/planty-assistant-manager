@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AssistantManagerSharedModule } from 'app/shared';
+import { PlantyAssistantManagerSharedModule } from 'app/shared';
 import {
     AgentComponent,
     AgentDetailComponent,
@@ -15,9 +15,9 @@ import {
 const ENTITY_STATES = [...agentRoute, ...agentPopupRoute];
 
 @NgModule({
-    imports: [AssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [AgentComponent, AgentDetailComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
     entryComponents: [AgentComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AssistantManagerAgentModule {}
+export class PlantyAssistantManagerAgentModule {}

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-pairing-request-heading" jhiTranslate="assistantManagerApp.pairingRequest.home.createOrEditLabel">Create or edit a Pairing Request</h2>
+            <h2 id="jhi-pairing-request-heading" jhiTranslate="plantyAssistantManagerApp.pairingRequest.home.createOrEditLabel">Create or edit a Pairing Request</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!pairingRequest.id">
@@ -10,29 +10,29 @@
                         [(ngModel)]="pairingRequest.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="assistantManagerApp.pairingRequest.name" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.pairingRequest.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="pairingRequest.name" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="assistantManagerApp.pairingRequest.verificationCode" for="field_verificationCode">Verification Code</label>
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.pairingRequest.verificationCode" for="field_verificationCode">Verification Code</label>
                     <input type="text" class="form-control" name="verificationCode" id="field_verificationCode"
                         [(ngModel)]="pairingRequest.verificationCode" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="assistantManagerApp.pairingRequest.requestTime" for="field_requestTime">Request Time</label>
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.pairingRequest.requestTime" for="field_requestTime">Request Time</label>
                     <div class="d-flex">
                         <input id="field_requestTime" type="datetime-local" class="form-control" name="requestTime" [(ngModel)]="requestTime"
                         />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="assistantManagerApp.pairingRequest.accepted" for="field_accepted">Accepted</label>
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.pairingRequest.accepted" for="field_accepted">Accepted</label>
                     <input type="checkbox" class="form-control" name="accepted" id="field_accepted"
                         [(ngModel)]="pairingRequest.accepted" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="assistantManagerApp.pairingRequest.publicKey" for="field_publicKey">Public Key</label>
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.pairingRequest.publicKey" for="field_publicKey">Public Key</label>
                     <input type="text" class="form-control" name="publicKey" id="field_publicKey"
                         [(ngModel)]="pairingRequest.publicKey" />
                 </div>

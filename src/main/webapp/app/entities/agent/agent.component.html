@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="assistantManagerApp.agent.home.title">Agents</span>
+        <span jhiTranslate="plantyAssistantManagerApp.agent.home.title">Agents</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-agent" [routerLink]="['/agent/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="assistantManagerApp.agent.home.createLabel">
+            <span  jhiTranslate="plantyAssistantManagerApp.agent.home.createLabel">
             Create new Agent
             </span>
         </button>
@@ -15,8 +15,9 @@
             <thead>
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="assistantManagerApp.agent.name">Name</span></th>
-            <th><span jhiTranslate="assistantManagerApp.agent.publicKey">Public Key</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.name">Name</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.publicKey">Public Key</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.sessionId">Session Id</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +26,7 @@
                 <td><a [routerLink]="['/agent', agent.id, 'view' ]">{{agent.id}}</a></td>
                 <td>{{agent.name}}</td>
                 <td>{{agent.publicKey}}</td>
+                <td>{{agent.sessionId}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

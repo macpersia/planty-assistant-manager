@@ -8,6 +8,7 @@ import be.planty.managers.assistant.service.dto.PairingRequestDTO;
 import be.planty.managers.assistant.service.mapper.PairingRequestMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 

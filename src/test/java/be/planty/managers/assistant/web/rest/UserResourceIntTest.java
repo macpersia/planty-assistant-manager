@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.domain.Authority;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see UserResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class UserResourceIntTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";

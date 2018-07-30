@@ -1,7 +1,7 @@
 package be.planty.managers.assistant.service;
 import be.planty.managers.assistant.config.Constants;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class MailServiceIntTest {
 
     @Autowired

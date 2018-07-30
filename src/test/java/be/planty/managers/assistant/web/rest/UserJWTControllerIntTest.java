@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.jwt.TokenProvider;
@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.not;
  * @see UserJWTController
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class UserJWTControllerIntTest {
 
     @Autowired

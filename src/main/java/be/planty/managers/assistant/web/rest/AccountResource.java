@@ -1,16 +1,17 @@
 package be.planty.managers.assistant.web.rest;
 
+import com.codahale.metrics.annotation.Timed;
+
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.SecurityUtils;
 import be.planty.managers.assistant.service.MailService;
 import be.planty.managers.assistant.service.UserService;
-import be.planty.managers.assistant.service.dto.PasswordChangeDTO;
 import be.planty.managers.assistant.service.dto.UserDTO;
 import be.planty.managers.assistant.web.rest.errors.*;
 import be.planty.managers.assistant.web.rest.vm.KeyAndPasswordVM;
 import be.planty.managers.assistant.web.rest.vm.ManagedUserVM;
-import com.codahale.metrics.annotation.Timed;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Optional;
+import be.planty.managers.assistant.service.dto.PasswordChangeDTO;
+import java.util.*;
 
 /**
  * REST controller for managing the current user's account.

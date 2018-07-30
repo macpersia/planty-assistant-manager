@@ -1,6 +1,7 @@
 package be.planty.managers.assistant.web.rest;
 
 import be.planty.managers.assistant.config.Constants;
+import com.codahale.metrics.annotation.Timed;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.AuthoritiesConstants;
@@ -12,8 +13,8 @@ import be.planty.managers.assistant.web.rest.errors.EmailAlreadyUsedException;
 import be.planty.managers.assistant.web.rest.errors.LoginAlreadyUsedException;
 import be.planty.managers.assistant.web.rest.util.HeaderUtil;
 import be.planty.managers.assistant.web.rest.util.PaginationUtil;
-import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,8 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing users.

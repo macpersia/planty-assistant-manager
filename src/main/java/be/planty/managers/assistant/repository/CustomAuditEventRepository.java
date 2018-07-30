@@ -3,6 +3,7 @@ package be.planty.managers.assistant.repository;
 import be.planty.managers.assistant.config.Constants;
 import be.planty.managers.assistant.config.audit.AuditEventConverter;
 import be.planty.managers.assistant.domain.PersistentAuditEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -12,9 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * An implementation of Spring Boot's AuditEventRepository.

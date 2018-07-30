@@ -2,6 +2,7 @@ package be.planty.managers.assistant.web.rest;
 
 import be.planty.managers.assistant.service.AuditEventService;
 import be.planty.managers.assistant.web.rest.util.PaginationUtil;
+
 import io.github.jhipster.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;

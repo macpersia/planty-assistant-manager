@@ -1,6 +1,6 @@
 {
-  "name": "AssistantManager",
-  "short_name": "AssistantManager",
+  "name": "PlantyAssistantManager",
+  "short_name": "PlantyAssistantManager",
   "icons": [
       {
           "src": "./content/images/hipster192.png",

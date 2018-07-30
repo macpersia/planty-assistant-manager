@@ -3,11 +3,10 @@ package be.planty.managers.assistant.service.mapper;
 import be.planty.managers.assistant.domain.Authority;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.service.dto.UserDTO;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**

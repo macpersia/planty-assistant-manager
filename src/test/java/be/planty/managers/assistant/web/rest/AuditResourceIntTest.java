@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.web.rest;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.config.audit.AuditEventConverter;
 import be.planty.managers.assistant.domain.PersistentAuditEvent;
 import be.planty.managers.assistant.repository.PersistenceAuditEventRepository;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AuditResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class AuditResourceIntTest {
 
     private static final String SAMPLE_PRINCIPAL = "SAMPLE_PRINCIPAL";

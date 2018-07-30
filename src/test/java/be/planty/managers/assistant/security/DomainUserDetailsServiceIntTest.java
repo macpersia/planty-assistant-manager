@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.security;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
 
@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see DomainUserDetailsService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class DomainUserDetailsServiceIntTest {
 
     private static final String USER_ONE_LOGIN = "test-user-one";

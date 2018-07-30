@@ -1,6 +1,6 @@
 package be.planty.managers.assistant.service;
 
-import be.planty.managers.assistant.AssistantManagerApp;
+import be.planty.managers.assistant.PlantyAssistantManagerApp;
 import be.planty.managers.assistant.config.Constants;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.UserRepository;
@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see UserService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AssistantManagerApp.class)
+@SpringBootTest(classes = PlantyAssistantManagerApp.class)
 public class UserServiceIntTest {
 
     @Autowired

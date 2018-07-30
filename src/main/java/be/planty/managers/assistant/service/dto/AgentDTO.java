@@ -14,6 +14,8 @@ public class AgentDTO implements Serializable {
 
     private String publicKey;
 
+    private String sessionId;
+
     public String getId() {
         return id;
     }
@@ -36,6 +38,14 @@ public class AgentDTO implements Serializable {
 
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override
@@ -65,6 +75,7 @@ public class AgentDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
+            ", sessionId='" + getSessionId() + "'" +
             "}";
     }
 }

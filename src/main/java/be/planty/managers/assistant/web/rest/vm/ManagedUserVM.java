@@ -1,7 +1,6 @@
 package be.planty.managers.assistant.web.rest.vm;
 
 import be.planty.managers.assistant.service.dto.UserDTO;
-
 import javax.validation.constraints.Size;
 
 /**

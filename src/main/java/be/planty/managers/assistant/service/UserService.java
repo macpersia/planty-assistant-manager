@@ -1,15 +1,15 @@
 package be.planty.managers.assistant.service;
 
-import be.planty.managers.assistant.config.Constants;
 import be.planty.managers.assistant.domain.Authority;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.AuthorityRepository;
+import be.planty.managers.assistant.config.Constants;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.AuthoritiesConstants;
 import be.planty.managers.assistant.security.SecurityUtils;
-import be.planty.managers.assistant.service.dto.UserDTO;
 import be.planty.managers.assistant.service.util.RandomUtil;
-import be.planty.managers.assistant.web.rest.errors.InvalidPasswordException;
+import be.planty.managers.assistant.service.dto.UserDTO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import be.planty.managers.assistant.web.rest.errors.InvalidPasswordException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

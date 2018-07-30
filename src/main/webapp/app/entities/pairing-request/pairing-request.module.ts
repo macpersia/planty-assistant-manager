@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AssistantManagerSharedModule } from 'app/shared';
+import { PlantyAssistantManagerSharedModule } from 'app/shared';
 import {
     PairingRequestComponent,
     PairingRequestDetailComponent,
@@ -15,7 +15,7 @@ import {
 const ENTITY_STATES = [...pairingRequestRoute, ...pairingRequestPopupRoute];
 
 @NgModule({
-    imports: [AssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         PairingRequestComponent,
         PairingRequestDetailComponent,
@@ -31,4 +31,4 @@ const ENTITY_STATES = [...pairingRequestRoute, ...pairingRequestPopupRoute];
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AssistantManagerPairingRequestModule {}
+export class PlantyAssistantManagerPairingRequestModule {}

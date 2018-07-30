@@ -31,7 +31,7 @@ export const agentRoute: Routes = [
         component: AgentComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.agent.home.title'
+            pageTitle: 'plantyAssistantManagerApp.agent.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -43,7 +43,7 @@ export const agentRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.agent.home.title'
+            pageTitle: 'plantyAssistantManagerApp.agent.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -55,7 +55,7 @@ export const agentRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.agent.home.title'
+            pageTitle: 'plantyAssistantManagerApp.agent.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -67,7 +67,7 @@ export const agentRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.agent.home.title'
+            pageTitle: 'plantyAssistantManagerApp.agent.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -82,7 +82,7 @@ export const agentPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.agent.home.title'
+            pageTitle: 'plantyAssistantManagerApp.agent.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

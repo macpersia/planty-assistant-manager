@@ -31,7 +31,7 @@ export const pairingRequestRoute: Routes = [
         component: PairingRequestComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.pairingRequest.home.title'
+            pageTitle: 'plantyAssistantManagerApp.pairingRequest.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -43,7 +43,7 @@ export const pairingRequestRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.pairingRequest.home.title'
+            pageTitle: 'plantyAssistantManagerApp.pairingRequest.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -55,7 +55,7 @@ export const pairingRequestRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.pairingRequest.home.title'
+            pageTitle: 'plantyAssistantManagerApp.pairingRequest.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -67,7 +67,7 @@ export const pairingRequestRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.pairingRequest.home.title'
+            pageTitle: 'plantyAssistantManagerApp.pairingRequest.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -82,7 +82,7 @@ export const pairingRequestPopupRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'assistantManagerApp.pairingRequest.home.title'
+            pageTitle: 'plantyAssistantManagerApp.pairingRequest.home.title'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

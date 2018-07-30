@@ -1,6 +1,7 @@
 package be.planty.managers.assistant.web.rest;
 
 import be.planty.managers.assistant.web.rest.vm.LoggerVM;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import com.codahale.metrics.annotation.Timed;

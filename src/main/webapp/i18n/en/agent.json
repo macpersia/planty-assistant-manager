@@ -1,6 +1,6 @@
 
 {
-    "assistantManagerApp": {
+    "plantyAssistantManagerApp": {
         "agent" : {
             "home": {
                 "title": "Agents",
@@ -17,7 +17,8 @@
                 "title": "Agent"
             },
             "name": "Name",
-            "publicKey": "Public Key"
+            "publicKey": "Public Key",
+            "sessionId": "Session Id"
         }
     }
 }
