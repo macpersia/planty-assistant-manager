@@ -1,6 +1,7 @@
 package be.planty.managers.assistant.config.audit;
 
 import be.planty.managers.assistant.domain.PersistentAuditEvent;
+
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;

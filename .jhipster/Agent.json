@@ -10,6 +10,10 @@
         {
             "fieldName": "publicKey",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "sessionId",
+            "fieldType": "String"
         }
     ],
     "dto": "mapstruct",

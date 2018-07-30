@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { PairingRequestUpdateComponent } from 'app/entities/pairing-request/pairing-request-update.component';
 import { PairingRequestService } from 'app/entities/pairing-request/pairing-request.service';
 import { PairingRequest } from 'app/shared/model/pairing-request.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [PairingRequestUpdateComponent]
             })
                 .overrideTemplate(PairingRequestUpdateComponent, '')

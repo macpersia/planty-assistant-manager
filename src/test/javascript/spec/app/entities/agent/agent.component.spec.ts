@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { AgentComponent } from 'app/entities/agent/agent.component';
 import { AgentService } from 'app/entities/agent/agent.service';
 import { Agent } from 'app/shared/model/agent.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [AgentComponent],
                 providers: []
             })

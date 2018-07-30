@@ -3,7 +3,7 @@ package be.planty.managers.assistant.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Properties specific to Assistant Manager.
+ * Properties specific to Planty Assistant Manager.
  * <p>
  * Properties are configured in the application.yml file.
  * See {@link io.github.jhipster.config.JHipsterProperties} for a good example.

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { JhiHealthCheckComponent } from 'app/admin/health/health.component';
 import { JhiHealthService } from 'app/admin/health/health.service';
 
@@ -10,16 +10,14 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<JhiHealthCheckComponent>;
         let service: JhiHealthService;
 
-        beforeEach(
-            async(() => {
-                TestBed.configureTestingModule({
-                    imports: [AssistantManagerTestModule],
-                    declarations: [JhiHealthCheckComponent]
-                })
-                    .overrideTemplate(JhiHealthCheckComponent, '')
-                    .compileComponents();
+        beforeEach(async(() => {
+            TestBed.configureTestingModule({
+                imports: [PlantyAssistantManagerTestModule],
+                declarations: [JhiHealthCheckComponent]
             })
-        );
+                .overrideTemplate(JhiHealthCheckComponent, '')
+                .compileComponents();
+        }));
 
         beforeEach(() => {
             fixture = TestBed.createComponent(JhiHealthCheckComponent);

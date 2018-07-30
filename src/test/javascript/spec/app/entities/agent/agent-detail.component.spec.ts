@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { AgentDetailComponent } from 'app/entities/agent/agent-detail.component';
 import { Agent } from 'app/shared/model/agent.model';
 
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [AgentDetailComponent],
                 providers: [{ provide: ActivatedRoute, useValue: route }]
             })

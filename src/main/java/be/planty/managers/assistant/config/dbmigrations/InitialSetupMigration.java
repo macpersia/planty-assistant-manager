@@ -3,6 +3,7 @@ package be.planty.managers.assistant.config.dbmigrations;
 import be.planty.managers.assistant.domain.Authority;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.security.AuthoritiesConstants;
+
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;

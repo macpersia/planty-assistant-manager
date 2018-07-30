@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { PairingRequestDeleteDialogComponent } from 'app/entities/pairing-request/pairing-request-delete-dialog.component';
 import { PairingRequestService } from 'app/entities/pairing-request/pairing-request.service';
 
@@ -18,7 +18,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [PairingRequestDeleteDialogComponent]
             })
                 .overrideTemplate(PairingRequestDeleteDialogComponent, '')
@@ -31,25 +31,22 @@ describe('Component Tests', () => {
         });
 
         describe('confirmDelete', () => {
-            it(
-                'Should call delete service on confirmDelete',
-                inject(
-                    [],
-                    fakeAsync(() => {
-                        // GIVEN
-                        spyOn(service, 'delete').and.returnValue(of({}));
+            it('Should call delete service on confirmDelete', inject(
+                [],
+                fakeAsync(() => {
+                    // GIVEN
+                    spyOn(service, 'delete').and.returnValue(of({}));
 
-                        // WHEN
-                        comp.confirmDelete('123');
-                        tick();
+                    // WHEN
+                    comp.confirmDelete('123');
+                    tick();
 
-                        // THEN
-                        expect(service.delete).toHaveBeenCalledWith('123');
-                        expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
-                        expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
-                    })
-                )
-            );
+                    // THEN
+                    expect(service.delete).toHaveBeenCalledWith('123');
+                    expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
+                    expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
+                })
+            ));
         });
     });
 });

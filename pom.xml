@@ -8,6 +8,10 @@
     <packaging>war</packaging>
     <name>Planty Assistant Manager</name>
 
+    <repositories>
+        <!-- jhipster-needle-maven-repository -->
+    </repositories>
+
     <properties>
         <!-- Build properties -->
         <maven.version>3.0.0</maven.version>
@@ -63,7 +67,7 @@
         <sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>squid:UndocumentedApi</sonar.issue.ignore.multicriteria.UndocumentedApi.ruleKey>
         <sonar.jacoco.reportPaths>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPaths>
         <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
-        <sonar.testExecutionReportPaths>${project.testresult.directory}/jest/TESTS-results-sonar.xml</sonar.testExecutionReportPaths>
+        <sonar.testExecutionReportPaths>${project.testresult.directory}/jest/TESTS-results.xml</sonar.testExecutionReportPaths>
         <sonar.typescript.lcov.reportPaths>${project.testresult.directory}/lcov.info</sonar.typescript.lcov.reportPaths>
         <sonar.sources>${project.basedir}/src/main/</sonar.sources>
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
@@ -268,6 +272,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream</artifactId>
         </dependency>
+
 <!--    Commented out by Hadi, for the time being.
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -536,7 +541,6 @@
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>
-            <!-- jhipster-needle-maven-add-plugin -->
             <!-- Added by Hadi -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -563,6 +567,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
             <plugins>

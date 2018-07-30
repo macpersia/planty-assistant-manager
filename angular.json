@@ -3,14 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "assistant-manager": {
+    "planty-assistant-manager": {
       "root": "",
       "sourceRoot": "src/main/webapp",
       "projectType": "application",
       "architect": {}
     }
   },
-  "defaultProject": "assistant-manager",
+  "defaultProject": "planty-assistant-manager",
   "cli": {
     "packageManager": "yarn"
   },

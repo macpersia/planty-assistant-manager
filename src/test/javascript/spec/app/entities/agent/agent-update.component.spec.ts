@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { AgentUpdateComponent } from 'app/entities/agent/agent-update.component';
 import { AgentService } from 'app/entities/agent/agent.service';
 import { Agent } from 'app/shared/model/agent.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [AgentUpdateComponent]
             })
                 .overrideTemplate(AgentUpdateComponent, '')

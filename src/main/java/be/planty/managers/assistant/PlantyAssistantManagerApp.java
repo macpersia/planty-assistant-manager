@@ -19,13 +19,13 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ApplicationProperties.class})
-public class AssistantManagerApp {
+public class PlantyAssistantManagerApp {
 
-    private static final Logger log = LoggerFactory.getLogger(AssistantManagerApp.class);
+    private static final Logger log = LoggerFactory.getLogger(PlantyAssistantManagerApp.class);
 
     private final Environment env;
 
-    public AssistantManagerApp(Environment env) {
+    public PlantyAssistantManagerApp(Environment env) {
         this.env = env;
     }
 
@@ -55,7 +55,7 @@ public class AssistantManagerApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(AssistantManagerApp.class);
+        SpringApplication app = new SpringApplication(PlantyAssistantManagerApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         String protocol = "http";

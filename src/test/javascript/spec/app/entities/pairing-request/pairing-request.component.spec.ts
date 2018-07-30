@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { AssistantManagerTestModule } from '../../../test.module';
+import { PlantyAssistantManagerTestModule } from '../../../test.module';
 import { PairingRequestComponent } from 'app/entities/pairing-request/pairing-request.component';
 import { PairingRequestService } from 'app/entities/pairing-request/pairing-request.service';
 import { PairingRequest } from 'app/shared/model/pairing-request.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             TestBed.configureTestingModule({
-                imports: [AssistantManagerTestModule],
+                imports: [PlantyAssistantManagerTestModule],
                 declarations: [PairingRequestComponent],
                 providers: []
             })

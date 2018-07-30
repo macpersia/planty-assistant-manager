@@ -1,16 +1,15 @@
 package be.planty.managers.assistant.config;
 
-import io.github.jhipster.config.JHipsterProperties;
-import org.ehcache.config.builders.CacheConfigurationBuilder;
-import org.ehcache.config.builders.ExpiryPolicyBuilder;
-import org.ehcache.config.builders.ResourcePoolsBuilder;
+import java.time.Duration;
+
+import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
+
+import io.github.jhipster.config.JHipsterProperties;
+
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.time.Duration;
+import org.springframework.context.annotation.*;
 
 @Configuration
 @EnableCaching
