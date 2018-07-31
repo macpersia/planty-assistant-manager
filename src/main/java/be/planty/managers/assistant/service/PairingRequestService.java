@@ -2,8 +2,10 @@ package be.planty.managers.assistant.service;
 
 import be.planty.managers.assistant.domain.Agent;
 import be.planty.managers.assistant.domain.PairingRequest;
+import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.AgentRepository;
 import be.planty.managers.assistant.repository.PairingRequestRepository;
+import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.service.dto.PairingRequestDTO;
 import be.planty.managers.assistant.service.mapper.PairingRequestMapper;
 import org.slf4j.Logger;
@@ -34,15 +36,18 @@ public class PairingRequestService {
 
     private final PairingRequestMapper pairingRequestMapper;
 
+    private final UserRepository userRepository;
+
     private SimpMessageSendingOperations messageTemplate;
 
     public PairingRequestService(PairingRequestRepository pairingRequestRepository,
                                  AgentRepository agentRepository,
-                                 PairingRequestMapper pairingRequestMapper
-    ) {
+                                 PairingRequestMapper pairingRequestMapper,
+                                 UserRepository userRepository) {
         this.pairingRequestRepository = pairingRequestRepository;
         this.agentRepository = agentRepository;
         this.pairingRequestMapper = pairingRequestMapper;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -63,7 +68,9 @@ public class PairingRequestService {
         pairingReq = pairingRequestRepository.save(pairingReq);
         if (pairingReq.isAccepted()) {
             Agent agent = new Agent();
-            final String sessionId = String.valueOf(dto.getId());
+            final Optional<User> user = userRepository.findOneByLogin(dto.getLogin());
+            user.ifPresent(agent::setUser);
+            final String sessionId = String.valueOf(dto.getSessionId());
             agent.setSessionId(sessionId);
             agent.setName(dto.getName());
             agent.setPublicKey(dto.getPublicKey());

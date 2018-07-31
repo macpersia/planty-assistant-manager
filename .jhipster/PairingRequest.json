@@ -26,8 +26,13 @@
         {
             "fieldName": "publicKey",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "login",
+            "fieldType": "String"
         }
     ],
+    "changelogDate": "20180731192841",
     "dto": "mapstruct",
     "searchEngine": false,
     "service": "serviceClass",

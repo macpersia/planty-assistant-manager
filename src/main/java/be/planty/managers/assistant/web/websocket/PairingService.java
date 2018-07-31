@@ -1,5 +1,6 @@
 package be.planty.managers.assistant.web.websocket;
 
+import be.planty.managers.assistant.security.SecurityUtils;
 import be.planty.managers.assistant.service.PairingRequestService;
 import be.planty.managers.assistant.service.dto.PairingRequestDTO;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
+import java.util.Optional;
 import java.util.concurrent.Executors;
 
 @Controller
@@ -33,6 +35,8 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
     public void onPairing(@Payload PairingRequestDTO dto, StompHeaderAccessor stompHeaderAccessor/*, Principal principal*/) {
         final String sessionId = stompHeaderAccessor.getSessionId();
         dto.setSessionId(sessionId);
+        final Optional<String> login = SecurityUtils.getCurrentUserLogin();
+        login.ifPresent(dto::setLogin);
         log.debug("Saving pairing request {}", dto);
         pairingRequestSvc.setMessageTemplate(this.messagingTemplate);
         final PairingRequestDTO savedDto = pairingRequestSvc.save(dto);

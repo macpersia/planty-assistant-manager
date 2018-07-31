@@ -16,6 +16,10 @@ public class AgentDTO implements Serializable {
 
     private String sessionId;
 
+    private Long userId;
+
+    private String userLogin;
+
     public Long getId() {
         return id;
     }
@@ -48,6 +52,22 @@ public class AgentDTO implements Serializable {
         this.sessionId = sessionId;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -76,6 +96,8 @@ public class AgentDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
             ", sessionId='" + getSessionId() + "'" +
+            ", user=" + getUserId() +
+            ", user='" + getUserLogin() + "'" +
             "}";
     }
 }

@@ -21,7 +21,8 @@
             "requestTime": "Request Time",
             "accepted": "Accepted",
             "sessionId": "Session Id",
-            "publicKey": "Public Key"
+            "publicKey": "Public Key",
+            "login": "Login"
         }
     }
 }

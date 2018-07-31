@@ -1,7 +1,16 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "agent"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
@@ -16,6 +25,7 @@
             "fieldType": "String"
         }
     ],
+    "changelogDate": "20180731192538",
     "dto": "mapstruct",
     "searchEngine": false,
     "service": "serviceClass",

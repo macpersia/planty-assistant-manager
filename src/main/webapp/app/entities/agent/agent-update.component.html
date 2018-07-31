@@ -25,6 +25,13 @@
                         [(ngModel)]="agent.sessionId" />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.agent.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="agent.userId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -65,6 +65,9 @@ public class PairingRequestResourceIntTest {
     private static final String DEFAULT_PUBLIC_KEY = "AAAAAAAAAA";
     private static final String UPDATED_PUBLIC_KEY = "BBBBBBBBBB";
 
+    private static final String DEFAULT_LOGIN = "AAAAAAAAAA";
+    private static final String UPDATED_LOGIN = "BBBBBBBBBB";
+
     @Autowired
     private PairingRequestRepository pairingRequestRepository;
 
@@ -116,7 +119,8 @@ public class PairingRequestResourceIntTest {
             .requestTime(DEFAULT_REQUEST_TIME)
             .accepted(DEFAULT_ACCEPTED)
             .sessionId(DEFAULT_SESSION_ID)
-            .publicKey(DEFAULT_PUBLIC_KEY);
+            .publicKey(DEFAULT_PUBLIC_KEY)
+            .login(DEFAULT_LOGIN);
         return pairingRequest;
     }
 
@@ -147,6 +151,7 @@ public class PairingRequestResourceIntTest {
         assertThat(testPairingRequest.isAccepted()).isEqualTo(DEFAULT_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(DEFAULT_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(DEFAULT_PUBLIC_KEY);
+        assertThat(testPairingRequest.getLogin()).isEqualTo(DEFAULT_LOGIN);
     }
 
     @Test
@@ -185,7 +190,8 @@ public class PairingRequestResourceIntTest {
             .andExpect(jsonPath("$.[*].requestTime").value(hasItem(sameInstant(DEFAULT_REQUEST_TIME))))
             .andExpect(jsonPath("$.[*].accepted").value(hasItem(DEFAULT_ACCEPTED.booleanValue())))
             .andExpect(jsonPath("$.[*].sessionId").value(hasItem(DEFAULT_SESSION_ID.toString())))
-            .andExpect(jsonPath("$.[*].publicKey").value(hasItem(DEFAULT_PUBLIC_KEY.toString())));
+            .andExpect(jsonPath("$.[*].publicKey").value(hasItem(DEFAULT_PUBLIC_KEY.toString())))
+            .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN.toString())));
     }
     
 
@@ -205,7 +211,8 @@ public class PairingRequestResourceIntTest {
             .andExpect(jsonPath("$.requestTime").value(sameInstant(DEFAULT_REQUEST_TIME)))
             .andExpect(jsonPath("$.accepted").value(DEFAULT_ACCEPTED.booleanValue()))
             .andExpect(jsonPath("$.sessionId").value(DEFAULT_SESSION_ID.toString()))
-            .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()));
+            .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()))
+            .andExpect(jsonPath("$.login").value(DEFAULT_LOGIN.toString()));
     }
     @Test
     @Transactional
@@ -233,7 +240,8 @@ public class PairingRequestResourceIntTest {
             .requestTime(UPDATED_REQUEST_TIME)
             .accepted(UPDATED_ACCEPTED)
             .sessionId(UPDATED_SESSION_ID)
-            .publicKey(UPDATED_PUBLIC_KEY);
+            .publicKey(UPDATED_PUBLIC_KEY)
+            .login(UPDATED_LOGIN);
         PairingRequestDTO pairingRequestDTO = pairingRequestMapper.toDto(updatedPairingRequest);
 
         restPairingRequestMockMvc.perform(put("/api/pairing-requests")
@@ -251,6 +259,7 @@ public class PairingRequestResourceIntTest {
         assertThat(testPairingRequest.isAccepted()).isEqualTo(UPDATED_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(UPDATED_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(UPDATED_PUBLIC_KEY);
+        assertThat(testPairingRequest.getLogin()).isEqualTo(UPDATED_LOGIN);
     }
 
     @Test

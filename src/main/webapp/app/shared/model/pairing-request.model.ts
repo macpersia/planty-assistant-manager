@@ -8,6 +8,7 @@ export interface IPairingRequest {
     accepted?: boolean;
     sessionId?: string;
     publicKey?: string;
+    login?: string;
 }
 
 export class PairingRequest implements IPairingRequest {
@@ -18,7 +19,8 @@ export class PairingRequest implements IPairingRequest {
         public requestTime?: Moment,
         public accepted?: boolean,
         public sessionId?: string,
-        public publicKey?: string
+        public publicKey?: string,
+        public login?: string
     ) {
         this.accepted = false;
     }

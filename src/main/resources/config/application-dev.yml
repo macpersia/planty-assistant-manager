@@ -30,17 +30,33 @@ spring:
             enabled: false # we use Webpack dev server + BrowserSync for livereload
     jackson:
         serialization.indent_output: true
+# Changed by Hadi
+#    datasource:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        url: jdbc:h2:file:./target/h2db/db/planty-assistant-manager;DB_CLOSE_DELAY=-1
+#        username: planty-assistant-manager
+#        password:
+#    h2:
+#        console:
+#            enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:file:./target/h2db/db/planty-assistant-manager;DB_CLOSE_DELAY=-1
-        username: planty-assistant-manager
+        url: jdbc:mariadb://localhost:3306/planty-assistant-manager
+        username: root
         password:
-    h2:
-        console:
-            enabled: false
+        hikari:
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
-        database: H2
+# Changed by Hadi
+#        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+#        database: H2
+#        show-sql: true
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
         show-sql: true
         properties:
             hibernate.id.new_generator_mappings: true
@@ -53,7 +69,7 @@ spring:
             hibernate.cache.hazelcast.use_lite_member: true
     liquibase:
         contexts: dev
-    # Changed by Hadi
+# Changed by Hadi
 #    mail:
 #        host: localhost
 #        port: 25

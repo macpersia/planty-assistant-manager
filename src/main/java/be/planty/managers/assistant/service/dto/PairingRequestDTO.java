@@ -23,6 +23,8 @@ public class PairingRequestDTO implements Serializable {
 
     private String publicKey;
 
+    private String login;
+
     public Long getId() {
         return id;
     }
@@ -79,6 +81,14 @@ public class PairingRequestDTO implements Serializable {
         this.publicKey = publicKey;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -110,6 +120,7 @@ public class PairingRequestDTO implements Serializable {
             ", accepted='" + isAccepted() + "'" +
             ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
+            ", login='" + getLogin() + "'" +
             "}";
     }
 }

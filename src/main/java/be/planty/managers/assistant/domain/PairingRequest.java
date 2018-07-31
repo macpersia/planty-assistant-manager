@@ -41,6 +41,9 @@ public class PairingRequest implements Serializable {
     @Column(name = "public_key")
     private String publicKey;
 
+    @Column(name = "login")
+    private String login;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -127,6 +130,19 @@ public class PairingRequest implements Serializable {
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public PairingRequest login(String login) {
+        this.login = login;
+        return this;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -159,6 +175,7 @@ public class PairingRequest implements Serializable {
             ", accepted='" + isAccepted() + "'" +
             ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
+            ", login='" + getLogin() + "'" +
             "}";
     }
 }

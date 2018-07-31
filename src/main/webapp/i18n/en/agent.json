@@ -18,7 +18,8 @@
             },
             "name": "Name",
             "publicKey": "Public Key",
-            "sessionId": "Session Id"
+            "sessionId": "Session Id",
+            "user": "User"
         }
     }
 }
