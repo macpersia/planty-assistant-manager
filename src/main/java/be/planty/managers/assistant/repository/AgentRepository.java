@@ -33,4 +33,6 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
         return agents.stream();
     }*/
 
+    @Query("select a from Agent a where a.sessionId = ?1")
+    Optional<Agent> findBySessionId(String sessionId);
 }

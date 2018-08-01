@@ -30,7 +30,7 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
         this.pairingRequestSvc = pairingRequestSvc;
     }
 
-    @MessageMapping("/topic/pairing.req")
+    @MessageMapping("/topic/pairing-requests")
     //@SendTo("/topic/pairing.res")
     public void onPairing(@Payload PairingRequestDTO dto, StompHeaderAccessor stompHeaderAccessor/*, Principal principal*/) {
         final String sessionId = stompHeaderAccessor.getSessionId();
@@ -42,7 +42,8 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
         final PairingRequestDTO savedDto = pairingRequestSvc.save(dto);
         final String response = "Your request is pending approval...";
         //this.messagingTemplate.convertAndSendToUser(sessionId, "/topic/pairing.res", response);
-        this.messagingTemplate.convertAndSend("/topic/pairing.res", response);
+        assert login.isPresent();
+        this.messagingTemplate.convertAndSendToUser(login.orElse(null),"/queue/pairing-responses", response);
 
         // TODO: The following is a temporary hack to bypass pairing approval step.
         Executors.newSingleThreadExecutor().submit(() -> {
