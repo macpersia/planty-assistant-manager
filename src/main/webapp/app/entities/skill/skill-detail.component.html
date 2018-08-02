@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="skill">
+            <h2><span jhiTranslate="plantyAssistantManagerApp.skill.detail.title">Skill</span> {{skill.id}}</h2>
+            <hr>
+            <pam-alert-error></pam-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="plantyAssistantManagerApp.skill.name">Name</span></dt>
+                <dd>
+                    <span>{{skill.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="plantyAssistantManagerApp.skill.users">Users</span></dt>
+                <dd>
+                    <span *ngFor="let user of skill.users; let last = last">
+                        {{user.login}}{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/skill', skill.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

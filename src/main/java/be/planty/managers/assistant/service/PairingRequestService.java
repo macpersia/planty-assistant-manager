@@ -76,7 +76,6 @@ public class PairingRequestService {
             agent.setPublicKey(dto.getPublicKey());
             agentRepository.save(agent);
             //if (this.messageTemplate != null) {
-                assert this.messageTemplate != null;
                 sendAccept(sessionId);
             //}
         }
@@ -84,14 +83,11 @@ public class PairingRequestService {
     }
 
     private void sendAccept(String sessionId) {
-//        log.info("Sending 'accepted' to " + sessionId);
-//        final SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(MESSAGE);
-//        headerAccessor.setSessionId(sessionId);
-//        headerAccessor.setLeaveMutable(true);
-//        final MessageHeaders headers = headerAccessor.getMessageHeaders();
-//        this.messageTemplate.convertAndSendToUser(sessionId, "/topic/pairing.res", "accepted", headers,
-        log.info("Sending 'accepted' to /topic/pairing.res...");
-        this.messageTemplate.convertAndSend("/topic/pairing.res", "accepted");
+        final String dest = "/queue/pairing-responses";
+        log.info("Sending 'accepted' to " + dest + "...");
+        final Optional<String> username = agentRepository.findBySessionId(sessionId).map(a -> a.getUser().getLogin());
+        assert username.isPresent();
+        this.messageTemplate.convertAndSendToUser(username.orElse(null), dest, "accepted");
     }
 
     /**
