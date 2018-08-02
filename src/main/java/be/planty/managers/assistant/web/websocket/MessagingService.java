@@ -3,9 +3,9 @@ package be.planty.managers.assistant.web.websocket;
 import be.planty.managers.assistant.domain.Agent;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.AgentRepository;
+import be.planty.managers.assistant.repository.SkillRepository;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.SecurityUtils;
-import be.planty.managers.assistant.service.AgentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
 
-import static java.util.Optional.of;
-
 @Controller
 public class MessagingService {
 
@@ -28,17 +26,17 @@ public class MessagingService {
 
     private final SimpMessageSendingOperations messagingTemplate;
 
-    private final AgentService agentSvc;
     private final AgentRepository agentRepo;
     private final UserRepository userRepo;
+    private final SkillRepository skillRepo;
 
     public MessagingService(SimpMessageSendingOperations messagingTemplate,
-                            AgentService agentSvc,
-                            AgentRepository agentRepo, UserRepository userRepo) {
+                            AgentRepository agentRepo, UserRepository userRepo,
+                            SkillRepository skillRepo) {
         this.messagingTemplate = messagingTemplate;
-        this.agentSvc = agentSvc;
         this.agentRepo = agentRepo;
         this.userRepo = userRepo;
+        this.skillRepo = skillRepo;
     }
 
     @MessageMapping("/topic/action-requests/{emailAddress}")
@@ -58,7 +56,7 @@ public class MessagingService {
         }
         logger.debug("Forwarding request to '" + username.orElse(null) + "' : '" + dest + "' : " + prettyRequest);
         assert username.isPresent();
-        this.messagingTemplate.convertAndSendToUser(username.orElse(null), dest, request, headerAccessor.getMessageHeaders());
+        this.messagingTemplate.convertAndSendToUser(username.get(), dest, request, headerAccessor.getMessageHeaders());
     }
 
     @MessageMapping("/topic/action-responses")
@@ -70,9 +68,10 @@ public class MessagingService {
         final Optional<String> agentUsername = SecurityUtils.getCurrentUserLogin();
         final Optional<String> emailAddress = agentUsername.flatMap(userRepo::findOneByLogin).map(User::getEmail);
         final String dest = "/queue/action-responses/" + emailAddress.orElse(null);
-        // TODO: no hard-coding!
-        final Optional<String> username = of("skill-prototyper");
+
+        final Optional<String> username = agentUsername.flatMap(this.skillRepo::findSkillLoginMatchingAgentLogin);
         logger.debug("Forwarding response to '" + username.orElse(null) + "' : '" + dest + "' : " + response);
-        this.messagingTemplate.convertAndSendToUser(username.orElse(null), dest, response, headerAccessor.getMessageHeaders());
+        assert username.isPresent();
+        this.messagingTemplate.convertAndSendToUser(username.get(), dest, response, headerAccessor.getMessageHeaders());
     }
 }
