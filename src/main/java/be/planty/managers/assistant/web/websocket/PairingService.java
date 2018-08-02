@@ -41,7 +41,6 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
         pairingRequestSvc.setMessageTemplate(this.messagingTemplate);
         final PairingRequestDTO savedDto = pairingRequestSvc.save(dto);
         final String response = "Your request is pending approval...";
-        //this.messagingTemplate.convertAndSendToUser(sessionId, "/topic/pairing.res", response);
         assert login.isPresent();
         this.messagingTemplate.convertAndSendToUser(login.orElse(null),"/queue/pairing-responses", response);
 
@@ -55,18 +54,6 @@ public class PairingService implements ApplicationListener<SessionSubscribeEvent
     @Override
     public void onApplicationEvent(SessionSubscribeEvent event) {
         log.debug("On SessionSubscribeEvent: {}", event);
-//        messagingTemplate.convertAndSend("/topic/pairing/responses", "Your subscription received.");
-//        messagingTemplate.convertAndSend("/topic/pairing/responses", new MyDto("Your subscription received."));
-//        messagingTemplate.convertAndSend("/topic/pairing/responses", "Your subscription received.",
-//            new HashMap(){{ put("contentType", "text/plain"); }});
-//        messagingTemplate.convertAndSend("/topic/pairing/responses", new MyDto("Your subscription received."),
-//            new HashMap(){{ put("contentType", "application/json"); }});
-    }
-
-    static class MyDto {
-        public final String value;
-        public MyDto(String value) {
-            this.value = value;
-        }
+        //messagingTemplate.convertAndSend("/topic/pairing/responses", "Your subscription received.");
     }
 }

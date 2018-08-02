@@ -10,7 +10,6 @@ import be.planty.managers.assistant.service.dto.PairingRequestDTO;
 import be.planty.managers.assistant.service.mapper.PairingRequestMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,16 +82,8 @@ public class PairingRequestService {
     }
 
     private void sendAccept(String sessionId) {
-//        log.info("Sending 'accepted' to " + sessionId);
-//        final SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(MESSAGE);
-//        headerAccessor.setSessionId(sessionId);
-//        headerAccessor.setLeaveMutable(true);
-//        final MessageHeaders headers = headerAccessor.getMessageHeaders();
-//        this.messageTemplate.convertAndSendToUser(sessionId, "/topic/pairing.res", "accepted", headers,
         final String dest = "/queue/pairing-responses";
         log.info("Sending 'accepted' to " + dest + "...");
-        assert this.messageTemplate != null;
-        //this.messageTemplate.convertAndSend(dest, "accepted");
         final Optional<String> username = agentRepository.findBySessionId(sessionId).map(a -> a.getUser().getLogin());
         assert username.isPresent();
         this.messageTemplate.convertAndSendToUser(username.orElse(null), dest, "accepted");
