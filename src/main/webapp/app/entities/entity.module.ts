@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { PlantyAssistantManagerAgentModule } from './agent/agent.module';
 import { PlantyAssistantManagerPairingRequestModule } from './pairing-request/pairing-request.module';
+import { PlantyAssistantManagerSkillModule } from './skill/skill.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -9,6 +10,7 @@ import { PlantyAssistantManagerPairingRequestModule } from './pairing-request/pa
     imports: [
         PlantyAssistantManagerAgentModule,
         PlantyAssistantManagerPairingRequestModule,
+        PlantyAssistantManagerSkillModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -9,6 +9,7 @@
                 "main": "Entities",
                 "agent": "Agent",
                 "pairingRequest": "Pairing Request",
+                "skill": "Skill",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
