@@ -11,8 +11,8 @@
                 </dd>
                 <dt><span jhiTranslate="plantyAssistantManagerApp.skill.users">Users</span></dt>
                 <dd>
-                    <span *ngFor="let users of skill.users; let last = last">
-                        {{users.login}}{{last ? '' : ', '}}
+                    <span *ngFor="let user of skill.users; let last = last">
+                        {{user.login}}{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

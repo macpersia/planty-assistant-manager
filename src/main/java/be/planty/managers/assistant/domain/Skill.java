@@ -65,17 +65,17 @@ public class Skill implements Serializable {
         return this;
     }
 
-    public Skill addUsers(User user) {
-        this.users.add(user);
-        user.getSkills().add(this);
-        return this;
-    }
-
-    public Skill removeUsers(User user) {
-        this.users.remove(user);
-        user.getSkills().remove(this);
-        return this;
-    }
+//    public Skill addUser(User user) {
+//        this.users.add(user);
+//        user.getSkills().add(this);
+//        return this;
+//    }
+//
+//    public Skill removeUser(User user) {
+//        this.users.remove(user);
+//        user.getSkills().remove(this);
+//        return this;
+//    }
 
     public void setUsers(Set<User> users) {
         this.users = users;
