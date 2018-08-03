@@ -58,8 +58,8 @@ spring:
 #        password:
         host: email-smtp.us-east-1.amazonaws.com
         port: 465
-        username: ${PLANTY_MAIL_USERNAME}
-        password: ${PLANTY_MAIL_PASSWORD}
+        username: ${PLANTY_SMTP_USERNAME}
+        password: ${PLANTY_SMTP_PASSWORD}
         protocol: smtps
         debug: true
         properties.mail.smtp:
