@@ -1,6 +1,7 @@
 # Added by Hadi, due to secret key exposure
 .yo-rc.json
 src/main/resources/config/liquibase/users.csv
+.env
 
 ######################
 # Project Specific
