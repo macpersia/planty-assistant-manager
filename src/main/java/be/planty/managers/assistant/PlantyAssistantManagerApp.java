@@ -15,8 +15,7 @@ import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
@@ -81,5 +80,19 @@ public class PlantyAssistantManagerApp {
             hostAddress,
             env.getProperty("server.port"),
             env.getActiveProfiles());
+//
+//        System.out.println("---- ENV...");
+//        final Map<String, String> envMap = System.getenv();
+//        envMap.keySet().stream()
+//            .filter(k -> k.toLowerCase().contains("planty"))
+//            .sorted()
+//            .forEach(k -> System.out.println("\t" + k + ": \t" + envMap.get(k)));
+//
+//        System.out.println("---- PROPS...");
+//        final Properties props = System.getProperties();
+//        props.stringPropertyNames().stream()
+//            .filter(name -> name.toLowerCase().contains("planty"))
+//            .sorted()
+//            .forEach(name -> System.out.println("\t" + name + ": \t" + props.get(name)));
     }
 }

@@ -2,6 +2,8 @@
 .yo-rc.json
 src/main/resources/config/liquibase/users.csv
 .env
+env.sh
+env.ps1
 
 ######################
 # Project Specific

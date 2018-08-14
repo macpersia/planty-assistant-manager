@@ -52,6 +52,7 @@ spring:
     liquibase:
         contexts: prod
     mail:
+# Changed by Hadi
 #        host: localhost
 #        port: 25
 #        username:
@@ -61,7 +62,7 @@ spring:
         username: ${PLANTY_SMTP_USERNAME}
         password: ${PLANTY_SMTP_PASSWORD}
         protocol: smtps
-        debug: true
+        debug: false
         properties.mail.smtp:
             starttls.enable: true
             starttls.required: true
@@ -130,8 +131,8 @@ jhipster:
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: planty-assistant-manager@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        from: support@mail.planty.be
+        base-url: https://planty.ddns.net # Modify according to your server's URL
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
             enabled: true

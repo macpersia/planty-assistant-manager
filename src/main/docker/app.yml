@@ -10,23 +10,14 @@ services:
             # Commented by Hadi
             #- EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
             #- SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
-            ## Migrating to MariaDB by Hadi
-            #- SPRING_DATA_MONGODB_URI=mongodb://planty-assistant-manager-mongodb:27017
-            #- SPRING_DATA_MONGODB_DATABASE=planty-assistant-manager
-            # Migrating to MariaDB by Hadi
             - SPRING_DATASOURCE_URL=jdbc:mariadb://planty-assistant-manager-mariadb:3306/planty-assistant-manager
+            # Added by Hadi
+            - PLANTY_SMTP_USERNAME
+            - PLANTY_SMTP_PASSWORD
         ports:
             - 8080:8080
         # Added by Hadi
         mem_limit: 288m
-    ## Migrating to MariaDB by Hadi
-    #planty-assistant-manager-mongodb:
-    #    extends:
-    #        file: mongodb.yml
-    #        service: planty-assistant-manager-mongodb
-    #    # Added by Hadi
-    #    mem_limit: 64m
-    # Migrating to MariaDB by Hadi
     planty-assistant-manager-mariadb:
         extends:
             file: mariadb.yml

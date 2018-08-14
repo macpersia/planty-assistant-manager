@@ -69,23 +69,24 @@ spring:
             hibernate.cache.hazelcast.use_lite_member: true
     liquibase:
         contexts: dev
+    mail:
 # Changed by Hadi
-#    mail:
 #        host: localhost
 #        port: 25
 #        username:
 #        password:
-    mail:
-        host: smtp.gmail.com
-        port: 587
-        username: ${MY_GMAIL_ADDRESS}  #Replace this field with your Gmail username.
-        password: ${MY_GMAIL_PASSWORD} #Replace this field with your Gmail password.
-        protocol: smtp
-        tls: true
+        host: email-smtp.us-east-1.amazonaws.com
+        port: 465
+        username: ${PLANTY_SMTP_USERNAME}
+        password: ${PLANTY_SMTP_PASSWORD}
+        protocol: smtps
+        debug: true
         properties.mail.smtp:
-            #auth: true
             starttls.enable: true
-            ssl.trust: smtp.gmail.com
+            starttls.required: true
+            ssl.enable: true
+        properties.mail.smtps:
+            auth: true
     messages:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
@@ -144,7 +145,7 @@ jhipster:
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: planty-assistant-manager@localhost
+        from: support@mail.planty.be
         base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
