@@ -41,37 +41,46 @@ public class MessagingService {
 
     @MessageMapping("/topic/action-requests/{emailAddress}")
     //@SendTo("/topic/action.req")
-    public void onRequest(@Payload String request, @DestinationVariable String emailAddress,
+    public void onRequest(@Payload Object requestPayload, @DestinationVariable String emailAddress,
                           StompHeaderAccessor headerAccessor/*, Principal principal*/) {
-        logger.debug("On request from '" + headerAccessor.getSessionId() + "' for '" + emailAddress + "' : " + request);
+        logger.debug("On requestPayload from '" + headerAccessor.getSessionId() + "' for '" + emailAddress + "' : " + requestPayload);
         final Optional<Agent> agent = agentRepo.findByEmailAddress(emailAddress).stream().findFirst();
         final String dest = "/queue/action-requests";
         final Optional<String> username = agent.map(a -> a.getUser().getLogin());
-        String prettyRequest;
-        try {
-            prettyRequest = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(request);
-        } catch (JsonProcessingException e) {
-            logger.error(e.getMessage(), e);
-            prettyRequest = String.valueOf(request);
-        }
-        logger.debug("Forwarding request to '" + username.orElse(null) + "' : '" + dest + "' : " + prettyRequest);
+        final String prettyRequest = toPrettyString(requestPayload);
+        logger.debug("Forwarding requestPayload to '" + username.orElse(null) + "' : '" + dest + "' : " + prettyRequest);
         assert username.isPresent();
-        this.messagingTemplate.convertAndSendToUser(username.get(), dest, request, headerAccessor.getMessageHeaders());
+        this.messagingTemplate.convertAndSendToUser(username.get(), dest, requestPayload, headerAccessor.getMessageHeaders());
     }
 
     @MessageMapping("/topic/action-responses")
     //@SendTo("/topic/action.res")
-    public void onResponse(@Payload String response,
+    public void onResponse(@Payload Object responsePayload,
                            StompHeaderAccessor headerAccessor/*, Principal principal*/) {
         final String agentSessionId = headerAccessor.getSessionId();
-        logger.debug("On response from '" + agentSessionId + "' : " + response);
+        logger.debug("On responsePayload from '" + agentSessionId + "' : " + responsePayload);
         final Optional<String> agentUsername = SecurityUtils.getCurrentUserLogin();
         final Optional<String> emailAddress = agentUsername.flatMap(userRepo::findOneByLogin).map(User::getEmail);
         final String dest = "/queue/action-responses/" + emailAddress.orElse(null);
 
         final Optional<String> username = agentUsername.flatMap(this.skillRepo::findSkillLoginMatchingAgentLogin);
-        logger.debug("Forwarding response to '" + username.orElse(null) + "' : '" + dest + "' : " + response);
+        final String prettyResponse = toPrettyString(responsePayload);
+        logger.debug("Forwarding responsePayload to '" + username.orElse(null) + "' : '" + dest + "' : " + prettyResponse);
         assert username.isPresent();
-        this.messagingTemplate.convertAndSendToUser(username.get(), dest, response, headerAccessor.getMessageHeaders());
+        this.messagingTemplate.convertAndSendToUser(username.get(), dest, responsePayload, headerAccessor.getMessageHeaders());
     }
+
+    private String toPrettyString(Object payload) {
+        String prettyPayload;
+        try {
+            prettyPayload = payload instanceof String ?
+                (String) payload
+                : new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(payload);
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+            prettyPayload = String.valueOf(payload);
+        }
+        return prettyPayload;
+    }
+
 }
