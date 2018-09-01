@@ -102,6 +102,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>be.planty.models.assistant</groupId>
+            <artifactId>planty-assistant-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster-framework</artifactId>
         </dependency>
