@@ -64,10 +64,6 @@ public class MessagingService {
         this.messagingTemplate.send("/user/" + encodeUsername(username) + dest, message);
     }
 
-    private String encodeUsername(Optional<String> username) {
-        return username.get().replaceAll("/", "%2F");
-    }
-
     @MessageMapping("/topic/action-responses")
     //@SendTo("/topic/action.res")
     public void onResponse(//@Payload final ActionResponse responsePayload,
@@ -89,6 +85,10 @@ public class MessagingService {
 
         //this.messagingTemplate.convertAndSendToUser(username.get(), dest, responsePayload, headerAccessor.getMessageHeaders());
         this.messagingTemplate.send("/user/" + encodeUsername(username) + dest, message);
+    }
+
+    private String encodeUsername(Optional<String> username) {
+        return username.get().replaceAll("/", "%2F");
     }
 
     private String toPrettyString(Object payload) {
