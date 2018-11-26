@@ -51,7 +51,9 @@ public class MessagingService {
         final Object requestPayload = message.getPayload();
         //final String skillSessionId = stompHeaderAccessor.getSessionId();
         final String skillSessionId = message.getHeaders().get(HEADER_KEY_SIMP_SESSION_ID, String.class);
-        logger.debug("On requestPayload from '" + skillSessionId + "' for '" + emailAddress + "' : " + requestPayload);
+        final Optional<String> skillUsername = SecurityUtils.getCurrentUserLogin();
+        logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername + ")" 
+			+ " for '" + emailAddress + "' : " + requestPayload);
         final Optional<Agent> agent = agentRepo.findByEmailAddress(emailAddress).stream().findFirst();
         final String dest = "/queue/action-requests";
 
