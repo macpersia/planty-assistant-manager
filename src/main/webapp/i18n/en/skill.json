@@ -17,6 +17,7 @@
                 "title": "Skill"
             },
             "name": "Name",
+            "agentSharing": "Agent Sharing",
             "users": "Users"
         }
     }

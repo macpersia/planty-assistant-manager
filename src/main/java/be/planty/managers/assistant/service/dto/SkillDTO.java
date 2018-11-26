@@ -14,6 +14,8 @@ public class SkillDTO implements Serializable {
 
     private String name;
 
+    private Boolean agentSharing;
+
     private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
@@ -30,6 +32,14 @@ public class SkillDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isAgentSharing() {
+        return agentSharing;
+    }
+
+    public void setAgentSharing(Boolean agentSharing) {
+        this.agentSharing = agentSharing;
     }
 
     public Set<UserDTO> getUsers() {
@@ -66,6 +76,7 @@ public class SkillDTO implements Serializable {
         return "SkillDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", agentSharing='" + isAgentSharing() + "'" +
             "}";
     }
 }

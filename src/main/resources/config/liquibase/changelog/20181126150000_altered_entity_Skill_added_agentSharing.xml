@@ -19,7 +19,7 @@
     -->
     <changeSet id="20181126150000" author="macpersia">
         <addColumn tableName="skill">
-            <column name="agentSharing" type="bit">
+            <column name="agent_sharing" type="bit">
                 <constraints nullable="true" />
             </column>
         </addColumn>

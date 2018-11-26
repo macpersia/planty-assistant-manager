@@ -9,10 +9,14 @@
                 <dd>
                     <span>{{skill.name}}</span>
                 </dd>
+                <dt><span jhiTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span></dt>
+                <dd>
+                    <span>{{skill.agentSharing}}</span>
+                </dd>
                 <dt><span jhiTranslate="plantyAssistantManagerApp.skill.users">Users</span></dt>
                 <dd>
-                    <span *ngFor="let user of skill.users; let last = last">
-                        {{user.login}}{{last ? '' : ', '}}
+                    <span *ngFor="let users of skill.users; let last = last">
+                        {{users.login}}{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

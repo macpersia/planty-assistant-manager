@@ -15,6 +15,10 @@
         {
             "fieldName": "name",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "agentSharing",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20180802154558",

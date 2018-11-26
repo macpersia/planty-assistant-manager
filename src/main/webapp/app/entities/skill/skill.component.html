@@ -16,6 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="plantyAssistantManagerApp.skill.name">Name</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span></th>
             <th><span jhiTranslate="plantyAssistantManagerApp.skill.users">Users</span></th>
             <th></th>
             </tr>
@@ -24,6 +25,7 @@
             <tr *ngFor="let skill of skills ;trackBy: trackId">
                 <td><a [routerLink]="['/skill', skill.id, 'view' ]">{{skill.id}}</a></td>
                 <td>{{skill.name}}</td>
+                <td>{{skill.agentSharing}}</td>
                 <td>
                     <span *ngFor="let user of skill.users; let last = last">
                             {{user.login}}{{last ? '' : ', '}}
