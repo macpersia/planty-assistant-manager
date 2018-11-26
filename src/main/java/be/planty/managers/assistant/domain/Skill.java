@@ -27,6 +27,9 @@ public class Skill implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "agent_sharing")
+    private Boolean agentSharing;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "skill_users",
@@ -54,6 +57,19 @@ public class Skill implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isAgentSharing() {
+        return agentSharing;
+    }
+
+    public Skill agentSharing(Boolean agentSharing) {
+        this.agentSharing = agentSharing;
+        return this;
+    }
+
+    public void setAgentSharing(Boolean agentSharing) {
+        this.agentSharing = agentSharing;
     }
 
     public Set<User> getUsers() {
