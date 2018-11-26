@@ -123,6 +123,7 @@ public class Skill implements Serializable {
         return "Skill{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", agentSharing='" + isAgentSharing() + "'" +
             "}";
     }
 }

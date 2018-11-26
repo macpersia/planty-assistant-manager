@@ -1,6 +1,7 @@
 package be.planty.managers.assistant.web.websocket;
 
 import be.planty.managers.assistant.domain.Agent;
+import be.planty.managers.assistant.domain.Skill;
 import be.planty.managers.assistant.domain.User;
 import be.planty.managers.assistant.repository.AgentRepository;
 import be.planty.managers.assistant.repository.SkillRepository;
@@ -18,6 +19,8 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
+
+import static be.planty.managers.assistant.security.AuthoritiesConstants.AGENT;
 
 @Controller
 public class MessagingService {
@@ -52,12 +55,23 @@ public class MessagingService {
         //final String skillSessionId = stompHeaderAccessor.getSessionId();
         final String skillSessionId = message.getHeaders().get(HEADER_KEY_SIMP_SESSION_ID, String.class);
         final Optional<String> skillUsername = SecurityUtils.getCurrentUserLogin();
-        logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername + ")" 
+        logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername + ")"
 			+ " for '" + emailAddress + "' : " + requestPayload);
-        final Optional<Agent> agent = agentRepo.findByEmailAddress(emailAddress).stream().findFirst();
+        assert skillUsername.isPresent();
+        final Optional<Skill> skill = skillRepo.findOneWithEagerRelationships(skillUsername.get());
+        assert skill.isPresent();
+        final Optional<String> username;
+        if ( skill.get().isAgentSharing() ) {
+            username = skill.get().getUsers().stream()
+                .filter(u -> u.getAuthorities().stream().anyMatch(a -> a.getName().equals(AGENT)))
+                .findFirst()
+                .map(u -> u.getEmail());
+        } else {
+            final Optional<Agent> agent = agentRepo.findByEmailAddress(emailAddress).stream().findFirst();
+            username = agent.map(a -> a.getUser().getLogin());
+        }
         final String dest = "/queue/action-requests";
 
-        final Optional<String> username = agent.map(a -> a.getUser().getLogin());
         final String prettyRequest = toPrettyString(requestPayload);
         logger.debug("Forwarding requestPayload to '" + username.orElse(null) + "' : '" + dest + "' : " + prettyRequest);
         assert username.isPresent();

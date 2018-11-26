@@ -37,6 +37,6 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
             " and u1.login = :login")
     Optional<String> findSkillLoginMatchingAgentLogin(@Param("login") String agentLogin);
 
-    @Query("select s.agentSharing from Skill s left join fetch s.users u where u.login =:login")
-    Optional<Boolean> findOutIfSkillIsAgentSharing(@Param("login") String login);
+    @Query("select distinct s from Skill s left join fetch s.users u where u.login =:login")
+    Optional<Skill> findOneWithEagerRelationships(@Param("login") String skillLogin);
 }
