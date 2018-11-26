@@ -50,6 +50,9 @@ public class SkillResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_AGENT_SHARING = false;
+    private static final Boolean UPDATED_AGENT_SHARING = true;
+
     @Autowired
     private SkillRepository skillRepository;
     @Mock
@@ -99,7 +102,8 @@ public class SkillResourceIntTest {
      */
     public static Skill createEntity(EntityManager em) {
         Skill skill = new Skill()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .agentSharing(DEFAULT_AGENT_SHARING);
         return skill;
     }
 
@@ -125,6 +129,7 @@ public class SkillResourceIntTest {
         assertThat(skillList).hasSize(databaseSizeBeforeCreate + 1);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(DEFAULT_AGENT_SHARING);
     }
 
     @Test
@@ -158,7 +163,8 @@ public class SkillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].agentSharing").value(hasItem(DEFAULT_AGENT_SHARING.booleanValue())));
     }
     
     public void getAllSkillsWithEagerRelationshipsIsEnabled() throws Exception {
@@ -203,7 +209,8 @@ public class SkillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(skill.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.agentSharing").value(DEFAULT_AGENT_SHARING.booleanValue()));
     }
     @Test
     @Transactional
@@ -226,7 +233,8 @@ public class SkillResourceIntTest {
         // Disconnect from session so that the updates on updatedSkill are not directly saved in db
         em.detach(updatedSkill);
         updatedSkill
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .agentSharing(UPDATED_AGENT_SHARING);
         SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc.perform(put("/api/skills")
@@ -239,6 +247,7 @@ public class SkillResourceIntTest {
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
     }
 
     @Test
