@@ -55,21 +55,20 @@ public class MessagingService {
         //final String skillSessionId = stompHeaderAccessor.getSessionId();
         final String skillSessionId = message.getHeaders().get(HEADER_KEY_SIMP_SESSION_ID, String.class);
         final Optional<String> skillUsername = SecurityUtils.getCurrentUserLogin();
-        logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername + ")"
+        logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername.orElse(null) + ")"
 			+ " for '" + emailAddress + "' : " + requestPayload);
-        assert skillUsername.isPresent();
-        final Optional<Skill> skill = skillRepo.findOneWithEagerRelationships(skillUsername.get());
-        assert skill.isPresent();
-        final Optional<String> username;
-        if ( skill.get().isAgentSharing() ) {
-            username = skill.get().getUsers().stream()
+        final Skill skill = skillUsername.flatMap(skillRepo::findOneWithEagerRelationships).get();
+
+        final Optional<String> username =  skill.isAgentSharing() ?
+
+            skill.getUsers().stream()
                 .filter(u -> u.getAuthorities().stream().anyMatch(a -> a.getName().equals(AGENT)))
                 .findFirst()
-                .map(u -> u.getEmail());
-        } else {
-            final Optional<Agent> agent = agentRepo.findByEmailAddress(emailAddress).stream().findFirst();
-            username = agent.map(a -> a.getUser().getLogin());
-        }
+                .map(User::getEmail)
+
+            : agentRepo.findByEmailAddress(emailAddress).stream().findFirst()
+                .map(a -> a.getUser().getLogin());
+
         final String dest = "/queue/action-requests";
 
         final String prettyRequest = toPrettyString(requestPayload);
