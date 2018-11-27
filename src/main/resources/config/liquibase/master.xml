@@ -8,6 +8,7 @@
     <include file="config/liquibase/changelog/20180731192538_added_entity_Agent.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180731192841_added_entity_PairingRequest.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180802154558_added_entity_Skill.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181126150000_altered_entity_Skill_added_agentSharing.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180731192538_added_entity_constraints_Agent.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180802154558_added_entity_constraints_Skill.xml" relativeToChangelogFile="false"/>
