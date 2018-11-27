@@ -29,7 +29,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
     Optional<Skill> findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query(
-        "select distinct u2.login from Skill s " +
+        "select distinct u2.login from Skill s" +
         " left join s.users u1 left join u1.authorities au1" +
         " left join s.users u2 left join u2.authorities au2" +
         " where au1.name = 'ROLE_AGENT'" +
@@ -37,6 +37,9 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
             " and u1.login = :login")
     Optional<String> findSkillLoginMatchingAgentLogin(@Param("login") String agentLogin);
 
-    @Query("select distinct s from Skill s left join fetch s.users u left join fetch u.authorities where u.login =:login")
+    @Query("select distinct s from Skill s" +
+           " left join fetch s.users su left join fetch su.authorities" + 
+	   " left join fetch s.users ou left join fetch ou.authorities" + 
+	   " where su.login =:login")
     Optional<Skill> findOneWithEagerRelationships(@Param("login") String skillLogin);
 }
