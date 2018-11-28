@@ -7,6 +7,7 @@ import be.planty.managers.assistant.repository.AgentRepository;
 import be.planty.managers.assistant.repository.SkillRepository;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.SecurityUtils;
+import be.planty.models.assistant.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -16,13 +17,16 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.support.NativeMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
 
+import static be.planty.models.assistant.Constants.ORIGIN_EMAIL_KEY;
 import static java.lang.Boolean.TRUE;
 import static java.util.Optional.ofNullable;
+import static org.springframework.messaging.support.NativeMessageHeaderAccessor.getFirstNativeHeader;
 
 @Controller
 public class MessagingService {
@@ -95,6 +99,8 @@ public class MessagingService {
         //final String agentSessionId = headerAccessor.getSessionId();
         final String agentSessionId = message.getHeaders().get(HEADER_KEY_SIMP_SESSION_ID, String.class);
         logger.debug("On responsePayload from '" + agentSessionId + "' : " + responsePayload);
+        //logger.info("\theaders...");
+        //message.getHeaders().forEach((k, v) -> logger.info("\t" + k + ": " + v));
         final Optional<String> agentUsername = SecurityUtils.getCurrentUserLogin();
 
         final Skill skill = agentUsername.flatMap(skillRepo::findOneWithEagerRelationships).get();
@@ -102,7 +108,7 @@ public class MessagingService {
         for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
 
         final Optional<String> emailAddress = TRUE.equals(skill.isAgentSharing()) ?
-            ofNullable(message.getHeaders().get(HEADER_KEY_PLANTY_ORIGIN_EMAIL, String.class))
+            ofNullable(getFirstNativeHeader(ORIGIN_EMAIL_KEY, message.getHeaders()))
             : agentUsername.flatMap(userRepo::findOneByLogin).map(User::getEmail);
 
         final String dest = "/queue/action-responses/" + emailAddress.orElse(null);
