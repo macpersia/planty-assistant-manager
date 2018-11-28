@@ -25,8 +25,8 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
     @Query(value = "select distinct skill from Skill skill left join fetch skill.users")
     List<Skill> findAllWithEagerRelationships();
 
-    @Query("select skill from Skill skill left join fetch skill.users where skill.id =:id")
-    Optional<Skill> findOneWithEagerRelationships(@Param("id") Long id);
+    @Query("select skill from Skill skill left join fetch skill.users where skill.id = ?1")
+    Optional<Skill> findOneWithEagerRelationships(Long id);
 
     @Query(
         "select distinct u2.login from Skill s" +
@@ -34,13 +34,13 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
         " left join s.users u2 left join u2.authorities au2" +
         " where au1.name = 'ROLE_AGENT'" +
             " and au2.name = 'ROLE_SKILL'" +
-            " and u1.login = :login")
-    Optional<String> findSkillLoginMatchingAgentLogin(@Param("login") String agentLogin);
+            " and u1.login = ?1")
+    Optional<String> findSkillLoginMatchingAgentLogin(String agentLogin);
 
     @Query(
         "select distinct s from Skill s" +
-        " left join fetch s.users su left join fetch su.authorities" +
+        " left join fetch s.users tu left join fetch tu.authorities" +
 	    " left join fetch s.users ou left join fetch ou.authorities" +
-	    " where su.login = :login")
-    Optional<Skill> findOneWithEagerRelationships(@Param("login") String skillLogin);
+	    " where tu.login = :targetLogin")
+    Optional<Skill> findOneWithEagerRelationships(@Param("targetLogin") String targetLogin);
 }

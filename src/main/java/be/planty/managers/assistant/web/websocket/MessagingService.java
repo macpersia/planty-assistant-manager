@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.lang.Boolean.TRUE;
+import static java.util.Optional.ofNullable;
 
 @Controller
 public class MessagingService {
@@ -30,6 +31,7 @@ public class MessagingService {
 
     private static final ObjectWriter objectWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
     public static final String HEADER_KEY_SIMP_SESSION_ID = "simpSessionId";
+    public static final String HEADER_KEY_PLANTY_ORIGIN_EMAIL = "planty.origin.email";
 
     private final SimpMessageSendingOperations messagingTemplate;
 
@@ -63,16 +65,20 @@ public class MessagingService {
         logger.debug("Here's the list of skill users...");
         for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
 
-        final List<Agent> filteredAgents = TRUE.equals(skill.isAgentSharing()) ?
+        final boolean agentSharing = TRUE.equals(skill.isAgentSharing());
+        final List<Agent> filteredAgents = agentSharing ?
             agentRepo.findTop10SkillAgentsLatestFirst(skill.getUsers())
             : agentRepo.findTop10ByEmailAddressLatestFirst(emailAddress);
+
+        if (agentSharing)
+            message.getHeaders().put(HEADER_KEY_PLANTY_ORIGIN_EMAIL, emailAddress);
 
         logger.debug("Here's the list of filtered agents...");
         for (Agent a : filteredAgents) logger.debug("\t" + a.getUser().getLogin());
 
         final Optional<String> username =  filteredAgents.stream()
             .findFirst().map(a -> a.getUser().getLogin());
-        
+
         final String dest = "/queue/action-requests";
 
         final String prettyRequest = toPrettyString(requestPayload);
@@ -94,7 +100,15 @@ public class MessagingService {
         final String agentSessionId = message.getHeaders().get(HEADER_KEY_SIMP_SESSION_ID, String.class);
         logger.debug("On responsePayload from '" + agentSessionId + "' : " + responsePayload);
         final Optional<String> agentUsername = SecurityUtils.getCurrentUserLogin();
-        final Optional<String> emailAddress = agentUsername.flatMap(userRepo::findOneByLogin).map(User::getEmail);
+
+        final Skill skill = agentUsername.flatMap(skillRepo::findOneWithEagerRelationships).get();
+        logger.debug("Here's the list of skill users...");
+        for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
+
+        final Optional<String> emailAddress = TRUE.equals(skill.isAgentSharing()) ?
+            ofNullable(message.getHeaders().get(HEADER_KEY_PLANTY_ORIGIN_EMAIL, String.class))
+            : agentUsername.flatMap(userRepo::findOneByLogin).map(User::getEmail);
+
         final String dest = "/queue/action-responses/" + emailAddress.orElse(null);
 
         final Optional<String> username = agentUsername.flatMap(this.skillRepo::findSkillLoginMatchingAgentLogin);
