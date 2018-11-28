@@ -65,13 +65,9 @@ public class MessagingService {
         logger.debug("Here's the list of skill users...");
         for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
 
-        final boolean agentSharing = TRUE.equals(skill.isAgentSharing());
-        final List<Agent> filteredAgents = agentSharing ?
+        final List<Agent> filteredAgents = TRUE.equals(skill.isAgentSharing()) ?
             agentRepo.findTop10SkillAgentsLatestFirst(skill.getUsers())
             : agentRepo.findTop10ByEmailAddressLatestFirst(emailAddress);
-
-        if (agentSharing)
-            message.getHeaders().put(HEADER_KEY_PLANTY_ORIGIN_EMAIL, emailAddress);
 
         logger.debug("Here's the list of filtered agents...");
         for (Agent a : filteredAgents) logger.debug("\t" + a.getUser().getLogin());
