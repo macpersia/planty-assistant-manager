@@ -18,9 +18,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
-import static be.planty.managers.assistant.security.AuthoritiesConstants.AGENT;
+import static java.lang.Boolean.TRUE;
 
 @Controller
 public class MessagingService {
@@ -57,18 +58,21 @@ public class MessagingService {
         final Optional<String> skillUsername = SecurityUtils.getCurrentUserLogin();
         logger.debug("On requestPayload from '" + skillSessionId + "' (" + skillUsername.orElse(null) + ")"
 			+ " for '" + emailAddress + "' : " + requestPayload);
+
         final Skill skill = skillUsername.flatMap(skillRepo::findOneWithEagerRelationships).get();
+        logger.debug("Here's the list of skill users...");
+        for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
 
-        final Optional<String> username =  skill.isAgentSharing() ?
+        final List<Agent> filteredAgents = TRUE.equals(skill.isAgentSharing()) ?
+            agentRepo.findTop10SkillAgentsLatestFirst(skill.getUsers())
+            : agentRepo.findTop10ByEmailAddressLatestFirst(emailAddress);
 
-            skill.getUsers().stream()
-                .filter(u -> u.getAuthorities().stream().anyMatch(a -> a.getName().equals(AGENT)))
-                .findFirst()
-                .map(User::getEmail)
+        logger.debug("Here's the list of filtered agents...");
+        for (Agent a : filteredAgents) logger.debug("\t" + a.getUser().getLogin());
 
-            : agentRepo.findByEmailAddress(emailAddress).stream().findFirst()
-                .map(a -> a.getUser().getLogin());
-
+        final Optional<String> username =  filteredAgents.stream()
+            .findFirst().map(a -> a.getUser().getLogin());
+        
         final String dest = "/queue/action-requests";
 
         final String prettyRequest = toPrettyString(requestPayload);
