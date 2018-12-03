@@ -19,7 +19,7 @@ import java.util.Optional;
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {
 
-    @Query("select agent from Agent agent where agent.user.login = ?#{principal.username}")
+    @Query("select a from Agent a where a.user.login = ?#{principal.username}")
     List<Agent> findByUserIsCurrentUser();
 
     @Query("select a from Agent a where a.user.email = ?1 order by a.id desc")
@@ -38,10 +38,17 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     @Query("select a from Agent a where a.sessionId = ?1")
     Optional<Agent> findBySessionId(String sessionId);
 
-    @Query("select distinct a from Agent a join a.user au where au in ?1 order by a.id desc")
+    @Query("select distinct a from Agent a where a.user in ?1 order by a.id desc")
     List<Agent> findSkillAgentsLatestFirst(Collection<User> skillUsers, Pageable pageable);
 
     default List<Agent> findTop10SkillAgentsLatestFirst(Collection<User> skillUsers) {
         return this.findSkillAgentsLatestFirst(skillUsers, PageRequest.of(0, 10));
+    }
+
+    @Query("select distinct a from Agent a where a.user in ?1 and a.user.email = ?2 order by a.id desc")
+    List<Agent> findSkillAgentsByEmailAddressLatestFirst(Collection<User> skillUsers, String emailAddress, Pageable pageable);
+
+    default List<Agent> findTop10SkillAgentsByEmailAddressLatestFirst(Collection<User> skillUsers, String emailAddress) {
+        return this.findSkillAgentsByEmailAddressLatestFirst(skillUsers, emailAddress, PageRequest.of(0, 10));
     }
 }

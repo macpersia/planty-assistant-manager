@@ -7,7 +7,6 @@ import be.planty.managers.assistant.repository.AgentRepository;
 import be.planty.managers.assistant.repository.SkillRepository;
 import be.planty.managers.assistant.repository.UserRepository;
 import be.planty.managers.assistant.security.SecurityUtils;
-import be.planty.models.assistant.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -17,11 +16,11 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.support.NativeMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static be.planty.models.assistant.Constants.ORIGIN_EMAIL_KEY;
 import static java.lang.Boolean.TRUE;
@@ -35,7 +34,7 @@ public class MessagingService {
 
     private static final ObjectWriter objectWriter = new ObjectMapper().writerWithDefaultPrettyPrinter();
     public static final String HEADER_KEY_SIMP_SESSION_ID = "simpSessionId";
-    public static final String HEADER_KEY_PLANTY_ORIGIN_EMAIL = "planty.origin.email";
+    //public static final String HEADER_KEY_PLANTY_ORIGIN_EMAIL = "planty.origin.email";
 
     private final SimpMessageSendingOperations messagingTemplate;
 
@@ -67,11 +66,12 @@ public class MessagingService {
 
         final Skill skill = skillUsername.flatMap(skillRepo::findOneWithEagerRelationships).get();
         logger.debug("Here's the list of skill users...");
-        for (User u : skill.getUsers()) logger.debug("\t" + u.getLogin());
+        final Set<User> skillUsers = skill.getUsers();
+        for (User u : skillUsers) logger.debug("\t" + u.getLogin());
 
         final List<Agent> filteredAgents = TRUE.equals(skill.isAgentSharing()) ?
-            agentRepo.findTop10SkillAgentsLatestFirst(skill.getUsers())
-            : agentRepo.findTop10ByEmailAddressLatestFirst(emailAddress);
+            agentRepo.findTop10SkillAgentsLatestFirst(skillUsers)
+            : agentRepo.findTop10SkillAgentsByEmailAddressLatestFirst(skillUsers, emailAddress);
 
         logger.debug("Here's the list of filtered agents...");
         for (Agent a : filteredAgents) logger.debug("\t" + a.getUser().getLogin());
@@ -86,7 +86,7 @@ public class MessagingService {
         assert username.isPresent();
 
         //this.messagingTemplate.convertAndSendToUser(username.get(), dest, requestPayload, stompHeaderAccessor.getMessageHeaders());
-        this.messagingTemplate.send("/user/" + encodeUsername(username) + dest, message);
+        this.messagingTemplate.send("/user/" + encodeUsername(username.get()) + dest, message);
     }
 
     @MessageMapping("/topic/action-responses")
@@ -119,11 +119,11 @@ public class MessagingService {
         assert username.isPresent();
 
         //this.messagingTemplate.convertAndSendToUser(username.get(), dest, responsePayload, headerAccessor.getMessageHeaders());
-        this.messagingTemplate.send("/user/" + encodeUsername(username) + dest, message);
+        this.messagingTemplate.send("/user/" + encodeUsername(username.get()) + dest, message);
     }
 
-    private String encodeUsername(Optional<String> username) {
-        return username.get().replaceAll("/", "%2F");
+    private String encodeUsername(String username) {
+        return username.replaceAll("/", "%2F");
     }
 
     private String toPrettyString(Object payload) {
