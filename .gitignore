@@ -150,3 +150,8 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+# db dumps
+db-dumps/mongodb-all-collections.*
+db-dumps/mariadb-all-tables.*
+
