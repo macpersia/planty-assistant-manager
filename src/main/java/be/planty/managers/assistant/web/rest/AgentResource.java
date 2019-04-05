@@ -1,6 +1,4 @@
 package be.planty.managers.assistant.web.rest;
-
-import com.codahale.metrics.annotation.Timed;
 import be.planty.managers.assistant.service.AgentService;
 import be.planty.managers.assistant.web.rest.errors.BadRequestAlertException;
 import be.planty.managers.assistant.web.rest.util.HeaderUtil;
@@ -42,7 +40,6 @@ public class AgentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/agents")
-    @Timed
     public ResponseEntity<AgentDTO> createAgent(@RequestBody AgentDTO agentDTO) throws URISyntaxException {
         log.debug("REST request to save Agent : {}", agentDTO);
         if (agentDTO.getId() != null) {
@@ -64,7 +61,6 @@ public class AgentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/agents")
-    @Timed
     public ResponseEntity<AgentDTO> updateAgent(@RequestBody AgentDTO agentDTO) throws URISyntaxException {
         log.debug("REST request to update Agent : {}", agentDTO);
         if (agentDTO.getId() == null) {
@@ -82,7 +78,6 @@ public class AgentResource {
      * @return the ResponseEntity with status 200 (OK) and the list of agents in body
      */
     @GetMapping("/agents")
-    @Timed
     public List<AgentDTO> getAllAgents() {
         log.debug("REST request to get all Agents");
         return agentService.findAll();
@@ -95,7 +90,6 @@ public class AgentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the agentDTO, or with status 404 (Not Found)
      */
     @GetMapping("/agents/{id}")
-    @Timed
     public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
         log.debug("REST request to get Agent : {}", id);
         Optional<AgentDTO> agentDTO = agentService.findOne(id);
@@ -109,7 +103,6 @@ public class AgentResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/agents/{id}")
-    @Timed
     public ResponseEntity<Void> deleteAgent(@PathVariable Long id) {
         log.debug("REST request to delete Agent : {}", id);
         agentService.delete(id);

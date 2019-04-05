@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-
+    
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -26,7 +26,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="agent_sharing" type="bit">
+            <column name="agent_sharing" type="boolean">
                 <constraints nullable="true" />
             </column>
 
@@ -37,12 +37,12 @@
             <column name="users_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="skills_id" type="bigint">
+            <column name="skill_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="skills_id, users_id" tableName="skill_users"/>
+        <addPrimaryKey columnNames="skill_id, users_id" tableName="skill_users"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

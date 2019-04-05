@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
-
 import { ISkill } from 'app/shared/model/skill.model';
 import { SkillService } from './skill.service';
 import { IUser, UserService } from 'app/core';
@@ -13,16 +13,16 @@ import { IUser, UserService } from 'app/core';
     templateUrl: './skill-update.component.html'
 })
 export class SkillUpdateComponent implements OnInit {
-    private _skill: ISkill;
+    skill: ISkill;
     isSaving: boolean;
 
     users: IUser[];
 
     constructor(
-        private jhiAlertService: JhiAlertService,
-        private skillService: SkillService,
-        private userService: UserService,
-        private activatedRoute: ActivatedRoute
+        protected jhiAlertService: JhiAlertService,
+        protected skillService: SkillService,
+        protected userService: UserService,
+        protected activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
@@ -30,12 +30,13 @@ export class SkillUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ skill }) => {
             this.skill = skill;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -51,20 +52,20 @@ export class SkillUpdateComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ISkill>>) {
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<ISkill>>) {
         result.subscribe((res: HttpResponse<ISkill>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
+    protected onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
     }
 
-    private onSaveError() {
+    protected onSaveError() {
         this.isSaving = false;
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
@@ -81,12 +82,5 @@ export class SkillUpdateComponent implements OnInit {
             }
         }
         return option;
-    }
-    get skill() {
-        return this._skill;
-    }
-
-    set skill(skill: ISkill) {
-        this._skill = skill;
     }
 }

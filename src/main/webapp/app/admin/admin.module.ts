@@ -13,7 +13,6 @@ import {
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
-    PamMetricsMonitoringModalComponent,
     PamMetricsMonitoringComponent,
     PamHealthModalComponent,
     PamHealthCheckComponent,
@@ -40,10 +39,10 @@ import {
         PamHealthModalComponent,
         PamDocsComponent,
         PamTrackerComponent,
-        PamMetricsMonitoringComponent,
-        PamMetricsMonitoringModalComponent
+        PamMetricsMonitoringComponent
     ],
-    entryComponents: [UserMgmtDeleteDialogComponent, PamHealthModalComponent, PamMetricsMonitoringModalComponent],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+    entryComponents: [UserMgmtDeleteDialogComponent, PamHealthModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PlantyAssistantManagerAdminModule {

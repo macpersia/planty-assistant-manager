@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -54,10 +55,8 @@ public class AgentResourceIntTest {
     @Autowired
     private AgentRepository agentRepository;
 
-
     @Autowired
     private AgentMapper agentMapper;
-    
 
     @Autowired
     private AgentService agentService;
@@ -74,6 +73,9 @@ public class AgentResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restAgentMockMvc;
 
     private Agent agent;
@@ -86,7 +88,8 @@ public class AgentResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -165,7 +168,6 @@ public class AgentResourceIntTest {
             .andExpect(jsonPath("$.[*].sessionId").value(hasItem(DEFAULT_SESSION_ID.toString())));
     }
     
-
     @Test
     @Transactional
     public void getAgent() throws Exception {
@@ -181,6 +183,7 @@ public class AgentResourceIntTest {
             .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()))
             .andExpect(jsonPath("$.sessionId").value(DEFAULT_SESSION_ID.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingAgent() throws Exception {
@@ -229,7 +232,7 @@ public class AgentResourceIntTest {
         // Create the Agent
         AgentDTO agentDTO = agentMapper.toDto(agent);
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAgentMockMvc.perform(put("/api/agents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(agentDTO)))
@@ -248,7 +251,7 @@ public class AgentResourceIntTest {
 
         int databaseSizeBeforeDelete = agentRepository.findAll().size();
 
-        // Get the agent
+        // Delete the agent
         restAgentMockMvc.perform(delete("/api/agents/{id}", agent.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

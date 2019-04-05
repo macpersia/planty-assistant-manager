@@ -1,5 +1,6 @@
 package be.planty.managers.assistant.domain;
 
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class Skill implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +34,7 @@ public class Skill implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "skill_users",
-               joinColumns = @JoinColumn(name = "skills_id", referencedColumnName = "id"),
+               joinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
@@ -83,13 +84,11 @@ public class Skill implements Serializable {
 
     public Skill addUsers(User user) {
         this.users.add(user);
-        user.getSkills().add(this);
         return this;
     }
 
     public Skill removeUsers(User user) {
         this.users.remove(user);
-        user.getSkills().remove(this);
         return this;
     }
 

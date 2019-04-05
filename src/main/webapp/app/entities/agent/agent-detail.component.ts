@@ -10,7 +10,7 @@ import { IAgent } from 'app/shared/model/agent.model';
 export class AgentDetailComponent implements OnInit {
     agent: IAgent;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ agent }) => {

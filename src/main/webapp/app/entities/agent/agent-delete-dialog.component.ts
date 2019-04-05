@@ -14,7 +14,7 @@ import { AgentService } from './agent.service';
 export class AgentDeleteDialogComponent {
     agent: IAgent;
 
-    constructor(private agentService: AgentService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(protected agentService: AgentService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
@@ -36,9 +36,9 @@ export class AgentDeleteDialogComponent {
     template: ''
 })
 export class AgentDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ agent }) => {
@@ -47,11 +47,11 @@ export class AgentDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.agent = agent;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/agent', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/agent', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

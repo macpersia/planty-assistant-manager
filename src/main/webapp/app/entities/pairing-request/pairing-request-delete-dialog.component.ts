@@ -15,9 +15,9 @@ export class PairingRequestDeleteDialogComponent {
     pairingRequest: IPairingRequest;
 
     constructor(
-        private pairingRequestService: PairingRequestService,
+        protected pairingRequestService: PairingRequestService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        protected eventManager: JhiEventManager
     ) {}
 
     clear() {
@@ -40,9 +40,9 @@ export class PairingRequestDeleteDialogComponent {
     template: ''
 })
 export class PairingRequestDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ pairingRequest }) => {
@@ -54,11 +54,11 @@ export class PairingRequestDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.pairingRequest = pairingRequest;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/pairing-request', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/pairing-request', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

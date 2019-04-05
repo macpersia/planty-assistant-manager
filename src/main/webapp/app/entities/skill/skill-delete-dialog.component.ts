@@ -14,7 +14,7 @@ import { SkillService } from './skill.service';
 export class SkillDeleteDialogComponent {
     skill: ISkill;
 
-    constructor(private skillService: SkillService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(protected skillService: SkillService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
@@ -36,9 +36,9 @@ export class SkillDeleteDialogComponent {
     template: ''
 })
 export class SkillDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ skill }) => {
@@ -47,11 +47,11 @@ export class SkillDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.skill = skill;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/skill', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/skill', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

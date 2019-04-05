@@ -11,9 +11,9 @@ type EntityArrayResponseType = HttpResponse<IAgent[]>;
 
 @Injectable({ providedIn: 'root' })
 export class AgentService {
-    private resourceUrl = SERVER_API_URL + 'api/agents';
+    public resourceUrl = SERVER_API_URL + 'api/agents';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(agent: IAgent): Observable<EntityResponseType> {
         return this.http.post<IAgent>(this.resourceUrl, agent, { observe: 'response' });

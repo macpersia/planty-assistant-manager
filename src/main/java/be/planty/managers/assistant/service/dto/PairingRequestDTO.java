@@ -1,5 +1,4 @@
 package be.planty.managers.assistant.service.dto;
-
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +23,7 @@ public class PairingRequestDTO implements Serializable {
     private String publicKey;
 
     private String login;
+
 
     public Long getId() {
         return id;

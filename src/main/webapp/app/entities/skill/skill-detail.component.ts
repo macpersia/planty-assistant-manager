@@ -10,7 +10,7 @@ import { ISkill } from 'app/shared/model/skill.model';
 export class SkillDetailComponent implements OnInit {
     skill: ISkill;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ skill }) => {

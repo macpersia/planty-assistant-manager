@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -55,12 +56,13 @@ public class SkillResourceIntTest {
 
     @Autowired
     private SkillRepository skillRepository;
+
     @Mock
     private SkillRepository skillRepositoryMock;
 
     @Autowired
     private SkillMapper skillMapper;
-    
+
     @Mock
     private SkillService skillServiceMock;
 
@@ -79,6 +81,9 @@ public class SkillResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restSkillMockMvc;
 
     private Skill skill;
@@ -91,7 +96,8 @@ public class SkillResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -167,6 +173,7 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.[*].agentSharing").value(hasItem(DEFAULT_AGENT_SHARING.booleanValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllSkillsWithEagerRelationshipsIsEnabled() throws Exception {
         SkillResource skillResource = new SkillResource(skillServiceMock);
         when(skillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -183,6 +190,7 @@ public class SkillResourceIntTest {
         verify(skillServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         SkillResource skillResource = new SkillResource(skillServiceMock);
             when(skillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -212,6 +220,7 @@ public class SkillResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.agentSharing").value(DEFAULT_AGENT_SHARING.booleanValue()));
     }
+
     @Test
     @Transactional
     public void getNonExistingSkill() throws Exception {
@@ -258,7 +267,7 @@ public class SkillResourceIntTest {
         // Create the Skill
         SkillDTO skillDTO = skillMapper.toDto(skill);
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSkillMockMvc.perform(put("/api/skills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(skillDTO)))
@@ -277,7 +286,7 @@ public class SkillResourceIntTest {
 
         int databaseSizeBeforeDelete = skillRepository.findAll().size();
 
-        // Get the skill
+        // Delete the skill
         restSkillMockMvc.perform(delete("/api/skills/{id}", skill.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

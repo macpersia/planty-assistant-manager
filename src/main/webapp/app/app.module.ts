@@ -1,10 +1,11 @@
 import './vendor.ts';
 
-import { NgModule, Injector } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Ng2Webstorage, LocalStorageService, SessionStorageService } from 'ngx-webstorage';
-import { JhiEventManager } from 'ng-jhipster';
+import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2Webstorage } from 'ngx-webstorage';
+import { NgJhipsterModule } from 'ng-jhipster';
 
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
@@ -16,48 +17,56 @@ import { PlantyAssistantManagerAppRoutingModule } from './app-routing.module';
 import { PlantyAssistantManagerHomeModule } from './home/home.module';
 import { PlantyAssistantManagerAccountModule } from './account/account.module';
 import { PlantyAssistantManagerEntityModule } from './entities/entity.module';
+import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { PamMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
 @NgModule({
     imports: [
         BrowserModule,
-        PlantyAssistantManagerAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'pam', separator: '-' }),
-        PlantyAssistantManagerSharedModule,
+        NgJhipsterModule.forRoot({
+            // set below to true to make alerts look like toast
+            alertAsToast: false,
+            alertTimeout: 5000,
+            i18nEnabled: true,
+            defaultI18nLang: 'en'
+        }),
+        PlantyAssistantManagerSharedModule.forRoot(),
         PlantyAssistantManagerCoreModule,
         PlantyAssistantManagerHomeModule,
         PlantyAssistantManagerAccountModule,
-        PlantyAssistantManagerEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
+        PlantyAssistantManagerEntityModule,
+        PlantyAssistantManagerAppRoutingModule
     ],
     declarations: [PamMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
-            multi: true,
-            deps: [LocalStorageService, SessionStorageService]
+            multi: true
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthExpiredInterceptor,
-            multi: true,
-            deps: [Injector]
+            multi: true
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorHandlerInterceptor,
-            multi: true,
-            deps: [JhiEventManager]
+            multi: true
         },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: NotificationInterceptor,
-            multi: true,
-            deps: [Injector]
+            multi: true
         }
     ],
     bootstrap: [PamMainComponent]
 })
-export class PlantyAssistantManagerAppModule {}
+export class PlantyAssistantManagerAppModule {
+    constructor(private dpConfig: NgbDatepickerConfig) {
+        this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
+    }
+}

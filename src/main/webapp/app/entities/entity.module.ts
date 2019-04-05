@@ -1,17 +1,23 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
-import { PlantyAssistantManagerAgentModule } from './agent/agent.module';
-import { PlantyAssistantManagerPairingRequestModule } from './pairing-request/pairing-request.module';
-import { PlantyAssistantManagerSkillModule } from './skill/skill.module';
-/* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    // prettier-ignore
     imports: [
-        PlantyAssistantManagerAgentModule,
-        PlantyAssistantManagerPairingRequestModule,
-        PlantyAssistantManagerSkillModule,
-        /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
+        RouterModule.forChild([
+            {
+                path: 'agent',
+                loadChildren: './agent/agent.module#PlantyAssistantManagerAgentModule'
+            },
+            {
+                path: 'pairing-request',
+                loadChildren: './pairing-request/pairing-request.module#PlantyAssistantManagerPairingRequestModule'
+            },
+            {
+                path: 'skill',
+                loadChildren: './skill/skill.module#PlantyAssistantManagerSkillModule'
+            }
+            /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
+        ])
     ],
     declarations: [],
     entryComponents: [],

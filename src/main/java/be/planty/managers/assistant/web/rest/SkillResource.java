@@ -1,6 +1,4 @@
 package be.planty.managers.assistant.web.rest;
-
-import com.codahale.metrics.annotation.Timed;
 import be.planty.managers.assistant.service.SkillService;
 import be.planty.managers.assistant.web.rest.errors.BadRequestAlertException;
 import be.planty.managers.assistant.web.rest.util.HeaderUtil;
@@ -42,7 +40,6 @@ public class SkillResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/skills")
-    @Timed
     public ResponseEntity<SkillDTO> createSkill(@RequestBody SkillDTO skillDTO) throws URISyntaxException {
         log.debug("REST request to save Skill : {}", skillDTO);
         if (skillDTO.getId() != null) {
@@ -64,7 +61,6 @@ public class SkillResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/skills")
-    @Timed
     public ResponseEntity<SkillDTO> updateSkill(@RequestBody SkillDTO skillDTO) throws URISyntaxException {
         log.debug("REST request to update Skill : {}", skillDTO);
         if (skillDTO.getId() == null) {
@@ -83,7 +79,6 @@ public class SkillResource {
      * @return the ResponseEntity with status 200 (OK) and the list of skills in body
      */
     @GetMapping("/skills")
-    @Timed
     public List<SkillDTO> getAllSkills(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Skills");
         return skillService.findAll();
@@ -96,7 +91,6 @@ public class SkillResource {
      * @return the ResponseEntity with status 200 (OK) and with body the skillDTO, or with status 404 (Not Found)
      */
     @GetMapping("/skills/{id}")
-    @Timed
     public ResponseEntity<SkillDTO> getSkill(@PathVariable Long id) {
         log.debug("REST request to get Skill : {}", id);
         Optional<SkillDTO> skillDTO = skillService.findOne(id);
@@ -110,7 +104,6 @@ public class SkillResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/skills/{id}")
-    @Timed
     public ResponseEntity<Void> deleteSkill(@PathVariable Long id) {
         log.debug("REST request to delete Skill : {}", id);
         skillService.delete(id);

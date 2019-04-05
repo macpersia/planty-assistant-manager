@@ -4,7 +4,7 @@
       "packageName": "be.planty.managers.assistant",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "5.0.2",
+    "jhipsterVersion": "5.8.2",
     "applicationType": "monolith",
     "baseName": "planty-assistant-manager",
     "packageName": "be.planty.managers.assistant",
@@ -32,6 +32,9 @@
     "nativeLanguage": "en",
     "languages": [
       "en"
-    ]
+    ],
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
   }
 }

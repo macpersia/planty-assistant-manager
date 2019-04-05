@@ -9,6 +9,6 @@ export interface ISkill {
 
 export class Skill implements ISkill {
     constructor(public id?: number, public name?: string, public agentSharing?: boolean, public users?: IUser[]) {
-        this.agentSharing = false;
+        this.agentSharing = this.agentSharing || false;
     }
 }

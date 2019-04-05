@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ISkill } from 'app/shared/model/skill.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { SkillService } from './skill.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class SkillComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private skillService: SkillService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected skillService: SkillService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.skillService.query().subscribe(
-            (res: HttpResponse<ISkill[]>) => {
-                this.skills = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.skillService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ISkill[]>) => res.ok),
+                map((res: HttpResponse<ISkill[]>) => res.body)
+            )
+            .subscribe(
+                (res: ISkill[]) => {
+                    this.skills = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInSkills();
@@ -52,7 +59,7 @@ export class SkillComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('skillListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

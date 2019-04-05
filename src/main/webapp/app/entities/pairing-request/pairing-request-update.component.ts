@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-
 import { IPairingRequest } from 'app/shared/model/pairing-request.model';
 import { PairingRequestService } from './pairing-request.service';
 
@@ -13,16 +13,17 @@ import { PairingRequestService } from './pairing-request.service';
     templateUrl: './pairing-request-update.component.html'
 })
 export class PairingRequestUpdateComponent implements OnInit {
-    private _pairingRequest: IPairingRequest;
+    pairingRequest: IPairingRequest;
     isSaving: boolean;
     requestTime: string;
 
-    constructor(private pairingRequestService: PairingRequestService, private activatedRoute: ActivatedRoute) {}
+    constructor(protected pairingRequestService: PairingRequestService, protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ pairingRequest }) => {
             this.pairingRequest = pairingRequest;
+            this.requestTime = this.pairingRequest.requestTime != null ? this.pairingRequest.requestTime.format(DATE_TIME_FORMAT) : null;
         });
     }
 
@@ -32,7 +33,7 @@ export class PairingRequestUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.pairingRequest.requestTime = moment(this.requestTime, DATE_TIME_FORMAT);
+        this.pairingRequest.requestTime = this.requestTime != null ? moment(this.requestTime, DATE_TIME_FORMAT) : null;
         if (this.pairingRequest.id !== undefined) {
             this.subscribeToSaveResponse(this.pairingRequestService.update(this.pairingRequest));
         } else {
@@ -40,24 +41,16 @@ export class PairingRequestUpdateComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<IPairingRequest>>) {
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<IPairingRequest>>) {
         result.subscribe((res: HttpResponse<IPairingRequest>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
+    protected onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
     }
 
-    private onSaveError() {
+    protected onSaveError() {
         this.isSaving = false;
-    }
-    get pairingRequest() {
-        return this._pairingRequest;
-    }
-
-    set pairingRequest(pairingRequest: IPairingRequest) {
-        this._pairingRequest = pairingRequest;
-        this.requestTime = moment(pairingRequest.requestTime).format(DATE_TIME_FORMAT);
     }
 }

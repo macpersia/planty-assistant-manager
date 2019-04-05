@@ -1,5 +1,6 @@
 package be.planty.managers.assistant.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class Agent implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +34,7 @@ public class Agent implements Serializable {
     private String sessionId;
 
     @ManyToOne
-    @JsonIgnoreProperties("")
+    @JsonIgnoreProperties("agents")
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

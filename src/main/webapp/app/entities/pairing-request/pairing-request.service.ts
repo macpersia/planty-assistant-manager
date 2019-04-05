@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<IPairingRequest[]>;
 
 @Injectable({ providedIn: 'root' })
 export class PairingRequestService {
-    private resourceUrl = SERVER_API_URL + 'api/pairing-requests';
+    public resourceUrl = SERVER_API_URL + 'api/pairing-requests';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(pairingRequest: IPairingRequest): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(pairingRequest);
@@ -49,7 +49,7 @@ export class PairingRequestService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(pairingRequest: IPairingRequest): IPairingRequest {
+    protected convertDateFromClient(pairingRequest: IPairingRequest): IPairingRequest {
         const copy: IPairingRequest = Object.assign({}, pairingRequest, {
             requestTime:
                 pairingRequest.requestTime != null && pairingRequest.requestTime.isValid() ? pairingRequest.requestTime.toJSON() : null
@@ -57,15 +57,19 @@ export class PairingRequestService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.requestTime = res.body.requestTime != null ? moment(res.body.requestTime) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.requestTime = res.body.requestTime != null ? moment(res.body.requestTime) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((pairingRequest: IPairingRequest) => {
-            pairingRequest.requestTime = pairingRequest.requestTime != null ? moment(pairingRequest.requestTime) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((pairingRequest: IPairingRequest) => {
+                pairingRequest.requestTime = pairingRequest.requestTime != null ? moment(pairingRequest.requestTime) : null;
+            });
+        }
         return res;
     }
 }

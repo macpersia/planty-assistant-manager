@@ -1,16 +1,21 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { PairingRequestService } from 'app/entities/pairing-request/pairing-request.service';
-import { PairingRequest } from 'app/shared/model/pairing-request.model';
-import { SERVER_API_URL } from 'app/app.constants';
+import { IPairingRequest, PairingRequest } from 'app/shared/model/pairing-request.model';
 
 describe('Service Tests', () => {
     describe('PairingRequest Service', () => {
         let injector: TestBed;
         let service: PairingRequestService;
         let httpMock: HttpTestingController;
-
+        let elemDefault: IPairingRequest;
+        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -18,73 +23,114 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(PairingRequestService);
             httpMock = injector.get(HttpTestingController);
+            currentDate = moment();
+
+            elemDefault = new PairingRequest(0, 'AAAAAAA', 'AAAAAAA', currentDate, false, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
-        describe('Service methods', () => {
-            it('should call correct URL', () => {
-                service.find(123).subscribe(() => {});
+        describe('Service methods', async () => {
+            it('should find an element', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        requestTime: currentDate.format(DATE_TIME_FORMAT)
+                    },
+                    elemDefault
+                );
+                service
+                    .find(123)
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
 
                 const req = httpMock.expectOne({ method: 'GET' });
-
-                const resourceUrl = SERVER_API_URL + 'api/pairing-requests';
-                expect(req.request.url).toEqual(resourceUrl + '/' + 123);
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should create a PairingRequest', () => {
-                service.create(new PairingRequest(null)).subscribe(received => {
-                    expect(received.body.id).toEqual(null);
-                });
-
+            it('should create a PairingRequest', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        id: 0,
+                        requestTime: currentDate.format(DATE_TIME_FORMAT)
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign(
+                    {
+                        requestTime: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .create(new PairingRequest(null))
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
-                req.flush({ id: null });
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should update a PairingRequest', () => {
-                service.update(new PairingRequest(123)).subscribe(received => {
-                    expect(received.body.id).toEqual(123);
-                });
+            it('should update a PairingRequest', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        name: 'BBBBBB',
+                        verificationCode: 'BBBBBB',
+                        requestTime: currentDate.format(DATE_TIME_FORMAT),
+                        accepted: true,
+                        sessionId: 'BBBBBB',
+                        publicKey: 'BBBBBB',
+                        login: 'BBBBBB'
+                    },
+                    elemDefault
+                );
 
+                const expected = Object.assign(
+                    {
+                        requestTime: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .update(expected)
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'PUT' });
-                req.flush({ id: 123 });
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should return a PairingRequest', () => {
-                service.find(123).subscribe(received => {
-                    expect(received.body.id).toEqual(123);
-                });
-
+            it('should return a list of PairingRequest', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        name: 'BBBBBB',
+                        verificationCode: 'BBBBBB',
+                        requestTime: currentDate.format(DATE_TIME_FORMAT),
+                        accepted: true,
+                        sessionId: 'BBBBBB',
+                        publicKey: 'BBBBBB',
+                        login: 'BBBBBB'
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign(
+                    {
+                        requestTime: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .query(expected)
+                    .pipe(
+                        take(1),
+                        map(resp => resp.body)
+                    )
+                    .subscribe(body => expect(body).toContainEqual(expected));
                 const req = httpMock.expectOne({ method: 'GET' });
-                req.flush({ id: 123 });
+                req.flush(JSON.stringify([returnedFromService]));
+                httpMock.verify();
             });
 
-            it('should return a list of PairingRequest', () => {
-                service.query(null).subscribe(received => {
-                    expect(received.body[0].id).toEqual(123);
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush([new PairingRequest(123)]);
-            });
-
-            it('should delete a PairingRequest', () => {
-                service.delete(123).subscribe(received => {
-                    expect(received.url).toContain('/' + 123);
-                });
+            it('should delete a PairingRequest', async () => {
+                const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });
-                req.flush(null);
-            });
-
-            it('should propagate not found response', () => {
-                service.find(123).subscribe(null, (_error: any) => {
-                    expect(_error.status).toEqual(404);
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush('Invalid request parameters', {
-                    status: 404,
-                    statusText: 'Bad Request'
-                });
+                req.flush({ status: 200 });
             });
         });
 

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Agent } from 'app/shared/model/agent.model';
 import { AgentService } from './agent.service';
 import { AgentComponent } from './agent.component';
@@ -16,10 +16,13 @@ import { IAgent } from 'app/shared/model/agent.model';
 export class AgentResolve implements Resolve<IAgent> {
     constructor(private service: AgentService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAgent> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((agent: HttpResponse<Agent>) => agent.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Agent>) => response.ok),
+                map((agent: HttpResponse<Agent>) => agent.body)
+            );
         }
         return of(new Agent());
     }
@@ -27,7 +30,7 @@ export class AgentResolve implements Resolve<IAgent> {
 
 export const agentRoute: Routes = [
     {
-        path: 'agent',
+        path: '',
         component: AgentComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -36,7 +39,7 @@ export const agentRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'agent/:id/view',
+        path: ':id/view',
         component: AgentDetailComponent,
         resolve: {
             agent: AgentResolve
@@ -48,7 +51,7 @@ export const agentRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'agent/new',
+        path: 'new',
         component: AgentUpdateComponent,
         resolve: {
             agent: AgentResolve
@@ -60,7 +63,7 @@ export const agentRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'agent/:id/edit',
+        path: ':id/edit',
         component: AgentUpdateComponent,
         resolve: {
             agent: AgentResolve
@@ -75,7 +78,7 @@ export const agentRoute: Routes = [
 
 export const agentPopupRoute: Routes = [
     {
-        path: 'agent/:id/delete',
+        path: ':id/delete',
         component: AgentDeletePopupComponent,
         resolve: {
             agent: AgentResolve
