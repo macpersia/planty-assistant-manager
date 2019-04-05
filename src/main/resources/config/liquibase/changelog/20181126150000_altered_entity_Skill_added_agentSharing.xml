@@ -18,10 +18,6 @@
         Altered the entity Skill, added field agentSharing
     -->
     <changeSet id="20181126150000" author="macpersia">
-        <addColumn tableName="skill">
-            <column name="agent_sharing" type="bit">
-                <constraints nullable="true" />
-            </column>
-        </addColumn>
+        <modifyDataType tableName="skill" columnName="agent_sharing" newDataType="bit" />
     </changeSet>
 </databaseChangeLog>

@@ -321,10 +321,12 @@
             <scope>runtime</scope>
         </dependency>
         <!-- Spring Cloud -->
+<!-- Commented by Hadi
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>

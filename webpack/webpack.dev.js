@@ -28,7 +28,9 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
                 '/h2-console',
                 '/auth'
             ],
-            target: `http${options.tls ? 's' : ''}://127.0.0.1:8080`,
+            // Changed by Hadi
+            //target: `http${options.tls ? 's' : ''}://127.0.0.1:8080`,
+            target: `http${options.tls ? 's' : ''}://127.0.0.1:38080`,
             secure: false,
             changeOrigin: options.tls,
             headers: { host: 'localhost:9000' }
@@ -36,7 +38,9 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
             context: [
                 '/websocket'
             ],
-            target: 'ws://127.0.0.1:8080',
+            // Changed by Hadi
+            //target: 'ws://127.0.0.1:8080',
+            target: 'ws://127.0.0.1:38080',
             ws: true
         }],
         stats: options.stats,
