@@ -48,13 +48,15 @@ Logo styles
         padding: 5px 15px;
         .logo-img {
             height: 45px;
-	    # Changed after jhipster upgrade (5.0.2 -> 5.8.2)
-            #width: 70px;
-    	    width: 45px;
+            // Changed after jhipster upgrade (5.0.2 -> 5.8.2)
+            //width: 70px;
+            width: 45px;
             display: inline-block;
             vertical-align: middle;
             // Changed by Hadi
-            // background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+            //background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
             background: url('../../../content/images/logo-planty.png') no-repeat center center;
             background-size: contain;
+        }
+    }
 }
