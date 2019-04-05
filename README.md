@@ -147,7 +147,7 @@ To stop it and remove the container, run:
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
 
-    # Changed after the upgrade (5.0.2 -> 5.8.2)
+    # Changed after jhipster upgrade (5.0.2 -> 5.8.2)
     #./mvnw verify -Pprod dockerfile:build dockerfile:tag@version dockerfile:tag@commit
     ./mvnw package -Pprod verify jib:dockerBuild
 
