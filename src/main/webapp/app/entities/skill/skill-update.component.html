@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="pam-skill-heading" jhiTranslate="plantyAssistantManagerApp.skill.home.createOrEditLabel">Create or edit a Skill</h2>
+            <div>
+                <pam-alert-error></pam-alert-error>
+                <div class="form-group" [hidden]="!skill.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="skill.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.skill.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="skill.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="plantyAssistantManagerApp.skill.agentSharing" for="field_agentSharing">Agent Sharing</label>
+                    <input type="checkbox" class="form-control" name="agentSharing" id="field_agentSharing"
+                        [(ngModel)]="skill.agentSharing" />
+                </div>
+
+                <div class="form-group">
+                    <label jhiTranslate="plantyAssistantManagerApp.skill.users" for="field_users">Users</label>
+                    <select class="form-control" id="field_users" multiple name="users" [(ngModel)]="skill.users">
+                        <option [ngValue]="getSelected(skill.users, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

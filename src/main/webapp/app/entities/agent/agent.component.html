@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="plantyAssistantManagerApp.agent.home.title">Agents</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-agent" [routerLink]="['/agent/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="plantyAssistantManagerApp.agent.home.createLabel">
+            Create new Agent
+            </span>
+        </button>
+    </h2>
+    <pam-alert></pam-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="agents">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.name">Name</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.publicKey">Public Key</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.sessionId">Session Id</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.agent.user">User</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let agent of agents ;trackBy: trackId">
+                <td><a [routerLink]="['/agent', agent.id, 'view' ]">{{agent.id}}</a></td>
+                <td>{{agent.name}}</td>
+                <td>{{agent.publicKey}}</td>
+                <td>{{agent.sessionId}}</td>
+                <td>
+                    {{agent.userLogin}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/agent', agent.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/agent', agent.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'agent/'+ agent.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="plantyAssistantManagerApp.skill.home.title">Skills</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-skill" [routerLink]="['/skill/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="plantyAssistantManagerApp.skill.home.createLabel">
+            Create new Skill
+            </span>
+        </button>
+    </h2>
+    <pam-alert></pam-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="skills">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.skill.name">Name</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span></th>
+            <th><span jhiTranslate="plantyAssistantManagerApp.skill.users">Users</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let skill of skills ;trackBy: trackId">
+                <td><a [routerLink]="['/skill', skill.id, 'view' ]">{{skill.id}}</a></td>
+                <td>{{skill.name}}</td>
+                <td>{{skill.agentSharing}}</td>
+                <td>
+                    <span *ngFor="let users of skill.users; let last = last">
+                            {{users.login}}{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/skill', skill.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/skill', skill.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'skill/'+ skill.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

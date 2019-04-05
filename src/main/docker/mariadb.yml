@@ -1,0 +1,13 @@
+version: '2'
+services:
+    planty-assistant-manager-mariadb:
+        image: mariadb:10.3.7
+        # volumes:
+        #     - ~/volumes/jhipster/planty-assistant-manager/mysql/:/var/lib/mysql/
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+            - MYSQL_DATABASE=planty-assistant-manager
+        ports:
+            - 3306:3306
+        command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
