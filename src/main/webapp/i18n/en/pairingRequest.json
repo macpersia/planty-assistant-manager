@@ -1,7 +1,6 @@
-
 {
     "plantyAssistantManagerApp": {
-        "pairingRequest" : {
+        "pairingRequest": {
             "home": {
                 "title": "Pairing Requests",
                 "createLabel": "Create a new Pairing Request",

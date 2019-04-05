@@ -5,20 +5,25 @@ import be.planty.managers.assistant.config.DefaultProfileUtil;
 
 import io.github.jhipster.config.JHipsterConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
-import java.util.*;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableDiscoveryClient
 public class PlantyAssistantManagerApp {
 
     private static final Logger log = LoggerFactory.getLogger(PlantyAssistantManagerApp.class);
@@ -32,7 +37,7 @@ public class PlantyAssistantManagerApp {
     /**
      * Initializes planty-assistant-manager.
      * <p>
-     * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
+     * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>
      * You can find more information on how profiles work with JHipster on <a href="https://www.jhipster.tech/profiles/">https://www.jhipster.tech/profiles/</a>.
      */
@@ -58,27 +63,38 @@ public class PlantyAssistantManagerApp {
         SpringApplication app = new SpringApplication(PlantyAssistantManagerApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
+        logApplicationStartup(env);
+    }
+
+    private static void logApplicationStartup(Environment env) {
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
             protocol = "https";
         }
+        String serverPort = env.getProperty("server.port");
+        String contextPath = env.getProperty("server.servlet.context-path");
+        if (StringUtils.isBlank(contextPath)) {
+            contextPath = "/";
+        }
         String hostAddress = "localhost";
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception e) {
+        } catch (UnknownHostException e) {
             log.warn("The host name could not be determined, using `localhost` as fallback");
         }
         log.info("\n----------------------------------------------------------\n\t" +
                 "Application '{}' is running! Access URLs:\n\t" +
-                "Local: \t\t{}://localhost:{}\n\t" +
-                "External: \t{}://{}:{}\n\t" +
+                "Local: \t\t{}://localhost:{}{}\n\t" +
+                "External: \t{}://{}:{}{}\n\t" +
                 "Profile(s): \t{}\n----------------------------------------------------------",
             env.getProperty("spring.application.name"),
             protocol,
-            env.getProperty("server.port"),
+            serverPort,
+            contextPath,
             protocol,
             hostAddress,
-            env.getProperty("server.port"),
+            serverPort,
+            contextPath,
             env.getActiveProfiles());
 //
 //        System.out.println("---- ENV...");

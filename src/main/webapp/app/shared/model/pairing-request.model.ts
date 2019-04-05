@@ -22,6 +22,6 @@ export class PairingRequest implements IPairingRequest {
         public publicKey?: string,
         public login?: string
     ) {
-        this.accepted = false;
+        this.accepted = this.accepted || false;
     }
 }

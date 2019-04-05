@@ -10,7 +10,7 @@ import { IPairingRequest } from 'app/shared/model/pairing-request.model';
 export class PairingRequestDetailComponent implements OnInit {
     pairingRequest: IPairingRequest;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ pairingRequest }) => {

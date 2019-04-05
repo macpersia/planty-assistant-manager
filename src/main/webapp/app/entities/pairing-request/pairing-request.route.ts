@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { PairingRequest } from 'app/shared/model/pairing-request.model';
 import { PairingRequestService } from './pairing-request.service';
 import { PairingRequestComponent } from './pairing-request.component';
@@ -16,10 +16,13 @@ import { IPairingRequest } from 'app/shared/model/pairing-request.model';
 export class PairingRequestResolve implements Resolve<IPairingRequest> {
     constructor(private service: PairingRequestService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPairingRequest> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((pairingRequest: HttpResponse<PairingRequest>) => pairingRequest.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<PairingRequest>) => response.ok),
+                map((pairingRequest: HttpResponse<PairingRequest>) => pairingRequest.body)
+            );
         }
         return of(new PairingRequest());
     }
@@ -27,7 +30,7 @@ export class PairingRequestResolve implements Resolve<IPairingRequest> {
 
 export const pairingRequestRoute: Routes = [
     {
-        path: 'pairing-request',
+        path: '',
         component: PairingRequestComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -36,7 +39,7 @@ export const pairingRequestRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'pairing-request/:id/view',
+        path: ':id/view',
         component: PairingRequestDetailComponent,
         resolve: {
             pairingRequest: PairingRequestResolve
@@ -48,7 +51,7 @@ export const pairingRequestRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'pairing-request/new',
+        path: 'new',
         component: PairingRequestUpdateComponent,
         resolve: {
             pairingRequest: PairingRequestResolve
@@ -60,7 +63,7 @@ export const pairingRequestRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'pairing-request/:id/edit',
+        path: ':id/edit',
         component: PairingRequestUpdateComponent,
         resolve: {
             pairingRequest: PairingRequestResolve
@@ -75,7 +78,7 @@ export const pairingRequestRoute: Routes = [
 
 export const pairingRequestPopupRoute: Routes = [
     {
-        path: 'pairing-request/:id/delete',
+        path: ':id/delete',
         component: PairingRequestDeletePopupComponent,
         resolve: {
             pairingRequest: PairingRequestResolve

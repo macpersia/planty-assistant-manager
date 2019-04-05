@@ -11,9 +11,9 @@ type EntityArrayResponseType = HttpResponse<ISkill[]>;
 
 @Injectable({ providedIn: 'root' })
 export class SkillService {
-    private resourceUrl = SERVER_API_URL + 'api/skills';
+    public resourceUrl = SERVER_API_URL + 'api/skills';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(skill: ISkill): Observable<EntityResponseType> {
         return this.http.post<ISkill>(this.resourceUrl, skill, { observe: 'response' });

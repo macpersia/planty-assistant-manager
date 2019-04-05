@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -71,10 +72,8 @@ public class PairingRequestResourceIntTest {
     @Autowired
     private PairingRequestRepository pairingRequestRepository;
 
-
     @Autowired
     private PairingRequestMapper pairingRequestMapper;
-    
 
     @Autowired
     private PairingRequestService pairingRequestService;
@@ -91,6 +90,9 @@ public class PairingRequestResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restPairingRequestMockMvc;
 
     private PairingRequest pairingRequest;
@@ -103,7 +105,8 @@ public class PairingRequestResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -194,7 +197,6 @@ public class PairingRequestResourceIntTest {
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN.toString())));
     }
     
-
     @Test
     @Transactional
     public void getPairingRequest() throws Exception {
@@ -214,6 +216,7 @@ public class PairingRequestResourceIntTest {
             .andExpect(jsonPath("$.publicKey").value(DEFAULT_PUBLIC_KEY.toString()))
             .andExpect(jsonPath("$.login").value(DEFAULT_LOGIN.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingPairingRequest() throws Exception {
@@ -270,7 +273,7 @@ public class PairingRequestResourceIntTest {
         // Create the PairingRequest
         PairingRequestDTO pairingRequestDTO = pairingRequestMapper.toDto(pairingRequest);
 
-        // If the entity doesn't have an ID, it will be created instead of just being updated
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPairingRequestMockMvc.perform(put("/api/pairing-requests")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(pairingRequestDTO)))
@@ -289,7 +292,7 @@ public class PairingRequestResourceIntTest {
 
         int databaseSizeBeforeDelete = pairingRequestRepository.findAll().size();
 
-        // Get the pairingRequest
+        // Delete the pairingRequest
         restPairingRequestMockMvc.perform(delete("/api/pairing-requests/{id}", pairingRequest.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

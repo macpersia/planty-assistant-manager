@@ -17,4 +17,10 @@ import {
     exports: [PlantyAssistantManagerSharedCommonModule, PamLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PlantyAssistantManagerSharedModule {}
+export class PlantyAssistantManagerSharedModule {
+    static forRoot() {
+        return {
+            ngModule: PlantyAssistantManagerSharedModule
+        };
+    }
+}

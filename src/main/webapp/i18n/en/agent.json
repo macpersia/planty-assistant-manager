@@ -1,7 +1,6 @@
-
 {
     "plantyAssistantManagerApp": {
-        "agent" : {
+        "agent": {
             "home": {
                 "title": "Agents",
                 "createLabel": "Create a new Agent",

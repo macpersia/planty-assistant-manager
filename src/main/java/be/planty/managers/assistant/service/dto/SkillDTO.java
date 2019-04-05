@@ -1,5 +1,4 @@
 package be.planty.managers.assistant.service.dto;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,7 @@ public class SkillDTO implements Serializable {
     private String name;
 
     private Boolean agentSharing;
+
 
     private Set<UserDTO> users = new HashSet<>();
 

@@ -1,5 +1,4 @@
 package be.planty.managers.assistant.service.dto;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,6 +14,7 @@ public class AgentDTO implements Serializable {
     private String publicKey;
 
     private String sessionId;
+
 
     private Long userId;
 

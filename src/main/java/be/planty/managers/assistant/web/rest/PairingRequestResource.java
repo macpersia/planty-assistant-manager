@@ -1,6 +1,4 @@
 package be.planty.managers.assistant.web.rest;
-
-import com.codahale.metrics.annotation.Timed;
 import be.planty.managers.assistant.service.PairingRequestService;
 import be.planty.managers.assistant.web.rest.errors.BadRequestAlertException;
 import be.planty.managers.assistant.web.rest.util.HeaderUtil;
@@ -42,7 +40,6 @@ public class PairingRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/pairing-requests")
-    @Timed
     public ResponseEntity<PairingRequestDTO> createPairingRequest(@RequestBody PairingRequestDTO pairingRequestDTO) throws URISyntaxException {
         log.debug("REST request to save PairingRequest : {}", pairingRequestDTO);
         if (pairingRequestDTO.getId() != null) {
@@ -64,7 +61,6 @@ public class PairingRequestResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/pairing-requests")
-    @Timed
     public ResponseEntity<PairingRequestDTO> updatePairingRequest(@RequestBody PairingRequestDTO pairingRequestDTO) throws URISyntaxException {
         log.debug("REST request to update PairingRequest : {}", pairingRequestDTO);
         if (pairingRequestDTO.getId() == null) {
@@ -82,7 +78,6 @@ public class PairingRequestResource {
      * @return the ResponseEntity with status 200 (OK) and the list of pairingRequests in body
      */
     @GetMapping("/pairing-requests")
-    @Timed
     public List<PairingRequestDTO> getAllPairingRequests() {
         log.debug("REST request to get all PairingRequests");
         return pairingRequestService.findAll();
@@ -95,7 +90,6 @@ public class PairingRequestResource {
      * @return the ResponseEntity with status 200 (OK) and with body the pairingRequestDTO, or with status 404 (Not Found)
      */
     @GetMapping("/pairing-requests/{id}")
-    @Timed
     public ResponseEntity<PairingRequestDTO> getPairingRequest(@PathVariable Long id) {
         log.debug("REST request to get PairingRequest : {}", id);
         Optional<PairingRequestDTO> pairingRequestDTO = pairingRequestService.findOne(id);
@@ -109,7 +103,6 @@ public class PairingRequestResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/pairing-requests/{id}")
-    @Timed
     public ResponseEntity<Void> deletePairingRequest(@PathVariable Long id) {
         log.debug("REST request to delete PairingRequest : {}", id);
         pairingRequestService.delete(id);

@@ -1,8 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from 'app/core';
 
 import { PlantyAssistantManagerSharedModule } from 'app/shared';
-import { PlantyAssistantManagerAdminModule } from 'app/admin/admin.module';
 import {
     AgentComponent,
     AgentDetailComponent,
@@ -16,9 +17,18 @@ import {
 const ENTITY_STATES = [...agentRoute, ...agentPopupRoute];
 
 @NgModule({
-    imports: [PlantyAssistantManagerSharedModule, PlantyAssistantManagerAdminModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [AgentComponent, AgentDetailComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
     entryComponents: [AgentComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PlantyAssistantManagerAgentModule {}
+export class PlantyAssistantManagerAgentModule {
+    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+        this.languageHelper.language.subscribe((languageKey: string) => {
+            if (languageKey !== undefined) {
+                this.languageService.changeLanguage(languageKey);
+            }
+        });
+    }
+}

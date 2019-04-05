@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IAgent } from 'app/shared/model/agent.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { AgentService } from './agent.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class AgentComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private agentService: AgentService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected agentService: AgentService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.agentService.query().subscribe(
-            (res: HttpResponse<IAgent[]>) => {
-                this.agents = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.agentService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IAgent[]>) => res.ok),
+                map((res: HttpResponse<IAgent[]>) => res.body)
+            )
+            .subscribe(
+                (res: IAgent[]) => {
+                    this.agents = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInAgents();
@@ -52,7 +59,7 @@ export class AgentComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('agentListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

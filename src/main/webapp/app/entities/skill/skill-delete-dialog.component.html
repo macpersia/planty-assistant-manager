@@ -6,13 +6,13 @@
     </div>
     <div class="modal-body">
         <pam-alert-error></pam-alert-error>
-        <p jhiTranslate="plantyAssistantManagerApp.skill.delete.question" translateValues="{id: '{{skill.id}}'}">Are you sure you want to delete this Skill?</p>
+        <p id="pam-delete-skill-heading" jhiTranslate="plantyAssistantManagerApp.skill.delete.question" [translateValues]="{id: skill.id}">Are you sure you want to delete this Skill?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" class="btn btn-danger">
+        <button id="pam-confirm-delete-skill" type="submit" class="btn btn-danger">
             <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
         </button>
     </div>
