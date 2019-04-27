@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Added by Hadi
-if [ -z "$JWT_SECRET_KEY" ]; then JWT_SECRET_KEY=$(echo $(uuidgen)$(uuidgen)$(uuidgen)$(uuidgen) | sed 's/-//g') ; fi
+if [ -z "$JWT_SECRET_KEY" ]; then JWT_SECRET_KEY=$(openssl rand -base64 64 | tr '\n' -d) ; fi
 JAVA_OPTS="${JAVA_OPTS} -Djhipster.security.authentication.jwt.secret=${JWT_SECRET_KEY}"
 #echo "The secret JWT key is ${JWT_SECRET_KEY:?absent}."
 
