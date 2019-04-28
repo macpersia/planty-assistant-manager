@@ -433,8 +433,8 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-            </plugin>
-            <!-- Added by Hadi -->
+	    </plugin>
+            <!-- Added by Hadi 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -448,7 +448,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Added by Hadi -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -461,7 +460,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+	    </plugin>
+            -->
             <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
@@ -537,7 +537,7 @@
                       <to>
                           <image>planty-assistant-manager:latest</image>
                       </to>
-                      <container>
+		      <container>
                           <entrypoint>
                               <shell>sh</shell>
                               <option>-c</option>
