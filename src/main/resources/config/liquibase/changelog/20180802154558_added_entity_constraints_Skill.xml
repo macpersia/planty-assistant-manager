@@ -13,9 +13,9 @@
                                  constraintName="fk_skill_users_skill_id"
                                  referencedColumnNames="id"
                                  referencedTableName="skill"/>
-        <addForeignKeyConstraint baseColumnNames="users_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="skill_users"
-                                 constraintName="fk_skill_users_users_id"
+                                 constraintName="fk_skill_users_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="pam_user"/>
         

@@ -26,16 +26,11 @@
                 <constraints nullable="true" />
             </column>
 
-	   <!-- Changed after jhipster upgrade (5.0.2 -> 5.8.2) -->
-            <column name="agent_sharing" type="boolean">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
         <createTable tableName="skill_users">
-            <column name="users_id" type="bigint">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="skill_id" type="bigint">
@@ -43,7 +38,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="skill_id, users_id" tableName="skill_users"/>
+        <addPrimaryKey columnNames="skill_id, user_id" tableName="skill_users"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

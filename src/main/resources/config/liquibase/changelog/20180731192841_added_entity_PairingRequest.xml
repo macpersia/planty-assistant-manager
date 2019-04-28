@@ -34,7 +34,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="accepted" type="boolean">
+            <column name="accepted" type="bit">
                 <constraints nullable="true" />
             </column>
 

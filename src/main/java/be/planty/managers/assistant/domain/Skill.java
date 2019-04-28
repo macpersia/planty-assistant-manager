@@ -35,7 +35,7 @@ public class Skill implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "skill_users",
                joinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"))
+               inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
