@@ -18,15 +18,15 @@ export class TrackerService {
   private stompSubscription: StompSubscription | null = null;
   private listenerSubject: Subject<TrackerActivity> = new Subject();
 
-  constructor(private router: Router, private authServerProvider: AuthServerProvider, private location: Location) {}
+  constructor(
+    private router: Router, 
+    private authServerProvider: AuthServerProvider, 
+    private location: Location
+  ) {}
 
   connect(): void {
     if (this.stompClient?.connected) {
       return;
-    }
-
-    if (this.connectedPromise === null) {
-        this.connection = this.createConnection();
     }
 
     // building absolute path so that websocket doesn't fail when deploying with a context path
@@ -35,7 +35,6 @@ export class TrackerService {
     const authToken = this.authServerProvider.getToken();
     if (authToken) {
       url += '?access_token=' + authToken;
-
     }
     const socket: WebSocket = new SockJS(url);
     this.stompClient = Stomp.over(socket, { protocols: ['v12.stomp'] });
