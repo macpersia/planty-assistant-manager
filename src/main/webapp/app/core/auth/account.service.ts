@@ -1,124 +1,99 @@
 import { Injectable } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, of } from 'rxjs';
+import { shareReplay, tap, catchError } from 'rxjs/operators';
 
-import { SERVER_API_URL } from 'app/app.constants';
-import { Account } from 'app/core/user/account.model';
-import { PamTrackerService } from '../tracker/tracker.service';
+import { StateStorageService } from 'app/core/auth/state-storage.service';
+import { ApplicationConfigService } from '../config/application-config.service';
+import { Account } from 'app/core/auth/account.model';
+import { TrackerService } from '../tracker/tracker.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    private userIdentity: any;
-    private authenticated = false;
-    private authenticationState = new Subject<any>();
+  private userIdentity: Account | null = null;
+  private authenticationState = new ReplaySubject<Account | null>(1);
+  private accountCache$?: Observable<Account> | null;
 
-    constructor(
-        private languageService: JhiLanguageService,
-        private sessionStorage: SessionStorageService,
-        private http: HttpClient,
-        private trackerService: PamTrackerService
-    ) {}
+  constructor(
+    private translateService: TranslateService,
+    private sessionStorageService: SessionStorageService,
+    private http: HttpClient,
+    private trackerService: TrackerService,
+    private stateStorageService: StateStorageService,
+    private router: Router,
+    private applicationConfigService: ApplicationConfigService
+  ) {}
 
-    fetch(): Observable<HttpResponse<Account>> {
-        return this.http.get<Account>(SERVER_API_URL + 'api/account', { observe: 'response' });
+  save(account: Account): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
+  }
+
+  authenticate(identity: Account | null): void {
+    this.userIdentity = identity;
+    this.authenticationState.next(this.userIdentity);
+    if (!identity) {
+      this.accountCache$ = null;
     }
-
-    save(account: any): Observable<HttpResponse<any>> {
-        return this.http.post(SERVER_API_URL + 'api/account', account, { observe: 'response' });
+    if (identity) {
+      this.trackerService.connect();
+    } else {
+      this.trackerService.disconnect();
     }
+  }
 
-    authenticate(identity) {
-        this.userIdentity = identity;
-        this.authenticated = identity !== null;
-        this.authenticationState.next(this.userIdentity);
+  hasAnyAuthority(authorities: string[] | string): boolean {
+    if (!this.userIdentity) {
+      return false;
     }
-
-    hasAnyAuthority(authorities: string[]): boolean {
-        if (!this.authenticated || !this.userIdentity || !this.userIdentity.authorities) {
-            return false;
-        }
-
-        for (let i = 0; i < authorities.length; i++) {
-            if (this.userIdentity.authorities.includes(authorities[i])) {
-                return true;
-            }
-        }
-
-        return false;
+    if (!Array.isArray(authorities)) {
+      authorities = [authorities];
     }
+    return this.userIdentity.authorities.some((authority: string) => authorities.includes(authority));
+  }
 
-    hasAuthority(authority: string): Promise<boolean> {
-        if (!this.authenticated) {
-            return Promise.resolve(false);
-        }
+  identity(force?: boolean): Observable<Account | null> {
+    if (!this.accountCache$ || force) {
+      this.accountCache$ = this.fetch().pipe(
+        tap((account: Account) => {
+          this.authenticate(account);
 
-        return this.identity().then(
-            id => {
-                return Promise.resolve(id.authorities && id.authorities.includes(authority));
-            },
-            () => {
-                return Promise.resolve(false);
-            }
-        );
+          // After retrieve the account info, the language will be changed to
+          // the user's preferred language configured in the account setting
+          // unless user have choosed other language in the current session
+          if (!this.sessionStorageService.retrieve('locale')) {
+            this.translateService.use(account.langKey);
+          }
+
+          this.navigateToStoredUrl();
+        }),
+        shareReplay()
+      );
     }
+    return this.accountCache$.pipe(catchError(() => of(null)));
+  }
 
-    identity(force?: boolean): Promise<any> {
-        if (force) {
-            this.userIdentity = undefined;
-        }
+  isAuthenticated(): boolean {
+    return this.userIdentity !== null;
+  }
 
-        // check and see if we have retrieved the userIdentity data from the server.
-        // if we have, reuse it by immediately resolving
-        if (this.userIdentity) {
-            return Promise.resolve(this.userIdentity);
-        }
+  getAuthenticationState(): Observable<Account | null> {
+    return this.authenticationState.asObservable();
+  }
 
-        // retrieve the userIdentity data from the server, update the identity object, and then resolve.
-        return this.fetch()
-            .toPromise()
-            .then(response => {
-                const account = response.body;
-                if (account) {
-                    this.userIdentity = account;
-                    this.authenticated = true;
-                    this.trackerService.connect();
-                    // After retrieve the account info, the language will be changed to
-                    // the user's preferred language configured in the account setting
-                    const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
-                    this.languageService.changeLanguage(langKey);
-                } else {
-                    this.userIdentity = null;
-                    this.authenticated = false;
-                }
-                this.authenticationState.next(this.userIdentity);
-                return this.userIdentity;
-            })
-            .catch(err => {
-                if (this.trackerService.stompClient && this.trackerService.stompClient.connected) {
-                    this.trackerService.disconnect();
-                }
-                this.userIdentity = null;
-                this.authenticated = false;
-                this.authenticationState.next(this.userIdentity);
-                return null;
-            });
+  private fetch(): Observable<Account> {
+    return this.http.get<Account>(this.applicationConfigService.getEndpointFor('api/account'));
+  }
+
+  private navigateToStoredUrl(): void {
+    // previousState can be set in the authExpiredInterceptor and in the userRouteAccessService
+    // if login is successful, go to stored previousState and clear previousState
+    const previousUrl = this.stateStorageService.getUrl();
+    if (previousUrl) {
+      this.stateStorageService.clearUrl();
+      this.router.navigateByUrl(previousUrl);
     }
-
-    isAuthenticated(): boolean {
-        return this.authenticated;
-    }
-
-    isIdentityResolved(): boolean {
-        return this.userIdentity !== undefined;
-    }
-
-    getAuthenticationState(): Observable<any> {
-        return this.authenticationState.asObservable();
-    }
-
-    getImageUrl(): string {
-        return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
-    }
+  }
 }

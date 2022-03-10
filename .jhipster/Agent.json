@@ -1,35 +1,36 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipName": "user",
-            "otherEntityName": "user",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "login",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "agent"
-        }
-    ],
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "publicKey",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "sessionId",
-            "fieldType": "String"
-        }
-    ],
-    "changelogDate": "20180731192538",
-    "dto": "mapstruct",
-    "searchEngine": false,
-    "service": "serviceClass",
-    "entityTableName": "agent",
-    "jpaMetamodelFiltering": false,
-    "pagination": "no"
+  "changelogDate": "20180731192538",
+  "clientRootFolder": "",
+  "dto": "mapstruct",
+  "entityTableName": "agent",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publicKey",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sessionId",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Agent",
+  "pagination": "no",
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "agent",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
 }

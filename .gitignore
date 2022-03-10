@@ -9,7 +9,7 @@ env.ps1
 # Project Specific
 ######################
 /src/main/webapp/content/css/main.css
-/target/www/**
+/target/classes/static/**
 /src/test/javascript/coverage/
 
 ######################
@@ -58,8 +58,11 @@ local.properties
 # PDT-specific
 .buildpath
 
+# STS-specific
+/.sts4-cache/*
+
 ######################
-# Intellij
+# IntelliJ
 ######################
 .idea/
 *.iml
@@ -73,7 +76,12 @@ out/
 ######################
 # Visual Studio Code
 ######################
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 ######################
 # Maven
@@ -151,7 +159,12 @@ Desktop.ini
 ######################
 .eslintcache
 
+######################
+# Code coverage
+######################
+/coverage/
+/.nyc_output/
+
 # db dumps
 db-dumps/mongodb-all-collections.*
 db-dumps/mariadb-all-tables.*
-

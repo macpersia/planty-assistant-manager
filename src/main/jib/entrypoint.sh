@@ -8,4 +8,4 @@ JAVA_OPTS="${JAVA_OPTS} -Djhipster.security.authentication.jwt.secret=${JWT_SECR
 
 echo "The application will start in ${JHIPSTER_SLEEP}s..." && sleep ${JHIPSTER_SLEEP}
 #exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar "${HOME}/app.war" "$@"
-exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -cp /app/resources/:/app/classes/:/app/libs/* "be.planty.managers.assistant.PlantyAssistantManagerApp"  "$@"
+exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -cp /app/resources/:/app/classes/:/app/libs/* "be.planty.assistant.PlantyAssistantManagerApp"  "$@"

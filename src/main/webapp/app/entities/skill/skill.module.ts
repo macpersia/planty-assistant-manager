@@ -1,34 +1,14 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
-
-import { PlantyAssistantManagerSharedModule } from 'app/shared';
-import {
-    SkillComponent,
-    SkillDetailComponent,
-    SkillUpdateComponent,
-    SkillDeletePopupComponent,
-    SkillDeleteDialogComponent,
-    skillRoute,
-    skillPopupRoute
-} from './';
-
-const ENTITY_STATES = [...skillRoute, ...skillPopupRoute];
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'app/shared/shared.module';
+import { SkillComponent } from './list/skill.component';
+import { SkillDetailComponent } from './detail/skill-detail.component';
+import { SkillUpdateComponent } from './update/skill-update.component';
+import { SkillDeleteDialogComponent } from './delete/skill-delete-dialog.component';
+import { SkillRoutingModule } from './route/skill-routing.module';
 
 @NgModule({
-    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [SkillComponent, SkillDetailComponent, SkillUpdateComponent, SkillDeleteDialogComponent, SkillDeletePopupComponent],
-    entryComponents: [SkillComponent, SkillUpdateComponent, SkillDeleteDialogComponent, SkillDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [SharedModule, SkillRoutingModule],
+  declarations: [SkillComponent, SkillDetailComponent, SkillUpdateComponent, SkillDeleteDialogComponent],
+  entryComponents: [SkillDeleteDialogComponent],
 })
-export class PlantyAssistantManagerSkillModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class SkillModule {}

@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
 
-import { PamHealthCheckComponent } from './health.component';
+import { HealthComponent } from './health.component';
 
 export const healthRoute: Route = {
-    path: 'pam-health',
-    component: PamHealthCheckComponent,
-    data: {
-        pageTitle: 'health.title'
-    }
+  path: '',
+  component: HealthComponent,
+  data: {
+    pageTitle: 'health.title',
+  },
 };

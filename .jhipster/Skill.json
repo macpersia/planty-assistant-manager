@@ -1,31 +1,32 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipName": "users",
-            "otherEntityName": "user",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "login",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "skill"
-        }
-    ],
-    "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "agentSharing",
-            "fieldType": "Boolean"
-        }
-    ],
-    "changelogDate": "20180802154558",
-    "dto": "mapstruct",
-    "searchEngine": false,
-    "service": "serviceClass",
-    "entityTableName": "skill",
-    "jpaMetamodelFiltering": false,
-    "pagination": "no"
+  "changelogDate": "20180802154558",
+  "clientRootFolder": "",
+  "dto": "mapstruct",
+  "entityTableName": "skill",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentSharing",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Skill",
+  "pagination": "no",
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "skill",
+      "ownerSide": true,
+      "relationshipName": "users",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
 }

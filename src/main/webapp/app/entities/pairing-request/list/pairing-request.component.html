@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="PairingRequestHeading">
+    <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.title">Pairing Requests</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-pairing-request"
+        [routerLink]="['/pairing-request/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.createLabel"> Create a new Pairing Request </span>
+      </button>
+    </div>
+  </h2>
+
+  <pam-alert-error></pam-alert-error>
+
+  <pam-alert></pam-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pairingRequests?.length === 0">
+    <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.notFound">No pairingRequests found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="pairingRequests && pairingRequests.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span pamTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.name">Name</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.verificationCode">Verification Code</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.requestTime">Request Time</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.accepted">Accepted</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.sessionId">Session Id</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.publicKey">Public Key</span></th>
+          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.login">Login</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pairingRequest of pairingRequests; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/pairing-request', pairingRequest.id, 'view']">{{ pairingRequest.id }}</a>
+          </td>
+          <td>{{ pairingRequest.name }}</td>
+          <td>{{ pairingRequest.verificationCode }}</td>
+          <td>{{ pairingRequest.requestTime | formatMediumDatetime }}</td>
+          <td>{{ pairingRequest.accepted }}</td>
+          <td>{{ pairingRequest.sessionId }}</td>
+          <td>{{ pairingRequest.publicKey }}</td>
+          <td>{{ pairingRequest.login }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/pairing-request', pairingRequest.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" pamTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/pairing-request', pairingRequest.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" pamTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(pairingRequest)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" pamTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

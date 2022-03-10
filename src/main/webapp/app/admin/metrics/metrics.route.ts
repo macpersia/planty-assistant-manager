@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
 
-import { PamMetricsMonitoringComponent } from './metrics.component';
+import { MetricsComponent } from './metrics.component';
 
 export const metricsRoute: Route = {
-    path: 'pam-metrics',
-    component: PamMetricsMonitoringComponent,
-    data: {
-        pageTitle: 'metrics.title'
-    }
+  path: '',
+  component: MetricsComponent,
+  data: {
+    pageTitle: 'metrics.title',
+  },
 };

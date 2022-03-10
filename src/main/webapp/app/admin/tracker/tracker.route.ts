@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
 
-import { PamTrackerComponent } from './tracker.component';
+import { TrackerComponent } from './tracker.component';
 
 export const trackerRoute: Route = {
-    path: 'pam-tracker',
-    component: PamTrackerComponent,
-    data: {
-        pageTitle: 'tracker.title'
-    }
+  path: '',
+  component: TrackerComponent,
+  data: {
+    pageTitle: 'tracker.title',
+  },
 };

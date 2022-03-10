@@ -1,4 +1,7 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { AccountService } from 'app/core/auth/account.service';
 
 /**
@@ -7,36 +10,44 @@ import { AccountService } from 'app/core/auth/account.service';
  *
  * @howToUse
  * ```
- *     <some-element *jhiHasAnyAuthority="'ROLE_ADMIN'">...</some-element>
+ *     <some-element *pamHasAnyAuthority="'ROLE_ADMIN'">...</some-element>
  *
- *     <some-element *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">...</some-element>
+ *     <some-element *pamHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">...</some-element>
  * ```
  */
 @Directive({
-    selector: '[pamHasAnyAuthority]'
+  selector: '[pamHasAnyAuthority]',
 })
-export class HasAnyAuthorityDirective {
-    private authorities: string[];
+export class HasAnyAuthorityDirective implements OnDestroy {
+  private authorities!: string | string[];
 
-    constructor(
-        private accountService: AccountService,
-        private templateRef: TemplateRef<any>,
-        private viewContainerRef: ViewContainerRef
-    ) {}
+  private readonly destroy$ = new Subject<void>();
 
-    @Input()
-    set pamHasAnyAuthority(value: string | string[]) {
-        this.authorities = typeof value === 'string' ? [value] : value;
+  constructor(private accountService: AccountService, private templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef) {}
+
+  @Input()
+  set pamHasAnyAuthority(value: string | string[]) {
+    this.authorities = value;
+    this.updateView();
+    // Get notified each time authentication state changes.
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
         this.updateView();
-        // Get notified each time authentication state changes.
-        this.accountService.getAuthenticationState().subscribe(identity => this.updateView());
-    }
+      });
+  }
 
-    private updateView(): void {
-        const hasAnyAuthority = this.accountService.hasAnyAuthority(this.authorities);
-        this.viewContainerRef.clear();
-        if (hasAnyAuthority) {
-            this.viewContainerRef.createEmbeddedView(this.templateRef);
-        }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private updateView(): void {
+    const hasAnyAuthority = this.accountService.hasAnyAuthority(this.authorities);
+    this.viewContainerRef.clear();
+    if (hasAnyAuthority) {
+      this.viewContainerRef.createEmbeddedView(this.templateRef);
     }
+  }
 }
