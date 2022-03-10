@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SkillRepository 
-									extends SkillRepositoryWithBagRelationships, JpaRepository<Skill, Long> {
+                extends SkillRepositoryWithBagRelationships, JpaRepository<Skill, Long> {
 
     default Optional<Skill> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findById(id));
