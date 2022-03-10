@@ -30,12 +30,6 @@ logging:
 #      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
 
 spring:
-    profiles:
-        active: dev
-        include:
-            - swagger
-            # Uncomment to activate TLS for the dev profile
-            #- tls
   devtools:
     restart:
       enabled: true
@@ -66,56 +60,58 @@ spring:
 #    console:
 #      # disable spring boot built-in h2-console since we start it manually with correct configuration
 #      enabled: false
-	datasource:
-		  type: com.zaxxer.hikari.HikariDataSource
-		  url: jdbc:mariadb://localhost:3306/planty-assistant-manager
-		  username: root
-		  password:
-		  hikari:
-		      data-source-properties:
-		          cachePrepStmts: true
-		          prepStmtCacheSize: 250
-		          prepStmtCacheSqlLimit: 2048
-		          useServerPrepStmts: true
-  jpa:
-# Changed by Hadi
-#      database-platform: tech.jhipster.domain.util.FixedH2Dialect
-#      database: H2
-#      show-sql: true
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      database: MYSQL
-      show-sql: false
-      properties:
-          hibernate.id.new_generator_mappings: true
-          hibernate.connection.provider_disables_autocommit: true
-          hibernate.cache.use_second_level_cache: true
-          hibernate.cache.use_query_cache: false
-          hibernate.generate_statistics: true
-          hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
-          hibernate.cache.hazelcast.instance_name: planty-assistant-manager
-          hibernate.cache.use_minimal_puts: true
-          hibernate.cache.hazelcast.use_lite_member: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mariadb://localhost:3306/planty-assistant-manager
+    username: root
+    password:
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:  
+    # Changed by Hadi
+    # database-platform: tech.jhipster.domain.util.FixedH2Dialect
+    # database: H2
+    # show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: false
+    
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: true
+      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+      hibernate.cache.hazelcast.instance_name: planty-assistant-manager
+      hibernate.cache.use_minimal_puts: true
+      hibernate.cache.hazelcast.use_lite_member: true
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-# Changed by Hadi
-#      host: localhost
-#      port: 25
-#      username:
-#      password:
-      host: email-smtp.us-east-1.amazonaws.com
-      port: 465
-      username: ${PLANTY_SMTP_USERNAME}
-      password: ${PLANTY_SMTP_PASSWORD}
-      protocol: smtps
-      debug: true
-      properties.mail.smtp:
-          starttls.enable: true
-          starttls.required: true
-          ssl.enable: true
-      properties.mail.smtps:
-          auth: true
+    # Changed by Hadi
+    # host: localhost
+    # port: 25
+    # username:
+    # password:
+    host: email-smtp.us-east-1.amazonaws.com
+    port: 465
+    username: ${PLANTY_SMTP_USERNAME}
+    password: ${PLANTY_SMTP_PASSWORD}
+    
+    protocol: smtps
+    debug: true
+    properties.mail.smtp:
+        starttls.enable: true
+        starttls.required: true
+        ssl.enable: true
+    properties.mail.smtps:
+        auth: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:

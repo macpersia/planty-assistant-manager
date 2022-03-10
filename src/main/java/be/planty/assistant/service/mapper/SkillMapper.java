@@ -12,6 +12,7 @@ public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {
     @Mapping(target = "users", source = "users", qualifiedByName = "loginSet")
     SkillDTO toDto(Skill s);
 
-    @Mapping(target = "removeUsers", ignore = true)
-    Skill toEntity(SkillDTO skillDTO);
+    // Commented by Hadi
+    // @Mapping(target = "removeUsers", ignore = true)
+    // Skill toEntity(SkillDTO skillDTO);
 }
