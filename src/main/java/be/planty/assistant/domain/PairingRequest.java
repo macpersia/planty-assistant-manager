@@ -97,7 +97,7 @@ public class PairingRequest implements Serializable {
         this.requestTime = requestTime;
     }
 
-    public Boolean getAccepted() {
+    public Boolean isAccepted() {
         return this.accepted;
     }
 
@@ -176,7 +176,7 @@ public class PairingRequest implements Serializable {
             ", name='" + getName() + "'" +
             ", verificationCode='" + getVerificationCode() + "'" +
             ", requestTime='" + getRequestTime() + "'" +
-            ", accepted='" + getAccepted() + "'" +
+            ", accepted='" + isAccepted() + "'" +
             ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
             ", login='" + getLogin() + "'" +

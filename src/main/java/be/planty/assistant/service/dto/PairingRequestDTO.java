@@ -57,7 +57,7 @@ public class PairingRequestDTO implements Serializable {
         this.requestTime = requestTime;
     }
 
-    public Boolean getAccepted() {
+    public Boolean isAccepted() {
         return accepted;
     }
 
@@ -118,7 +118,7 @@ public class PairingRequestDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", verificationCode='" + getVerificationCode() + "'" +
             ", requestTime='" + getRequestTime() + "'" +
-            ", accepted='" + getAccepted() + "'" +
+            ", accepted='" + isAccepted() + "'" +
             ", sessionId='" + getSessionId() + "'" +
             ", publicKey='" + getPublicKey() + "'" +
             ", login='" + getLogin() + "'" +

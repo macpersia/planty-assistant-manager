@@ -114,7 +114,7 @@ class SkillResourceIT {
         assertThat(skillList).hasSize(databaseSizeBeforeCreate + 1);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testSkill.getAgentSharing()).isEqualTo(DEFAULT_AGENT_SHARING);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(DEFAULT_AGENT_SHARING);
     }
 
     @Test
@@ -221,7 +221,7 @@ class SkillResourceIT {
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testSkill.getAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
     }
 
     @Test
@@ -316,7 +316,7 @@ class SkillResourceIT {
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testSkill.getAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
     }
 
     @Test
@@ -346,7 +346,7 @@ class SkillResourceIT {
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
         assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testSkill.getAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
+        assertThat(testSkill.isAgentSharing()).isEqualTo(UPDATED_AGENT_SHARING);
     }
 
     @Test

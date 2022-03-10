@@ -8,12 +8,15 @@ import be.planty.assistant.repository.PairingRequestRepository;
 import be.planty.assistant.repository.UserRepository;
 import be.planty.assistant.service.dto.PairingRequestDTO;
 import be.planty.assistant.service.mapper.PairingRequestMapper;
+
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

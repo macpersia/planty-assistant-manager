@@ -137,7 +137,7 @@ class PairingRequestResourceIT {
         assertThat(testPairingRequest.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPairingRequest.getVerificationCode()).isEqualTo(DEFAULT_VERIFICATION_CODE);
         assertThat(testPairingRequest.getRequestTime()).isEqualTo(DEFAULT_REQUEST_TIME);
-        assertThat(testPairingRequest.getAccepted()).isEqualTo(DEFAULT_ACCEPTED);
+        assertThat(testPairingRequest.isAccepted()).isEqualTo(DEFAULT_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(DEFAULT_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(DEFAULT_PUBLIC_KEY);
         assertThat(testPairingRequest.getLogin()).isEqualTo(DEFAULT_LOGIN);
@@ -250,7 +250,7 @@ class PairingRequestResourceIT {
         assertThat(testPairingRequest.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPairingRequest.getVerificationCode()).isEqualTo(UPDATED_VERIFICATION_CODE);
         assertThat(testPairingRequest.getRequestTime()).isEqualTo(UPDATED_REQUEST_TIME);
-        assertThat(testPairingRequest.getAccepted()).isEqualTo(UPDATED_ACCEPTED);
+        assertThat(testPairingRequest.isAccepted()).isEqualTo(UPDATED_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(UPDATED_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(UPDATED_PUBLIC_KEY);
         assertThat(testPairingRequest.getLogin()).isEqualTo(UPDATED_LOGIN);
@@ -357,7 +357,7 @@ class PairingRequestResourceIT {
         assertThat(testPairingRequest.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPairingRequest.getVerificationCode()).isEqualTo(DEFAULT_VERIFICATION_CODE);
         assertThat(testPairingRequest.getRequestTime()).isEqualTo(DEFAULT_REQUEST_TIME);
-        assertThat(testPairingRequest.getAccepted()).isEqualTo(UPDATED_ACCEPTED);
+        assertThat(testPairingRequest.isAccepted()).isEqualTo(UPDATED_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(UPDATED_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(UPDATED_PUBLIC_KEY);
         assertThat(testPairingRequest.getLogin()).isEqualTo(UPDATED_LOGIN);
@@ -399,7 +399,7 @@ class PairingRequestResourceIT {
         assertThat(testPairingRequest.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPairingRequest.getVerificationCode()).isEqualTo(UPDATED_VERIFICATION_CODE);
         assertThat(testPairingRequest.getRequestTime()).isEqualTo(UPDATED_REQUEST_TIME);
-        assertThat(testPairingRequest.getAccepted()).isEqualTo(UPDATED_ACCEPTED);
+        assertThat(testPairingRequest.isAccepted()).isEqualTo(UPDATED_ACCEPTED);
         assertThat(testPairingRequest.getSessionId()).isEqualTo(UPDATED_SESSION_ID);
         assertThat(testPairingRequest.getPublicKey()).isEqualTo(UPDATED_PUBLIC_KEY);
         assertThat(testPairingRequest.getLogin()).isEqualTo(UPDATED_LOGIN);

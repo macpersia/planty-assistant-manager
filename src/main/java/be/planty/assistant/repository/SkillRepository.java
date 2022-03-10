@@ -17,12 +17,11 @@ import org.springframework.stereotype.Repository;
 public interface SkillRepository 
                 extends SkillRepositoryWithBagRelationships, JpaRepository<Skill, Long> {
 
+    // Commented by Hadi, when migrating to JHipster 7.7.0
+    // @Query("select skill from Skill skill left join fetch skill.users where skill.id = ?1")
     default Optional<Skill> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findById(id));
     }
-
-    @Query("select skill from Skill skill left join fetch skill.users where skill.id = ?1")
-    Optional<Skill> findOneWithEagerRelationships(Long id);
 
     @Query(
         "select distinct u2.login from Skill s" +
