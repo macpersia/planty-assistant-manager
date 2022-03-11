@@ -7,11 +7,12 @@
         Added the constraints for entity Agent.
     -->
     <changeSet id="20180731192538-2" author="jhipster">
-
+        
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="agent"
-                                 constraintName="fk_agent__user_id"
+                                 constraintName="fk_agent_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="pam_user"/>
+
     </changeSet>
 </databaseChangeLog>
