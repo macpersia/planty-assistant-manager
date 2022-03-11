@@ -7,7 +7,7 @@
 
     <groupId>be.planty.assistant</groupId>
     <artifactId>planty-assistant-manager</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Planty Assistant Manager</name>
 
@@ -24,7 +24,7 @@
     <properties>
         <!-- Build properties -->
         <maven.version>3.3.9</maven.version>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <node.version>v16.14.0</node.version>
         <npm.version>8.4.1</npm.version>
 

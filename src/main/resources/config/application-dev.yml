@@ -47,19 +47,19 @@ spring:
       profile: dev
       label: main # toggle to switch to a different version of the configuration as stored in git
       # it can be set to any label, branch or commit of the configuration source Git repository
-# Changed by Hadi
-#  datasource:
-#    type: com.zaxxer.hikari.HikariDataSource
-#    url: jdbc:h2:file:./target/h2db/db/planty-assistant-manager;DB_CLOSE_DELAY=-1
-#    username: planty-assistant-manager
-#    password:
-#    hikari:
-#      poolName: Hikari
-#      auto-commit: false
-#  h2:
-#    console:
-#      # disable spring boot built-in h2-console since we start it manually with correct configuration
-#      enabled: false
+  # Changed by Hadi
+  #  datasource:
+  #    type: com.zaxxer.hikari.HikariDataSource
+  #    url: jdbc:h2:file:./target/h2db/db/planty-assistant-manager;DB_CLOSE_DELAY=-1
+  #    username: planty-assistant-manager
+  #    password:
+  #    hikari:
+  #      poolName: Hikari
+  #      auto-commit: false
+  #  h2:
+  #    console:
+  #      # disable spring boot built-in h2-console since we start it manually with correct configuration
+  #      enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mariadb://localhost:3306/planty-assistant-manager
@@ -71,7 +71,7 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
-  jpa:  
+  jpa:
     # Changed by Hadi
     # database-platform: tech.jhipster.domain.util.FixedH2Dialect
     # database: H2
@@ -79,9 +79,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: MYSQL
     show-sql: false
-    
     properties:
-      hibernate.id.new_generator_mappings: true
+      # Changed by Hadi
+      hibernate.id.new_generator_mappings: false
+
       hibernate.connection.provider_disables_autocommit: true
       hibernate.cache.use_second_level_cache: true
       hibernate.cache.use_query_cache: false
@@ -103,15 +104,15 @@ spring:
     port: 465
     username: ${PLANTY_SMTP_USERNAME}
     password: ${PLANTY_SMTP_PASSWORD}
-    
+
     protocol: smtps
     debug: true
     properties.mail.smtp:
-        starttls.enable: true
-        starttls.required: true
-        ssl.enable: true
+      starttls.enable: true
+      starttls.required: true
+      ssl.enable: true
     properties.mail.smtps:
-        auth: true
+      auth: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -176,7 +177,6 @@ jhipster:
       host: localhost
       port: 5000
       queue-size: 512
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

@@ -1,7 +1,11 @@
 package be.planty.assistant.config;
 
+import static be.planty.assistant.security.AuthoritiesConstants.ADMIN;
+import static be.planty.assistant.security.AuthoritiesConstants.USER;
+
 import be.planty.assistant.security.*;
 import be.planty.assistant.security.jwt.*;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,18 +28,13 @@ import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import tech.jhipster.config.JHipsterProperties;
 
-import javax.annotation.PostConstruct;
-
-import static be.planty.assistant.security.AuthoritiesConstants.ADMIN;
-import static be.planty.assistant.security.AuthoritiesConstants.USER;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-		// Commented by Hadi, when migrating to JHipster 7.7.0
+    // Commented by Hadi, when migrating to JHipster 7.7.0
     //private final AuthenticationManagerBuilder authenticationManagerBuilder;
     //private final UserDetailsService userDetailsService;
 
@@ -47,17 +46,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final SecurityProblemSupport problemSupport;
 
     public SecurityConfiguration(
-				// Commented by Hadi, when migrating to JHipster 7.7.0
-				//AuthenticationManagerBuilder authenticationManagerBuilder, 
-				//UserDetailsService userDetailsService, 
+        // Commented by Hadi, when migrating to JHipster 7.7.0
+        //AuthenticationManagerBuilder authenticationManagerBuilder,
+        //UserDetailsService userDetailsService,
 
         TokenProvider tokenProvider,
         CorsFilter corsFilter,
         JHipsterProperties jHipsterProperties,
         SecurityProblemSupport problemSupport
     ) {
-
-				// Commented by Hadi, when migrating to JHipster 7.7.0
+        // Commented by Hadi, when migrating to JHipster 7.7.0
         //this.authenticationManagerBuilder = authenticationManagerBuilder;
         //this.userDetailsService = userDetailsService;
 
@@ -67,8 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.jHipsterProperties = jHipsterProperties;
     }
 
-		// Commented by Hadi, when migrating to JHipster 7.7.0
-		/*
+    // Commented by Hadi, when migrating to JHipster 7.7.0
+    /*
     @PostConstruct
     public void init() {
         try {
@@ -130,9 +128,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            // Changed by Hadi
-            //.antMatchers("/api/register").permitAll()
-            .antMatchers("/api/register").hasAuthority(ADMIN)
+            
+            .antMatchers("/api/register").permitAll()
+            // To be changed by Hadi
+            //.antMatchers("/api/register").hasAuthority(ADMIN)
+
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()

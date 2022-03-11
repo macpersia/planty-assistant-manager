@@ -52,7 +52,9 @@ spring:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
     properties:
-      hibernate.id.new_generator_mappings: true
+      # Changed by Hadi
+      hibernate.id.new_generator_mappings: false
+
       hibernate.connection.provider_disables_autocommit: true
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
@@ -92,8 +94,8 @@ server:
 
 # Added by Hadi
 info:
-    project:
-        version: #project.version#
+  project:
+    version: #project.version#
 
 # ===================================================================
 # JHipster specific properties
@@ -103,14 +105,14 @@ info:
 
 jhipster:
   async:
-      core-pool-size: 1
-      max-pool-size: 50
-      queue-capacity: 10000
+    core-pool-size: 1
+    max-pool-size: 50
+    queue-capacity: 10000
 
   metrics:
-      logs: # Reports metrics in the logs
-          enabled: true
-          report-frequency: 60 # in seconds
+    logs: # Reports metrics in the logs
+      enabled: true
+      report-frequency: 60 # in seconds
 
   clientApp:
     name: 'plantyAssistantManagerApp'
@@ -124,17 +126,16 @@ jhipster:
       port: 5000
       queue-size: 512
   mail:
-      from: test@localhost
-      base-url: http://127.0.0.1:8080
+    from: test@localhost
+    base-url: http://127.0.0.1:8080
   security:
-      authentication:
-          jwt:
-              #secret: be06ddc7c23e18798239123b00decc1689ac0e3c
-              # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-              base64-secret: 19a972f523f7f9b077f0f74c208399c26531fbf9
-              # Token is valid 24 hours
-              token-validity-in-seconds: 86400
-
+    authentication:
+      jwt:
+        #secret: be06ddc7c23e18798239123b00decc1689ac0e3c
+        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
+        base64-secret: 19a972f523f7f9b077f0f74c208399c26531fbf9
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

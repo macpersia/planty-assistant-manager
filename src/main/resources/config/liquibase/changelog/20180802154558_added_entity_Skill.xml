@@ -6,12 +6,18 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <property name="autoIncrement" value="true"/>
+
     <!--
         Added the entity Skill.
     -->
     <changeSet id="20180802154558-1" author="jhipster">
         <createTable tableName="skill">
-            <column name="id" type="bigint">
+
+            <!-- Changed by Hadi, due to "org.hibernate.MappingException: org.hibernate.dialect.MySQL5InnoDBDialect does not support sequences" -->
+            <!-- <column name="id" type="bigint"> -->
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)">

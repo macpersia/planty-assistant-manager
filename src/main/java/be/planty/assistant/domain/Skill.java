@@ -2,8 +2,8 @@ package be.planty.assistant.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -19,8 +19,10 @@ public class Skill implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    // Changed by Hadi, due to "org.hibernate.MappingException: org.hibernate.dialect.MySQL5InnoDBDialect does not support sequences"
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    // @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -32,9 +34,11 @@ public class Skill implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "skill_users",
-               joinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    @JoinTable(
+        name = "skill_users",
+        joinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
     private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -91,17 +95,17 @@ public class Skill implements Serializable {
         return this;
     }
 
-//    public Skill addUser(User user) {
-//        this.users.add(user);
-//        user.getSkills().add(this);
-//        return this;
-//    }
-//
-//    public Skill removeUser(User user) {
-//        this.users.remove(user);
-//        user.getSkills().remove(this);
-//        return this;
-//    }
+    //    public Skill addUser(User user) {
+    //        this.users.add(user);
+    //        user.getSkills().add(this);
+    //        return this;
+    //    }
+    //
+    //    public Skill removeUser(User user) {
+    //        this.users.remove(user);
+    //        user.getSkills().remove(this);
+    //        return this;
+    //    }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
