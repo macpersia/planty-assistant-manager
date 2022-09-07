@@ -1,0 +1,65 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="pam-skill-heading" data-cy="SkillCreateUpdateHeading" pamTranslate="plantyAssistantManagerApp.skill.home.createOrEditLabel">
+        Create or edit a Skill
+      </h2>
+
+      <div>
+        <pam-alert-error></pam-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" pamTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" pamTranslate="plantyAssistantManagerApp.skill.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" pamTranslate="plantyAssistantManagerApp.skill.agentSharing" for="field_agentSharing"
+            >Agent Sharing</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="agentSharing"
+            id="field_agentSharing"
+            data-cy="agentSharing"
+            formControlName="agentSharing"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label pamTranslate="plantyAssistantManagerApp.skill.users" for="field_users">Users</label>
+          <select class="form-control" id="field_users" data-cy="users" multiple name="users" formControlName="users">
+            <option
+              [ngValue]="getSelectedUser(userOption, editForm.get('users')!.value)"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span pamTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span pamTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,34 +1,14 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
-
-import { PlantyAssistantManagerSharedModule } from 'app/shared';
-import {
-    AgentComponent,
-    AgentDetailComponent,
-    AgentUpdateComponent,
-    AgentDeletePopupComponent,
-    AgentDeleteDialogComponent,
-    agentRoute,
-    agentPopupRoute
-} from './';
-
-const ENTITY_STATES = [...agentRoute, ...agentPopupRoute];
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'app/shared/shared.module';
+import { AgentComponent } from './list/agent.component';
+import { AgentDetailComponent } from './detail/agent-detail.component';
+import { AgentUpdateComponent } from './update/agent-update.component';
+import { AgentDeleteDialogComponent } from './delete/agent-delete-dialog.component';
+import { AgentRoutingModule } from './route/agent-routing.module';
 
 @NgModule({
-    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [AgentComponent, AgentDetailComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
-    entryComponents: [AgentComponent, AgentUpdateComponent, AgentDeleteDialogComponent, AgentDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [SharedModule, AgentRoutingModule],
+  declarations: [AgentComponent, AgentDetailComponent, AgentUpdateComponent, AgentDeleteDialogComponent],
+  entryComponents: [AgentDeleteDialogComponent],
 })
-export class PlantyAssistantManagerAgentModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class AgentModule {}

@@ -1,27 +1,30 @@
 {
-    "plantyAssistantManagerApp": {
-        "pairingRequest": {
-            "home": {
-                "title": "Pairing Requests",
-                "createLabel": "Create a new Pairing Request",
-                "createOrEditLabel": "Create or edit a Pairing Request"
-            },
-            "created": "A new Pairing Request is created with identifier {{ param }}",
-            "updated": "A Pairing Request is updated with identifier {{ param }}",
-            "deleted": "A Pairing Request is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Pairing Request {{ id }}?"
-            },
-            "detail": {
-                "title": "Pairing Request"
-            },
-            "name": "Name",
-            "verificationCode": "Verification Code",
-            "requestTime": "Request Time",
-            "accepted": "Accepted",
-            "sessionId": "Session Id",
-            "publicKey": "Public Key",
-            "login": "Login"
-        }
+  "plantyAssistantManagerApp": {
+    "pairingRequest": {
+      "home": {
+        "title": "Pairing Requests",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Pairing Request",
+        "createOrEditLabel": "Create or edit a Pairing Request",
+        "notFound": "No Pairing Requests found"
+      },
+      "created": "A new Pairing Request is created with identifier {{ param }}",
+      "updated": "A Pairing Request is updated with identifier {{ param }}",
+      "deleted": "A Pairing Request is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pairing Request {{ id }}?"
+      },
+      "detail": {
+        "title": "Pairing Request"
+      },
+      "id": "ID",
+      "name": "Name",
+      "verificationCode": "Verification Code",
+      "requestTime": "Request Time",
+      "accepted": "Accepted",
+      "sessionId": "Session Id",
+      "publicKey": "Public Key",
+      "login": "Login"
     }
+  }
 }

@@ -1,45 +1,19 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'app/shared/shared.module';
+import { PairingRequestComponent } from './list/pairing-request.component';
+import { PairingRequestDetailComponent } from './detail/pairing-request-detail.component';
+import { PairingRequestUpdateComponent } from './update/pairing-request-update.component';
+import { PairingRequestDeleteDialogComponent } from './delete/pairing-request-delete-dialog.component';
+import { PairingRequestRoutingModule } from './route/pairing-request-routing.module';
 
-import { PlantyAssistantManagerSharedModule } from 'app/shared';
-import {
+@NgModule({
+  imports: [SharedModule, PairingRequestRoutingModule],
+  declarations: [
     PairingRequestComponent,
     PairingRequestDetailComponent,
     PairingRequestUpdateComponent,
-    PairingRequestDeletePopupComponent,
     PairingRequestDeleteDialogComponent,
-    pairingRequestRoute,
-    pairingRequestPopupRoute
-} from './';
-
-const ENTITY_STATES = [...pairingRequestRoute, ...pairingRequestPopupRoute];
-
-@NgModule({
-    imports: [PlantyAssistantManagerSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        PairingRequestComponent,
-        PairingRequestDetailComponent,
-        PairingRequestUpdateComponent,
-        PairingRequestDeleteDialogComponent,
-        PairingRequestDeletePopupComponent
-    ],
-    entryComponents: [
-        PairingRequestComponent,
-        PairingRequestUpdateComponent,
-        PairingRequestDeleteDialogComponent,
-        PairingRequestDeletePopupComponent
-    ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  ],
+  entryComponents: [PairingRequestDeleteDialogComponent],
 })
-export class PlantyAssistantManagerPairingRequestModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class PairingRequestModule {}

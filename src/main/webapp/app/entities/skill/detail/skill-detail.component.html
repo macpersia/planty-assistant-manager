@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="skill">
+      <h2 data-cy="skillDetailsHeading"><span pamTranslate="plantyAssistantManagerApp.skill.detail.title">Skill</span></h2>
+
+      <hr />
+
+      <pam-alert-error></pam-alert-error>
+
+      <pam-alert></pam-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span pamTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ skill.id }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.skill.name">Name</span></dt>
+        <dd>
+          <span>{{ skill.name }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span></dt>
+        <dd>
+          <span>{{ skill.agentSharing }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.skill.users">Users</span></dt>
+        <dd>
+          <span *ngFor="let users of skill.users; let last = last"> {{ users.login }}{{ last ? '' : ', ' }} </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span pamTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/skill', skill.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span pamTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

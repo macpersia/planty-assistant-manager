@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pairingRequest">
+      <h2 data-cy="pairingRequestDetailsHeading">
+        <span pamTranslate="plantyAssistantManagerApp.pairingRequest.detail.title">Pairing Request</span>
+      </h2>
+
+      <hr />
+
+      <pam-alert-error></pam-alert-error>
+
+      <pam-alert></pam-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span pamTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pairingRequest.id }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.name">Name</span></dt>
+        <dd>
+          <span>{{ pairingRequest.name }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.verificationCode">Verification Code</span></dt>
+        <dd>
+          <span>{{ pairingRequest.verificationCode }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.requestTime">Request Time</span></dt>
+        <dd>
+          <span>{{ pairingRequest.requestTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.accepted">Accepted</span></dt>
+        <dd>
+          <span>{{ pairingRequest.accepted }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.sessionId">Session Id</span></dt>
+        <dd>
+          <span>{{ pairingRequest.sessionId }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.publicKey">Public Key</span></dt>
+        <dd>
+          <span>{{ pairingRequest.publicKey }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.pairingRequest.login">Login</span></dt>
+        <dd>
+          <span>{{ pairingRequest.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span pamTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pairing-request', pairingRequest.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span pamTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

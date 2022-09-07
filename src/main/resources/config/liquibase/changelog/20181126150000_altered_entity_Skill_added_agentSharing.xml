@@ -6,6 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <!-- 
     <property name="now" value="now()" dbms="h2"/>
 
     <property name="now" value="now()" dbms="mysql"/>
@@ -14,14 +15,15 @@
     <property name="floatType" value="float4" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
-    <!--
+    <!- -
         Altered the entity Skill, added field agentSharing
-    -->
+    - ->
     <changeSet id="20181126150000" author="macpersia">
         <addColumn tableName="skill">
             <column name="agent_sharing" type="bit">
                 <constraints nullable="true" />
             </column>
         </addColumn>
-    </changeSet>
+    </changeSet> 
+    -->
 </databaseChangeLog>

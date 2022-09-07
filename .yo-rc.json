@@ -1,14 +1,14 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "be.planty.managers.assistant",
+      "packageName": "be.planty.assistant",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "5.8.2",
+    "jhipsterVersion": "7.7.0",
     "applicationType": "monolith",
     "baseName": "planty-assistant-manager",
-    "packageName": "be.planty.managers.assistant",
-    "packageFolder": "be/planty/managers/assistant",
+    "packageName": "be.planty.assistant",
+    "packageFolder": "be/planty/assistant",
     "serverPort": "8080",
     "authenticationType": "jwt",
     "cacheProvider": "hazelcast",
@@ -16,25 +16,36 @@
     "websocket": "spring-websocket",
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
+    "devServerPort": 4200,
+    "enableGradleEnterprise": false,
+    "pages": [],
     "prodDatabaseType": "mariadb",
+    "reactive": false,
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": "eureka",
+    "blueprints": [],
     "buildTool": "maven",
     "enableSwaggerCodegen": false,
     "jwtSecretKey": "19a972f523f7f9b077f0f74c208399c26531fbf9",
+    "skipCheckLengthOfIdentifier": false,
+    "skipFakeData": false,
+    "skipUserManagement": false,
     "clientFramework": "angularX",
     "useSass": true,
     "clientPackageManager": "npm",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1646314767843,
     "testFrameworks": [],
+    "entities": ["Agent", "PairingRequest", "Skill"],
     "jhiPrefix": "pam",
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": [
-      "en"
-    ],
+    "languages": ["en"],
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "otherModules": []
+    "otherModules": [],
+    "withAdminUi": true
   }
 }
