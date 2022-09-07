@@ -10,7 +10,7 @@ node {
 	}
 	
 	stage('build & deploy to repo') {
-		withMaven(jdk: 'jdk-8', maven: 'maven-3.6.1', mavenSettingsConfig: 'my-maven-settings'/*, tempBinDir: ''*/) {
+		withMaven(jdk: 'jdk-17', maven: 'maven-3.6.1', mavenSettingsConfig: 'my-maven-settings'/*, tempBinDir: ''*/) {
 			//sh "mvn deploy -DskipTests -DaltDeploymentRepository=local-snapshots::default::http://repo-nexus-service:8081/repository/maven-snapshots"
             sh "./mvnw verify -Pprod jib:dockerBuild -DskipTests"
 		}

@@ -141,7 +141,7 @@ To ensure everything worked, run:
 java -jar target/*.jar
 ```
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+Then navigate to [http://localhost:38080](http://localhost:38080) in your browser.
 
 Refer to [Using JHipster in production][] for more details.
 
