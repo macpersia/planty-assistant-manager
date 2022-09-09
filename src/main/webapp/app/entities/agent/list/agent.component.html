@@ -3,9 +3,9 @@
     <span pamTranslate="plantyAssistantManagerApp.agent.home.title">Agents</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span pamTranslate="plantyAssistantManagerApp.agent.home.refreshListLabel">Refresh List</span>
+        <span pamTranslate="plantyAssistantManagerApp.agent.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,18 +25,43 @@
   <pam-alert></pam-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="agents?.length === 0">
-    <span pamTranslate="plantyAssistantManagerApp.agent.home.notFound">No agents found</span>
+    <span pamTranslate="plantyAssistantManagerApp.agent.home.notFound">No Agents found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="agents && agents.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="agents && agents.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span pamTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.agent.name">Name</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.agent.publicKey">Public Key</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.agent.sessionId">Session Id</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.agent.user">User</span></th>
+        <tr pamSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" pamSortBy="id">
+            <div class="d-flex">
+              <span pamTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="name">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.agent.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="publicKey">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.agent.publicKey">Public Key</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="sessionId">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.agent.sessionId">Session Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="user.login">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.agent.user">User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>

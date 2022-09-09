@@ -5,10 +5,10 @@
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span pamTranslate="userManagement.home.refreshListLabel">Refresh List</span>
+        <span pamTranslate="userManagement.home.refreshListLabel">Refresh list</span>
       </button>
       <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
-        <fa-icon icon="plus"></fa-icon> <span pamTranslate="userManagement.home.createLabel">Create a new User</span>
+        <fa-icon icon="plus"></fa-icon> <span pamTranslate="userManagement.home.createLabel">Create a new user</span>
       </button>
     </div>
   </h2>
@@ -26,17 +26,17 @@
           <th scope="col" pamSortBy="email"><span pamTranslate="userManagement.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
           <th scope="col" pamSortBy="langKey">
-            <span pamTranslate="userManagement.langKey">Lang Key</span> <fa-icon icon="sort"></fa-icon>
+            <span pamTranslate="userManagement.langKey">Language</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"><span pamTranslate="userManagement.profiles">Profiles</span></th>
           <th scope="col" pamSortBy="createdDate">
-            <span pamTranslate="userManagement.createdDate">Created Date</span> <fa-icon icon="sort"></fa-icon>
+            <span pamTranslate="userManagement.createdDate">Created date</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" pamSortBy="lastModifiedBy">
-            <span pamTranslate="userManagement.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon>
+            <span pamTranslate="userManagement.lastModifiedBy">Modified by</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" pamSortBy="lastModifiedDate">
-            <span pamTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <fa-icon icon="sort"></fa-icon>
+            <span pamTranslate="userManagement.lastModifiedDate">Modified date</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>

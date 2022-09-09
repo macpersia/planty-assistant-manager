@@ -8,6 +8,7 @@ import java.util.Set;
 /**
  * A DTO for the {@link be.planty.assistant.domain.Skill} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SkillDTO implements Serializable {
 
     private Long id;

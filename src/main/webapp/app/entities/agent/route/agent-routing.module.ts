@@ -6,11 +6,15 @@ import { AgentComponent } from '../list/agent.component';
 import { AgentDetailComponent } from '../detail/agent-detail.component';
 import { AgentUpdateComponent } from '../update/agent-update.component';
 import { AgentRoutingResolveService } from './agent-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const agentRoute: Routes = [
   {
     path: '',
     component: AgentComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

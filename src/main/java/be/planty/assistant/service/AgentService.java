@@ -47,6 +47,19 @@ public class AgentService {
     }
 
     /**
+     * Update a agent.
+     *
+     * @param agentDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public AgentDTO update(AgentDTO agentDTO) {
+        log.debug("Request to update Agent : {}", agentDTO);
+        Agent agent = agentMapper.toEntity(agentDTO);
+        agent = agentRepository.save(agent);
+        return agentMapper.toDto(agent);
+    }
+
+    /**
      * Partially update a agent.
      *
      * @param agentDTO the entity to update partially.
@@ -74,11 +87,7 @@ public class AgentService {
     @Transactional(readOnly = true)
     public List<AgentDTO> findAll() {
         log.debug("Request to get all Agents");
-        return agentRepository
-            .findAllWithEagerRelationships()
-            .stream()
-            .map(agentMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return agentRepository.findAll().stream().map(agentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

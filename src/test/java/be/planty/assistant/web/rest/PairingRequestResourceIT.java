@@ -215,7 +215,7 @@ class PairingRequestResourceIT {
 
     @Test
     @Transactional
-    void putNewPairingRequest() throws Exception {
+    void putExistingPairingRequest() throws Exception {
         // Initialize the database
         pairingRequestRepository.saveAndFlush(pairingRequest);
 

@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, Subject, from } from 'rxjs';
 
+import { AgentFormService } from './agent-form.service';
 import { AgentService } from '../service/agent.service';
-import { IAgent, Agent } from '../agent.model';
+import { IAgent } from '../agent.model';
 
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
@@ -18,6 +19,7 @@ describe('Agent Management Update Component', () => {
   let comp: AgentUpdateComponent;
   let fixture: ComponentFixture<AgentUpdateComponent>;
   let activatedRoute: ActivatedRoute;
+  let agentFormService: AgentFormService;
   let agentService: AgentService;
   let userService: UserService;
 
@@ -40,6 +42,7 @@ describe('Agent Management Update Component', () => {
 
     fixture = TestBed.createComponent(AgentUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
+    agentFormService = TestBed.inject(AgentFormService);
     agentService = TestBed.inject(AgentService);
     userService = TestBed.inject(UserService);
 
@@ -62,7 +65,10 @@ describe('Agent Management Update Component', () => {
       comp.ngOnInit();
 
       expect(userService.query).toHaveBeenCalled();
-      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
+      );
       expect(comp.usersSharedCollection).toEqual(expectedCollection);
     });
 
@@ -74,16 +80,17 @@ describe('Agent Management Update Component', () => {
       activatedRoute.data = of({ agent });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(agent));
       expect(comp.usersSharedCollection).toContain(user);
+      expect(comp.agent).toEqual(agent);
     });
   });
 
   describe('save', () => {
     it('Should call update service on save for existing entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Agent>>();
+      const saveSubject = new Subject<HttpResponse<IAgent>>();
       const agent = { id: 123 };
+      jest.spyOn(agentFormService, 'getAgent').mockReturnValue(agent);
       jest.spyOn(agentService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
       activatedRoute.data = of({ agent });
@@ -96,18 +103,20 @@ describe('Agent Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
+      expect(agentFormService.getAgent).toHaveBeenCalled();
       expect(comp.previousState).toHaveBeenCalled();
-      expect(agentService.update).toHaveBeenCalledWith(agent);
+      expect(agentService.update).toHaveBeenCalledWith(expect.objectContaining(agent));
       expect(comp.isSaving).toEqual(false);
     });
 
     it('Should call create service on save for new entity', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Agent>>();
-      const agent = new Agent();
+      const saveSubject = new Subject<HttpResponse<IAgent>>();
+      const agent = { id: 123 };
+      jest.spyOn(agentFormService, 'getAgent').mockReturnValue({ id: null });
       jest.spyOn(agentService, 'create').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
-      activatedRoute.data = of({ agent });
+      activatedRoute.data = of({ agent: null });
       comp.ngOnInit();
 
       // WHEN
@@ -117,14 +126,15 @@ describe('Agent Management Update Component', () => {
       saveSubject.complete();
 
       // THEN
-      expect(agentService.create).toHaveBeenCalledWith(agent);
+      expect(agentFormService.getAgent).toHaveBeenCalled();
+      expect(agentService.create).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).toHaveBeenCalled();
     });
 
     it('Should set isSaving to false on error', () => {
       // GIVEN
-      const saveSubject = new Subject<HttpResponse<Agent>>();
+      const saveSubject = new Subject<HttpResponse<IAgent>>();
       const agent = { id: 123 };
       jest.spyOn(agentService, 'update').mockReturnValue(saveSubject);
       jest.spyOn(comp, 'previousState');
@@ -137,18 +147,20 @@ describe('Agent Management Update Component', () => {
       saveSubject.error('This is an error!');
 
       // THEN
-      expect(agentService.update).toHaveBeenCalledWith(agent);
+      expect(agentService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
     });
   });
 
-  describe('Tracking relationships identifiers', () => {
-    describe('trackUserById', () => {
-      it('Should return tracked User primary key', () => {
+  describe('Compare relationships', () => {
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackUserById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+        const entity2 = { id: 456 };
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

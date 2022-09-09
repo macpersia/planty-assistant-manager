@@ -3,6 +3,7 @@ package be.planty.assistant.service.dto;
 import be.planty.assistant.config.Constants;
 import be.planty.assistant.domain.Authority;
 import be.planty.assistant.domain.User;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,7 +12,9 @@ import javax.validation.constraints.*;
 /**
  * A DTO representing a user, with his authorities.
  */
-public class AdminUserDTO {
+public class AdminUserDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 

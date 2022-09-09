@@ -3,9 +3,9 @@
     <span pamTranslate="plantyAssistantManagerApp.skill.home.title">Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span pamTranslate="plantyAssistantManagerApp.skill.home.refreshListLabel">Refresh List</span>
+        <span pamTranslate="plantyAssistantManagerApp.skill.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,17 +25,37 @@
   <pam-alert></pam-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="skills?.length === 0">
-    <span pamTranslate="plantyAssistantManagerApp.skill.home.notFound">No skills found</span>
+    <span pamTranslate="plantyAssistantManagerApp.skill.home.notFound">No Skills found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="skills && skills.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span pamTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.skill.name">Name</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.skill.users">Users</span></th>
+        <tr pamSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" pamSortBy="id">
+            <div class="d-flex">
+              <span pamTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="name">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.skill.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="agentSharing">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.skill.agentSharing">Agent Sharing</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="users.login">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.skill.users">Users</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>

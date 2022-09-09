@@ -5,7 +5,7 @@ import { ActivatedRouteSnapshot, ActivatedRoute, Router, convertToParamMap } fro
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { IPairingRequest, PairingRequest } from '../pairing-request.model';
+import { IPairingRequest } from '../pairing-request.model';
 import { PairingRequestService } from '../service/pairing-request.service';
 
 import { PairingRequestRoutingResolveService } from './pairing-request-routing-resolve.service';
@@ -15,7 +15,7 @@ describe('PairingRequest routing resolve service', () => {
   let mockActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let routingResolveService: PairingRequestRoutingResolveService;
   let service: PairingRequestService;
-  let resultPairingRequest: IPairingRequest | undefined;
+  let resultPairingRequest: IPairingRequest | null | undefined;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,7 +55,7 @@ describe('PairingRequest routing resolve service', () => {
       expect(resultPairingRequest).toEqual({ id: 123 });
     });
 
-    it('should return new IPairingRequest if id is not provided', () => {
+    it('should return null if id is not provided', () => {
       // GIVEN
       service.find = jest.fn();
       mockActivatedRouteSnapshot.params = {};
@@ -67,12 +67,12 @@ describe('PairingRequest routing resolve service', () => {
 
       // THEN
       expect(service.find).not.toBeCalled();
-      expect(resultPairingRequest).toEqual(new PairingRequest());
+      expect(resultPairingRequest).toEqual(null);
     });
 
     it('should route to 404 page if data not found in server', () => {
       // GIVEN
-      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse({ body: null as unknown as PairingRequest })));
+      jest.spyOn(service, 'find').mockReturnValue(of(new HttpResponse<IPairingRequest>({ body: null })));
       mockActivatedRouteSnapshot.params = { id: 123 };
 
       // WHEN

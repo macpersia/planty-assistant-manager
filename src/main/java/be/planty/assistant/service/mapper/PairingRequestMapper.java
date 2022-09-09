@@ -7,5 +7,5 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link PairingRequest} and its DTO {@link PairingRequestDTO}.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring")
 public interface PairingRequestMapper extends EntityMapper<PairingRequestDTO, PairingRequest> {}

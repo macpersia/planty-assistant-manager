@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Agent entity.
+ * Spring Data JPA repository for the Agent entity.
  */
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {

@@ -3,9 +3,9 @@
     <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.title">Pairing Requests</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.refreshListLabel">Refresh List</span>
+        <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.refreshListLabel">Refresh list</span>
       </button>
 
       <button
@@ -25,21 +25,61 @@
   <pam-alert></pam-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="pairingRequests?.length === 0">
-    <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.notFound">No pairingRequests found</span>
+    <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.notFound">No Pairing Requests found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="pairingRequests && pairingRequests.length > 0">
+  <div class="table-responsive table-entities" id="entities" *ngIf="pairingRequests && pairingRequests.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span pamTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.name">Name</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.verificationCode">Verification Code</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.requestTime">Request Time</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.accepted">Accepted</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.sessionId">Session Id</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.publicKey">Public Key</span></th>
-          <th scope="col"><span pamTranslate="plantyAssistantManagerApp.pairingRequest.login">Login</span></th>
+        <tr pamSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" pamSortBy="id">
+            <div class="d-flex">
+              <span pamTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="name">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="verificationCode">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.verificationCode">Verification Code</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="requestTime">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.requestTime">Request Time</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="accepted">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.accepted">Accepted</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="sessionId">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.sessionId">Session Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="publicKey">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.publicKey">Public Key</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" pamSortBy="login">
+            <div class="d-flex">
+              <span pamTranslate="plantyAssistantManagerApp.pairingRequest.login">Login</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>

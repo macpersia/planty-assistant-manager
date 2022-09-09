@@ -8,7 +8,7 @@ import { ProfileService } from './profile.service';
   selector: 'pam-page-ribbon',
   template: `
     <div class="ribbon" *ngIf="ribbonEnv$ | async as ribbonEnv">
-      <a href="" pamTranslate="global.ribbon.{{ ribbonEnv }}">{{ ribbonEnv }}</a>
+      <a href="" pamTranslate="global.ribbon.{{ ribbonEnv }}">{{ { dev: 'Development' }[ribbonEnv] || '' }}</a>
     </div>
   `,
   styleUrls: ['./page-ribbon.component.scss'],
