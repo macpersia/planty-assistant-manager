@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="agent">
+      <h2 data-cy="agentDetailsHeading"><span pamTranslate="plantyAssistantManagerApp.agent.detail.title">Agent</span></h2>
+
+      <hr />
+
+      <pam-alert-error></pam-alert-error>
+
+      <pam-alert></pam-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span pamTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ agent.id }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.agent.name">Name</span></dt>
+        <dd>
+          <span>{{ agent.name }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.agent.publicKey">Public Key</span></dt>
+        <dd>
+          <span>{{ agent.publicKey }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.agent.sessionId">Session Id</span></dt>
+        <dd>
+          <span>{{ agent.sessionId }}</span>
+        </dd>
+        <dt><span pamTranslate="plantyAssistantManagerApp.agent.user">User</span></dt>
+        <dd>
+          <span>{{ agent.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span pamTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/agent', agent.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span pamTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
