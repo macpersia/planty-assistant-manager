@@ -9,6 +9,5 @@ import { AgentRoutingModule } from './route/agent-routing.module';
 @NgModule({
   imports: [SharedModule, AgentRoutingModule],
   declarations: [AgentComponent, AgentDetailComponent, AgentUpdateComponent, AgentDeleteDialogComponent],
-  entryComponents: [AgentDeleteDialogComponent],
 })
 export class AgentModule {}

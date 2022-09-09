@@ -11,7 +11,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Skill entity.
+ * Spring Data JPA repository for the Skill entity.
+ *
+ * When extending this class, extend SkillRepositoryWithBagRelationships too.
+ * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
 @Repository
 public interface SkillRepository extends SkillRepositoryWithBagRelationships, JpaRepository<Skill, Long> {

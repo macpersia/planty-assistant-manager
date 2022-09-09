@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IAgent, getAgentIdentifier } from '../agent.model';
+import { IAgent, NewAgent } from '../agent.model';
+
+export type PartialUpdateAgent = Partial<IAgent> & Pick<IAgent, 'id'>;
 
 export type EntityResponseType = HttpResponse<IAgent>;
 export type EntityArrayResponseType = HttpResponse<IAgent[]>;
@@ -16,16 +18,16 @@ export class AgentService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(agent: IAgent): Observable<EntityResponseType> {
+  create(agent: NewAgent): Observable<EntityResponseType> {
     return this.http.post<IAgent>(this.resourceUrl, agent, { observe: 'response' });
   }
 
   update(agent: IAgent): Observable<EntityResponseType> {
-    return this.http.put<IAgent>(`${this.resourceUrl}/${getAgentIdentifier(agent) as number}`, agent, { observe: 'response' });
+    return this.http.put<IAgent>(`${this.resourceUrl}/${this.getAgentIdentifier(agent)}`, agent, { observe: 'response' });
   }
 
-  partialUpdate(agent: IAgent): Observable<EntityResponseType> {
-    return this.http.patch<IAgent>(`${this.resourceUrl}/${getAgentIdentifier(agent) as number}`, agent, { observe: 'response' });
+  partialUpdate(agent: PartialUpdateAgent): Observable<EntityResponseType> {
+    return this.http.patch<IAgent>(`${this.resourceUrl}/${this.getAgentIdentifier(agent)}`, agent, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -41,13 +43,24 @@ export class AgentService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  addAgentToCollectionIfMissing(agentCollection: IAgent[], ...agentsToCheck: (IAgent | null | undefined)[]): IAgent[] {
-    const agents: IAgent[] = agentsToCheck.filter(isPresent);
+  getAgentIdentifier(agent: Pick<IAgent, 'id'>): number {
+    return agent.id;
+  }
+
+  compareAgent(o1: Pick<IAgent, 'id'> | null, o2: Pick<IAgent, 'id'> | null): boolean {
+    return o1 && o2 ? this.getAgentIdentifier(o1) === this.getAgentIdentifier(o2) : o1 === o2;
+  }
+
+  addAgentToCollectionIfMissing<Type extends Pick<IAgent, 'id'>>(
+    agentCollection: Type[],
+    ...agentsToCheck: (Type | null | undefined)[]
+  ): Type[] {
+    const agents: Type[] = agentsToCheck.filter(isPresent);
     if (agents.length > 0) {
-      const agentCollectionIdentifiers = agentCollection.map(agentItem => getAgentIdentifier(agentItem)!);
+      const agentCollectionIdentifiers = agentCollection.map(agentItem => this.getAgentIdentifier(agentItem)!);
       const agentsToAdd = agents.filter(agentItem => {
-        const agentIdentifier = getAgentIdentifier(agentItem);
-        if (agentIdentifier == null || agentCollectionIdentifiers.includes(agentIdentifier)) {
+        const agentIdentifier = this.getAgentIdentifier(agentItem);
+        if (agentCollectionIdentifiers.includes(agentIdentifier)) {
           return false;
         }
         agentCollectionIdentifiers.push(agentIdentifier);

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IAgent, Agent } from '../agent.model';
+import { AgentFormService, AgentFormGroup } from './agent-form.service';
+import { IAgent } from '../agent.model';
 import { AgentService } from '../service/agent.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
@@ -16,27 +16,27 @@ import { UserService } from 'app/entities/user/user.service';
 })
 export class AgentUpdateComponent implements OnInit {
   isSaving = false;
+  agent: IAgent | null = null;
 
   usersSharedCollection: IUser[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    name: [],
-    publicKey: [],
-    sessionId: [],
-    user: [],
-  });
+  editForm: AgentFormGroup = this.agentFormService.createAgentFormGroup();
 
   constructor(
     protected agentService: AgentService,
+    protected agentFormService: AgentFormService,
     protected userService: UserService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ agent }) => {
-      this.updateForm(agent);
+      this.agent = agent;
+      if (agent) {
+        this.updateForm(agent);
+      }
 
       this.loadRelationshipsOptions();
     });
@@ -48,16 +48,12 @@ export class AgentUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const agent = this.createFromForm();
-    if (agent.id !== undefined) {
+    const agent = this.agentFormService.getAgent(this.editForm);
+    if (agent.id !== null) {
       this.subscribeToSaveResponse(this.agentService.update(agent));
     } else {
       this.subscribeToSaveResponse(this.agentService.create(agent));
     }
-  }
-
-  trackUserById(index: number, item: IUser): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAgent>>): void {
@@ -80,33 +76,17 @@ export class AgentUpdateComponent implements OnInit {
   }
 
   protected updateForm(agent: IAgent): void {
-    this.editForm.patchValue({
-      id: agent.id,
-      name: agent.name,
-      publicKey: agent.publicKey,
-      sessionId: agent.sessionId,
-      user: agent.user,
-    });
+    this.agent = agent;
+    this.agentFormService.resetForm(this.editForm, agent);
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, agent.user);
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, agent.user);
   }
 
   protected loadRelationshipsOptions(): void {
     this.userService
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.agent?.user)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
-  }
-
-  protected createFromForm(): IAgent {
-    return {
-      ...new Agent(),
-      id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      publicKey: this.editForm.get(['publicKey'])!.value,
-      sessionId: this.editForm.get(['sessionId'])!.value,
-      user: this.editForm.get(['user'])!.value,
-    };
   }
 }

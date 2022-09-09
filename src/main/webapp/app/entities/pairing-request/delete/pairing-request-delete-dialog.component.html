@@ -7,13 +7,12 @@
 
   <div class="modal-body">
     <pam-alert-error></pam-alert-error>
-
     <p
       id="pam-delete-pairingRequest-heading"
       pamTranslate="plantyAssistantManagerApp.pairingRequest.delete.question"
       [translateValues]="{ id: pairingRequest.id }"
     >
-      Are you sure you want to delete this Pairing Request?
+      Are you sure you want to delete Pairing Request {{ pairingRequest.id }}?
     </p>
   </div>
 

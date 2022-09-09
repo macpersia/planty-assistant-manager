@@ -47,6 +47,19 @@ public class SkillService {
     }
 
     /**
+     * Update a skill.
+     *
+     * @param skillDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public SkillDTO update(SkillDTO skillDTO) {
+        log.debug("Request to update Skill : {}", skillDTO);
+        Skill skill = skillMapper.toEntity(skillDTO);
+        skill = skillRepository.save(skill);
+        return skillMapper.toDto(skill);
+    }
+
+    /**
      * Partially update a skill.
      *
      * @param skillDTO the entity to update partially.
@@ -74,11 +87,7 @@ public class SkillService {
     @Transactional(readOnly = true)
     public List<SkillDTO> findAll() {
         log.debug("Request to get all Skills");
-        return skillRepository
-            .findAllWithEagerRelationships()
-            .stream()
-            .map(skillMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return skillRepository.findAll().stream().map(skillMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

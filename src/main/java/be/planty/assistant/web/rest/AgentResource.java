@@ -87,7 +87,7 @@ public class AgentResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        AgentDTO result = agentService.save(agentDTO);
+        AgentDTO result = agentService.update(agentDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, agentDTO.getId().toString()))

@@ -88,7 +88,7 @@ public class PairingRequestResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        PairingRequestDTO result = pairingRequestService.save(pairingRequestDTO);
+        PairingRequestDTO result = pairingRequestService.update(pairingRequestDTO);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, pairingRequestDTO.getId().toString()))

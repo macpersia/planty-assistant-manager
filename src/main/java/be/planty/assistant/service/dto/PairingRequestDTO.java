@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link be.planty.assistant.domain.PairingRequest} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PairingRequestDTO implements Serializable {
 
     private Long id;

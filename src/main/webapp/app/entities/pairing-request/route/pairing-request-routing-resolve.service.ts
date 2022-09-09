@@ -4,18 +4,18 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IPairingRequest, PairingRequest } from '../pairing-request.model';
+import { IPairingRequest } from '../pairing-request.model';
 import { PairingRequestService } from '../service/pairing-request.service';
 
 @Injectable({ providedIn: 'root' })
-export class PairingRequestRoutingResolveService implements Resolve<IPairingRequest> {
+export class PairingRequestRoutingResolveService implements Resolve<IPairingRequest | null> {
   constructor(protected service: PairingRequestService, protected router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IPairingRequest> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IPairingRequest | null | never> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((pairingRequest: HttpResponse<PairingRequest>) => {
+        mergeMap((pairingRequest: HttpResponse<IPairingRequest>) => {
           if (pairingRequest.body) {
             return of(pairingRequest.body);
           } else {
@@ -25,6 +25,6 @@ export class PairingRequestRoutingResolveService implements Resolve<IPairingRequ
         })
       );
     }
-    return of(new PairingRequest());
+    return of(null);
   }
 }

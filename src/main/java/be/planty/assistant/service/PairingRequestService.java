@@ -91,6 +91,19 @@ public class PairingRequestService {
     }
 
     /**
+     * Update a pairingRequest.
+     *
+     * @param pairingRequestDTO the entity to save.
+     * @return the persisted entity.
+     */
+    public PairingRequestDTO update(PairingRequestDTO pairingRequestDTO) {
+        log.debug("Request to update PairingRequest : {}", pairingRequestDTO);
+        PairingRequest pairingRequest = pairingRequestMapper.toEntity(pairingRequestDTO);
+        pairingRequest = pairingRequestRepository.save(pairingRequest);
+        return pairingRequestMapper.toDto(pairingRequest);
+    }
+
+    /**
      * Partially update a pairingRequest.
      *
      * @param pairingRequestDTO the entity to update partially.

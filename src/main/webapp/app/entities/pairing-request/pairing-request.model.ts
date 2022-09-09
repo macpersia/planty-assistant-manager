@@ -1,7 +1,7 @@
 import dayjs from 'dayjs/esm';
 
 export interface IPairingRequest {
-  id?: number;
+  id: number;
   name?: string | null;
   verificationCode?: string | null;
   requestTime?: dayjs.Dayjs | null;
@@ -11,21 +11,4 @@ export interface IPairingRequest {
   login?: string | null;
 }
 
-export class PairingRequest implements IPairingRequest {
-  constructor(
-    public id?: number,
-    public name?: string | null,
-    public verificationCode?: string | null,
-    public requestTime?: dayjs.Dayjs | null,
-    public accepted?: boolean | null,
-    public sessionId?: string | null,
-    public publicKey?: string | null,
-    public login?: string | null
-  ) {
-    this.accepted = this.accepted ?? false;
-  }
-}
-
-export function getPairingRequestIdentifier(pairingRequest: IPairingRequest): number | undefined {
-  return pairingRequest.id;
-}
+export type NewPairingRequest = Omit<IPairingRequest, 'id'> & { id: null };

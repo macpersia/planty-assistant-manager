@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the Agent entity.
+ * Spring Data JPA repository for the Agent entity.
  */
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {

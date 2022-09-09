@@ -6,6 +6,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link be.planty.assistant.domain.Agent} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class AgentDTO implements Serializable {
 
     private Long id;

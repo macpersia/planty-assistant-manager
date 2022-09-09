@@ -14,6 +14,5 @@ import { PairingRequestRoutingModule } from './route/pairing-request-routing.mod
     PairingRequestUpdateComponent,
     PairingRequestDeleteDialogComponent,
   ],
-  entryComponents: [PairingRequestDeleteDialogComponent],
 })
 export class PairingRequestModule {}

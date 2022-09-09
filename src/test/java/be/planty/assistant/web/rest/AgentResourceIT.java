@@ -2,22 +2,31 @@ package be.planty.assistant.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import be.planty.assistant.IntegrationTest;
 import be.planty.assistant.domain.Agent;
 import be.planty.assistant.repository.AgentRepository;
+import be.planty.assistant.service.AgentService;
 import be.planty.assistant.service.dto.AgentDTO;
 import be.planty.assistant.service.mapper.AgentMapper;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link AgentResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class AgentResourceIT {
@@ -49,8 +59,14 @@ class AgentResourceIT {
     @Autowired
     private AgentRepository agentRepository;
 
+    @Mock
+    private AgentRepository agentRepositoryMock;
+
     @Autowired
     private AgentMapper agentMapper;
+
+    @Mock
+    private AgentService agentServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -142,6 +158,23 @@ class AgentResourceIT {
             .andExpect(jsonPath("$.[*].sessionId").value(hasItem(DEFAULT_SESSION_ID)));
     }
 
+    @SuppressWarnings({ "unchecked" })
+    void getAllAgentsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(agentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restAgentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(agentServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllAgentsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(agentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restAgentMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(agentRepositoryMock, times(1)).findAll(any(Pageable.class));
+    }
+
     @Test
     @Transactional
     void getAgent() throws Exception {
@@ -168,7 +201,7 @@ class AgentResourceIT {
 
     @Test
     @Transactional
-    void putNewAgent() throws Exception {
+    void putExistingAgent() throws Exception {
         // Initialize the database
         agentRepository.saveAndFlush(agent);
 

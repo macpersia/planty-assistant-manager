@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { ISkill, Skill } from '../skill.model';
+import { SkillFormService, SkillFormGroup } from './skill-form.service';
+import { ISkill } from '../skill.model';
 import { SkillService } from '../service/skill.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
@@ -16,26 +16,27 @@ import { UserService } from 'app/entities/user/user.service';
 })
 export class SkillUpdateComponent implements OnInit {
   isSaving = false;
+  skill: ISkill | null = null;
 
   usersSharedCollection: IUser[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    name: [],
-    agentSharing: [],
-    users: [],
-  });
+  editForm: SkillFormGroup = this.skillFormService.createSkillFormGroup();
 
   constructor(
     protected skillService: SkillService,
+    protected skillFormService: SkillFormService,
     protected userService: UserService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ skill }) => {
-      this.updateForm(skill);
+      this.skill = skill;
+      if (skill) {
+        this.updateForm(skill);
+      }
 
       this.loadRelationshipsOptions();
     });
@@ -47,27 +48,12 @@ export class SkillUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const skill = this.createFromForm();
-    if (skill.id !== undefined) {
+    const skill = this.skillFormService.getSkill(this.editForm);
+    if (skill.id !== null) {
       this.subscribeToSaveResponse(this.skillService.update(skill));
     } else {
       this.subscribeToSaveResponse(this.skillService.create(skill));
     }
-  }
-
-  trackUserById(index: number, item: IUser): number {
-    return item.id!;
-  }
-
-  getSelectedUser(option: IUser, selectedVals?: IUser[]): IUser {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ISkill>>): void {
@@ -90,31 +76,17 @@ export class SkillUpdateComponent implements OnInit {
   }
 
   protected updateForm(skill: ISkill): void {
-    this.editForm.patchValue({
-      id: skill.id,
-      name: skill.name,
-      agentSharing: skill.agentSharing,
-      users: skill.users,
-    });
+    this.skill = skill;
+    this.skillFormService.resetForm(this.editForm, skill);
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, ...(skill.users ?? []));
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, ...(skill.users ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
     this.userService
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, ...(this.editForm.get('users')!.value ?? []))))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, ...(this.skill?.users ?? []))))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
-  }
-
-  protected createFromForm(): ISkill {
-    return {
-      ...new Skill(),
-      id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      agentSharing: this.editForm.get(['agentSharing'])!.value,
-      users: this.editForm.get(['users'])!.value,
-    };
   }
 }

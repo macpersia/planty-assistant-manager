@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -165,9 +166,8 @@ class SkillResourceIT {
     void getAllSkillsWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(skillServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(skillServiceMock, times(1)).findAllWithEagerRelationships(any());
+        restSkillMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(skillRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -195,7 +195,7 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void putNewSkill() throws Exception {
+    void putExistingSkill() throws Exception {
         // Initialize the database
         skillRepository.saveAndFlush(skill);
 

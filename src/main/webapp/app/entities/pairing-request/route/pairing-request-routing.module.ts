@@ -6,11 +6,15 @@ import { PairingRequestComponent } from '../list/pairing-request.component';
 import { PairingRequestDetailComponent } from '../detail/pairing-request-detail.component';
 import { PairingRequestUpdateComponent } from '../update/pairing-request-update.component';
 import { PairingRequestRoutingResolveService } from './pairing-request-routing-resolve.service';
+import { ASC } from 'app/config/navigation.constants';
 
 const pairingRequestRoute: Routes = [
   {
     path: '',
     component: PairingRequestComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
     canActivate: [UserRouteAccessService],
   },
   {

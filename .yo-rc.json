@@ -4,7 +4,7 @@
       "packageName": "be.planty.assistant",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "7.7.0",
+    "jhipsterVersion": "7.9.3",
     "applicationType": "monolith",
     "baseName": "planty-assistant-manager",
     "packageName": "be.planty.assistant",
@@ -29,6 +29,7 @@
     "enableSwaggerCodegen": false,
     "jwtSecretKey": "19a972f523f7f9b077f0f74c208399c26531fbf9",
     "skipCheckLengthOfIdentifier": false,
+    "skipClient": false,
     "skipFakeData": false,
     "skipUserManagement": false,
     "clientFramework": "angularX",

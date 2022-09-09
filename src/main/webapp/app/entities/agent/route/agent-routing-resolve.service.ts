@@ -4,18 +4,18 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IAgent, Agent } from '../agent.model';
+import { IAgent } from '../agent.model';
 import { AgentService } from '../service/agent.service';
 
 @Injectable({ providedIn: 'root' })
-export class AgentRoutingResolveService implements Resolve<IAgent> {
+export class AgentRoutingResolveService implements Resolve<IAgent | null> {
   constructor(protected service: AgentService, protected router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IAgent> | Observable<never> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IAgent | null | never> {
     const id = route.params['id'];
     if (id) {
       return this.service.find(id).pipe(
-        mergeMap((agent: HttpResponse<Agent>) => {
+        mergeMap((agent: HttpResponse<IAgent>) => {
           if (agent.body) {
             return of(agent.body);
           } else {
@@ -25,6 +25,6 @@ export class AgentRoutingResolveService implements Resolve<IAgent> {
         })
       );
     }
-    return of(new Agent());
+    return of(null);
   }
 }
