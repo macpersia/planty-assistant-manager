@@ -33,7 +33,7 @@ spring:
   jackson:
     serialization:
       write-durations-as-timestamps: false
-  
+
   jpa:
     database-platform: tech.jhipster.domain.util.FixedH2Dialect
     database: H2

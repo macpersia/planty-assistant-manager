@@ -13,7 +13,6 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface SkillMapper extends EntityMapper<SkillDTO, Skill> {
-    
     @Mapping(target = "users", source = "users", qualifiedByName = "userLoginSet")
     SkillDTO toDto(Skill s);
 

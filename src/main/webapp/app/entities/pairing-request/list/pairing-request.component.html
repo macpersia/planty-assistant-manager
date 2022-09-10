@@ -8,6 +8,7 @@
         <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.refreshListLabel">Refresh list</span>
       </button>
 
+      <!-- 
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
@@ -17,6 +18,7 @@
         <fa-icon icon="plus"></fa-icon>
         <span pamTranslate="plantyAssistantManagerApp.pairingRequest.home.createLabel"> Create a new Pairing Request </span>
       </button>
+ -->
     </div>
   </h2>
 
@@ -106,7 +108,7 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.view">View</span>
               </button>
-
+              <!-- 
               <button
                 type="submit"
                 [routerLink]="['/pairing-request', pairingRequest.id, 'edit']"
@@ -116,7 +118,7 @@
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.edit">Edit</span>
               </button>
-
+ -->
               <button type="submit" (click)="delete(pairingRequest)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.delete">Delete</span>

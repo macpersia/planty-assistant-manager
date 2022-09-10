@@ -8,6 +8,7 @@
         <span pamTranslate="plantyAssistantManagerApp.agent.home.refreshListLabel">Refresh list</span>
       </button>
 
+      <!--
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
@@ -17,6 +18,7 @@
         <fa-icon icon="plus"></fa-icon>
         <span pamTranslate="plantyAssistantManagerApp.agent.home.createLabel"> Create a new Agent </span>
       </button>
+-->
     </div>
   </h2>
 
@@ -82,12 +84,12 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.view">View</span>
               </button>
-
+              <!-- 
               <button type="submit" [routerLink]="['/agent', agent.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.edit">Edit</span>
               </button>
-
+ -->
               <button type="submit" (click)="delete(agent)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" pamTranslate="entity.action.delete">Delete</span>
