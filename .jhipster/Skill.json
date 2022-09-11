@@ -1,0 +1,32 @@
+{
+  "changelogDate": "20180802154558",
+  "clientRootFolder": "",
+  "dto": "mapstruct",
+  "entityTableName": "skill",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentSharing",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Skill",
+  "pagination": "no",
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "skill",
+      "ownerSide": true,
+      "relationshipName": "users",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceClass"
+}

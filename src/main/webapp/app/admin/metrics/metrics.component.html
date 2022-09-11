@@ -1,0 +1,51 @@
+<div>
+  <h2>
+    <span id="metrics-page-heading" pamTranslate="metrics.title" data-cy="metricsPageHeading">Application Metrics</span>
+
+    <button class="btn btn-primary float-end" (click)="refresh()">
+      <fa-icon icon="sync"></fa-icon> <span pamTranslate="metrics.refresh.button">Refresh</span>
+    </button>
+  </h2>
+
+  <h3 pamTranslate="metrics.jvm.title">JVM Metrics</h3>
+
+  <div class="row" *ngIf="metrics && !updatingMetrics">
+    <pam-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm"></pam-jvm-memory>
+
+    <pam-jvm-threads class="col-md-4" [threads]="threads"></pam-jvm-threads>
+
+    <pam-metrics-system class="col-md-4" [updating]="updatingMetrics" [systemMetrics]="metrics.processMetrics"></pam-metrics-system>
+  </div>
+
+  <pam-metrics-garbagecollector
+    *ngIf="metrics && metricsKeyExists('garbageCollector')"
+    [updating]="updatingMetrics"
+    [garbageCollectorMetrics]="metrics.garbageCollector"
+  ></pam-metrics-garbagecollector>
+
+  <div class="well well-lg" *ngIf="updatingMetrics" pamTranslate="metrics.updating">Updating...</div>
+
+  <pam-metrics-request
+    *ngIf="metrics && metricsKeyExists('http.server.requests')"
+    [updating]="updatingMetrics"
+    [requestMetrics]="metrics['http.server.requests']"
+  ></pam-metrics-request>
+
+  <pam-metrics-endpoints-requests
+    *ngIf="metrics && metricsKeyExists('services')"
+    [updating]="updatingMetrics"
+    [endpointsRequestsMetrics]="metrics.services"
+  ></pam-metrics-endpoints-requests>
+
+  <pam-metrics-cache
+    *ngIf="metrics && metricsKeyExists('cache')"
+    [updating]="updatingMetrics"
+    [cacheMetrics]="metrics.cache"
+  ></pam-metrics-cache>
+
+  <pam-metrics-datasource
+    *ngIf="metrics && metricsKeyExistsAndObjectNotEmpty('databases')"
+    [updating]="updatingMetrics"
+    [datasourceMetrics]="metrics.databases"
+  ></pam-metrics-datasource>
+</div>
